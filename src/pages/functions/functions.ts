@@ -9,8 +9,12 @@ import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { MovesService } from '../services/MovesService';
 import { StatsProvider } from '../../providers/stats-provider';
+import { LoginProvider } from '../../providers/login-provider';
+import swal from 'sweetalert2';
 
+declare var $:any;
 declare var ProgressBar: any;
+
 
 @Injectable()
 export class System {
@@ -68,6 +72,110 @@ startLoading(msg, duration) {
     
     confirm.present();
   }
+
+incStat(move, stat) {
+  var msgs = ['Okay.' , 'Got it.', 'Thanks!', 'Great!', 'Awesome!', 'Cool.']
+  var msg = msgs[Math.floor(Math.random() * msgs.length)];
+  switch(stat) {
+    case 'fun':
+      move.stats.fun++;
+      break;
+    case 'meh':
+      move.stats.meh++;
+      break;
+    case 'dead':
+      move.stats.dead++;
+      break;
+    case 'reset':
+      move.stats.fun = 3;
+      move.stats.meh = 2;
+      move.stats.dead = 1;
+    default:
+      console.log('Mistake.');
+ }
+  this.movesService.updateMove(move);
+  this.showNotification(msg + ' You voted: ' + stat.toUpperCase(), 1000);
+  setTimeout(() => this.showNotification("Thanks for your feedback! You'll be able to vote for this move again in an hour.", 3300), 1100);
+}
+
+  updateStatsBars(move, progbar, funstatbar, mehstatbar, deadstatbar) {
+
+    try {
+    console.log("Updating Stats Bars");
+    let value = move.stats.people/move.info.capacity;
+    let capacity = move.info.capacity;
+    var funbarperc;
+    var mehbarperc;
+    var deadbarperc;
+    funbarperc = move.stats.fun/capacity;
+    mehbarperc = move.stats.meh/capacity;
+    deadbarperc = move.stats.dead/capacity;
+
+    progbar.animate(value);
+    if (funbarperc > 0) {
+      this.stat.UpdateCounter(funstatbar, funbarperc);
+    } else {
+      this.stat.UpdateCounter(funstatbar, 0.003);
+    }
+    if (mehbarperc > 0) {
+      this.stat.UpdateCounter(mehstatbar, mehbarperc);
+    } else {
+      this.stat.UpdateCounter(mehstatbar, 0.003);
+    }
+    if (deadbarperc > 0) {
+      this.stat.UpdateCounter(deadstatbar, deadbarperc);
+    } else {
+      this.stat.UpdateCounter(deadstatbar, 0.003);
+    } 
+   } catch(err) {
+     console.log('Weird error.', err);
+   }    
+  }
+
+getFeedbackScreen(move) {
+  var msgs = ['Hang on!', 'Hold up!', 'Wait a minute!', 'Hey!'];
+  var msg = msgs[Math.floor(Math.random() * msgs.length)];
+  var me = this;
+  var ratingBtns = "You're at <b>" + move.info.name + "</b> right now. How is it?<br><br>" +
+  "<button id='funBtn' class='button_sliding_bg fun-color lit'>fun</button>" +
+  "<button id='mehBtn' class='button_sliding_bg meh-color meh'>meh</button>" +
+  "<button id='deadBtn' class='button_sliding_bg dead-color dead'>dead</button>";
+  swal({
+  title: msg,
+  html: ratingBtns,
+  showCloseButton: true,
+  showConfirmButton: false,
+  allowOutsideClick: false
+}).then(function() {
+  swal(
+    'Deleted!',
+    'Your imaginary file has been deleted.',
+    'success'
+  )
+}, function(dismiss) {
+  // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer' 
+  if (dismiss === 'cancel') {
+    swal(
+      'Cancelled',
+      'Your imaginary file is safe :)',
+      'error'
+    )
+  }
+})
+
+$('#funBtn').on('click', function(e) {
+  me.incStat(move, 'fun');
+  swal.close();
+});
+$('#mehBtn').on('click', function(e) {
+  me.incStat(move, 'meh');
+  swal.close();
+});
+$('#deadBtn').on('click', function(e) {
+  me.incStat(move, 'dead');
+  swal.close();
+});
+}
 
   
   // listMoves() {
@@ -180,4 +288,11 @@ deleteMove(move) {
     // public rooms = {
     //   landing.
     // }
+
+    public user:any;
+
+    constructor(public loginProvider: LoginProvider) {
+    }
+
+
   }

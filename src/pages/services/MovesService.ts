@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { LoginProvider } from '../../providers/login-provider';
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
@@ -72,9 +72,9 @@ export class MovesService {
 
         let data = res.json();
         resolve(data);
-
+        console.log('Went through');
       }, (err) => {
-
+        console.log('No thru.');
         reject(err);
 
       });

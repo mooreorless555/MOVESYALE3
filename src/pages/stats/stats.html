@@ -1,46 +1,56 @@
 <ion-header>
-
-  <ion-navbar color='navbar'>
-    <ion-title>Information</ion-title>
-  </ion-navbar>
-
+	<ion-navbar color='navbar'>
+		<ion-title>Information</ion-title>
+	</ion-navbar>
 </ion-header>
-
-
-<ion-content padding>
+<ion-content>
+<!-- <ion-scroll direction='y' style='height: 900px !important;'> -->
+<!-- <ion-slides pager>
+<ion-slide> -->
+<div id="ANIM_ratingstrip" class="ratingstrip hide"></div>
+<div id="headerSection" class="headerbg hide"></div>
+<div class="somepadding">
 	<div class="centertext">
-		<div class="animated fadeInLeft">
-		<h1 class="largetext animated fadeIn">{{move.info.name}}</h1>
-		<p item-description class="animated fadeIn">{{move.info.extraInfo}}</p>
+		<div id="headerTextSection" class="hide">
+			<h1 class="largetext  fadeIn">{{move.info.name}}</h1>
+			<p item-description>{{move.info.extraInfo}}</p>
 		</div>
-		<div class="animated fadeInLeft">
-<!-- 			Rating Window -->
-			<div class="border">
+	</div>
+	<div class="tinyspace"></div>
+		<div class="centertext">
+			<div id="addressSection" class="address hide">
+				<h3 class="semifont">{{move.info.location}}</h3>
+				<p item-description class>{{address}}</p>
+			</div>
+		</div>
+	<div class="tinyspace"></div>
+	<div class="centertext">
+		<div id="statsSection" class="hide">
+			<!-- 			Rating Window -->
+			<!-- 			<div class="border">
 				<h4 class="largetext">YOU ARE HERE</h4>
-				<h4 class="mediumtext lessmargin-up">How is it?</h4>	
-
+				<h4 class="mediumtext lessmargin-up">How is it?</h4>
 				<button (click)='incStat(move, "fun")' class="button_sliding_bg fun-color lit">fun</button>
 				<button (click)='incStat(move, "meh")' class="button_sliding_bg meh-color meh">meh</button>
-				<button (click)='incStat(move, "dead")' class="button_sliding_bg dead-color dead">dead</button>
-			</div>
-<!-- 			Rating Window -->
+				<button (click)='incStat(move, "dead")' (press)='incStat(move, "reset")' class="button_sliding_bg dead-color dead">dead</button>
+			</div> -->
+			<!-- 			Rating Window -->
 			<h4 class="largetext">{{ move.stats.people }}</h4>
 			<h4 class="mediumtext lessmargin-up">people are currently here</h4>
 			<div id="containerbig" class="containerbig" #containerbig></div>
 			<br>
 			<br>
-		<div class="border">
-			<h5 class="lessmargin-up">{{ move.stats.fun + move.stats.meh + move.stats.dead }} ratings in the last 10 minutes.</h5>			
-			<div id="funbar" class="linebar" #funbar></div>
-			<div id="mehbar" class="linebar" #mehbar></div>
-			<div id="deadbar" class="linebar" #deadbar></div>
-		</div>
+			<div class="border">
+				<h5>{{ move.stats.fun + move.stats.meh + move.stats.dead }} ratings in the last hour.</h5>
+				<div id="funbar" class="linebar" #funbar></div>
+				<div id="mehbar" class="linebar" #mehbar></div>
+				<div id="deadbar" class="linebar" #deadbar></div>
+			</div>
 			<h4>Alcohol Status</h4>
 			<p item-description>{{alcStatus}}</p>
 		</div>
 	</div>
-
-
-
-
+</div>
+<!-- </ion-slide>
+</ion-slides> -->
 </ion-content>

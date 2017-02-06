@@ -5,4 +5,43 @@ page-home {
       animation: fadeInLeft 1s;
 	}
 
+	.circle1 {
+	    display:inline-block;
+	    height: 10px;
+	    width: 10px;
+	    position: relative;
+	    border-radius: 50%;
+	    background-color: #ffffff;
+	    animation-name: bouncydots;
+	    animation-duration: 1.0s;
+	    animation-iteration-count: infinite;
+	    animation-timing-function: ease-in-out;
+	}
+
+	.circle1.slower {
+	      animation-duration: 1.5s;
+	}
+
+	.circle1.slower2 {
+	      animation-duration: 1.8s;
+	}
+	.circle1.slower3 {
+	      animation-duration: 2.0s;
+	}
+	.circle1.slower4 {
+	      animation-duration: 2.2s;
+	}
+	.circle1.slower5 {
+	      animation-duration: 2.4s;
+	}
+
+	@keyframes bouncydots {
+	  0%   {border-radius: 50%; top: 100px; left: 0px; height: 10px}
+	  25% {height: 15px}
+	  50%  {border-radius: 45%; top: 0px; height: 10px}
+	  75% {height: 15px}
+	  100% {border-radius: 50%; top: 100px; left: 0px; height: 10px}
+	}
+
 }
+

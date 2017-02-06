@@ -7,6 +7,22 @@
  -dead-highlight: #477496;
 }
 
+.address {
+  background-color: white;
+  color: #444444;
+  border-radius: 30px;
+  padding: 10px;
+}
+
+.somepadding {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.semifont {
+  font-family: 'TruSemiFont' !important;
+}
+
 .space { 
 	margin-top: 150px; 
 }
@@ -15,9 +31,13 @@
 	margin-top: 50px; 
 }
 
+.tinyspace {
+  margin-top: 25px;
+}
+
 .centerme {
 	margin: auto;
-	width:150px;
+	width:250px;
 }
 
 .centertext {
@@ -75,8 +95,9 @@
 
 #linebar {
   margin: auto;
-  width: 200px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
+  display: table;
 }
 
 #linebar_small {
@@ -84,6 +105,82 @@
 	width: 90px;
 	height: 9px;
 }
+
+  .bigbutton {
+    padding: 20px;
+    border-radius: 50px;
+    font-size: 2rem;
+    background-color: #3B5998;
+    color: #FFF;
+    font-family: 'FBFont' !important;
+  -webkit-transition: all ease 0.4s;
+  -moz-transition: all ease 0.4s;
+   transition: all ease 0.4s;    
+  }
+
+  .bigbutton.golive {
+    background-color: #9932cc;
+  -webkit-transition: all ease 0.4s;
+  -moz-transition: all ease 0.4s;
+   transition: all ease 0.4s;    
+  }
+
+  .bigbutton.widen {
+    margin: 0px auto;
+    display: table;
+    text-align:center;
+    width: 100%;
+  }
+
+  .bigbutton.addicon {
+    padding-left: 30px;
+  }
+
+  .bigbutton:hover {
+    background-color: #FFF;
+    color: #3B5998; 
+  }
+
+.bigbutton:hover .higher {
+  left: 5px;
+}
+
+.bigbutton:hover .bigicon {
+  right: 0px;
+}
+
+.bigbutton.golive:active {
+  width: 60%;
+  border-radius: 10px;
+  font-size: 3rem;
+}
+
+ .higher {
+  position: relative;
+  bottom: 12px;
+  left: 0px;
+    vertical-align: middle;
+    font-family: 'FBFont' !important;
+  -webkit-transition: all ease 0.4s;
+  -moz-transition: all ease 0.4s;
+  transition: all ease 0.4s;  
+}
+
+.bigbutton.lower {
+  position: relative;
+  vertical-align: middle;
+  bottom: 0px;
+  left: 0px;
+}
+
+  .bigicon {
+    position: relative;
+    right: 10px;
+    font-size: 5rem;
+  -webkit-transition: all ease 0.4s;
+  -moz-transition: all ease 0.4s;
+  transition: all ease 0.4s;  
+  }
 
 .path {
   stroke-dasharray: 400;
@@ -98,6 +195,10 @@
      border-radius:7px ;
 }
 
+.hide {
+  display:none
+}
+
 .fade {
   color: red;
 }
@@ -109,6 +210,19 @@
 .fade.ng-enter {
   transition:0.5s linear all;
   opacity:0;
+}
+
+.swal-thin {
+  width: 60%;
+}
+
+.delay {
+
+  }
+
+.delay.01 {
+  ani
+}
 }
 
 /* SLIDING BUTTONS */
@@ -162,11 +276,6 @@
     box-shadow: inset 0 100px 0 0 #f9152f;
 }
 
-
-.button_sliding_bg:hover {
-    box-shadow: inset 0 10px 0 0;
-}
-
 .button_sliding_bg:active {
     color: #FFF;
 }
@@ -207,4 +316,13 @@
   to {
     stroke-dashoffset: 800;
   }
+}
+
+.gradientnav {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b48ee2+0,775fcc+91 */
+background: #b48ee2; /* Old browsers */
+background: -moz-linear-gradient(top,  #b48ee2 0%, #775fcc 91%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #b48ee2 0%,#775fcc 91%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #b48ee2 0%,#775fcc 91%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b48ee2', endColorstr='#775fcc',GradientType=0 ); /* IE6-9 */
 }

@@ -1,7 +1,7 @@
 
 
 <ion-header>
-  <ion-navbar color='navbar'>
+  <ion-navbar color='navbar' class='gradientnav'>
     <ion-buttons right>
     <button ion-button round (click)="goToMake()">
       <ion-icon class="mediumtext" name="cog"></ion-icon>
@@ -23,15 +23,17 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="centertext">
-  <h4 class="lessmargin">It's a</h4>
+  <h4 class="mediumtext">{{ this.system.currentday }}</h4>
+  <h4>{{ this.system.currentdate }}</h4>
+<!--   <h4 class="lessmargin">It's a</h4>
   <h4 class="largetext lessmargin">{{ this.system.currentday }}</h4>
   <h4>on</h4>
-  <h4>{{ this.system.currentdate }}</h4>
+  <h4>{{ this.system.currentdate }}</h4> -->
   </div>
-  <button (click)='start()'>Start Tracking</button>
+<!--   <button (click)='start()'>Start Tracking</button>
   <button (click)='stop()'>Stop Tracking</button>
   <p>Location: {{locationTracker.lat}}, {{locationTracker.lng}}</p>
-  <p>Updated {{ locationTracker.status }} times.</p>
+  <p>Updated {{ locationTracker.status }} times.</p> -->
   <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
    viewBox="0 0 568.5 73.5" enable-background="new 0 0 568.5 73.5" xml:space="preserve">
 <line class="path" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" x1="0" y1="36.2" x2="598.5" y2="36.2"/>
@@ -78,7 +80,8 @@
       <p class="item-description animated fadeInLeft">Free cookies in SSS!</p>
     </ion-item>
   </ion-list> -->
-<!-- <div *ngIf="moves.length == 0" class="nomoves">
-  <img src="assets/img/nomoves.svg"/>
-</div> -->
+<div *ngIf="!(moves) || moves.length <= 0" class="nomoves centertext">
+<p class="circle1"></p><p class="circle1 slower"></p><p class="circle1 slower2"></p><p class="circle1 slower3"></p><p class="circle1 slower4"></p><p class="circle1 slower5"></p>
+<!--   <img src="assets/img/nomoves.svg"/> -->
+</div>
 </ion-content>

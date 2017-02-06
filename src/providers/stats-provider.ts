@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 // import { System } from '../functions/functions';
 
 declare var ProgressBar:any;
+declare var google:any;
 
 @Injectable()
 export class StatsProvider {
@@ -30,7 +31,7 @@ CreatePeopleCounter(container) {
             bar.path.setAttribute('stroke', state.color);
           }
           });
-          counter.animate(1);
+          counter.animate(3);
           this.counters.push(counter);
           return counter;
 }
@@ -63,7 +64,7 @@ var counter = new ProgressBar.SemiCircle(container.nativeElement, {
           }
         });
 
-    counter.text.style.fontFamily = 'AppFont';
+    counter.text.style.fontFamily = 'TruLightFont';
     counter.text.style.fontSize = '2rem';  
 
     var perc = move.stats.people/move.info.capacity;
@@ -88,24 +89,25 @@ CreateGeneralCounter(container, type, color, duration, move, overflow) {
         easing: 'easeInOut',
         duration: duration,
         color: color,
-        svgStyle: {width: '100%', height: '100%'},
+        svgStyle: {width: '90%', height: '100%'},
 		text: {
-	      position: 'absolute',
+	      position: 'relative',
 	      top: '0px',
 	      padding: 0,
 	      margin: 0,
 	      transform: null
 	    },
           step: (state, bar) => {
+
           	num = bar.value()*move.info.capacity;
-          	if (overflow >= num) {
-            	bar.setText(overflow);         		
+          	if (overflow >= num) { 
+            	bar.setText(overflow);    		
           	} else {
           		bar.setText(num.toFixed(0));
           	}
 
             bar.text.style.color = state.color;
-			bar.text.style.left = 5 + (bar.value()*100) + '%';
+			bar.text.style.left = 10 + (bar.value()*90) + '%';
           }
         });
 

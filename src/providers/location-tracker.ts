@@ -2,6 +2,8 @@ import { Injectable, NgZone } from '@angular/core';
 import { Geolocation, Geoposition, BackgroundGeolocation } from 'ionic-native';
 import 'rxjs/add/operator/filter';
 
+declare var google;
+
 /*
   Generated class for the LocationTracker provider.
 
@@ -20,6 +22,59 @@ export class LocationTracker {
   constructor(public zone: NgZone) {
     console.log('Hello LocationTracker Provider woohoo');
   }
+
+
+// getLocationName(location) {
+//   address = location;
+// }
+
+// revGeocode(inlatLng) {
+//   var me = this;
+//    var geocoder = new google.maps.Geocoder;
+//    var location = "NO_ADDRESS";
+//     var latLng = inlatLng;
+//     geocoder.geocode({'location': latLng}, function(results, status) {
+//               if (status === 'OK') {
+//                 if (results[0]) {
+//                   location = results[0].formatted_address;
+//                   console.log(location);
+//                   me.getLocationName(location);           
+//                 } else {
+//                   alert('No results.');
+//                   location = 'Nothing.';
+//                 }
+//               } else {
+//                 alert('Geocoder failed due to: ' + status);
+//                 location = 'GEOCODER_ERROR';
+//               }});
+// }
+getLocationName(location) {
+  // var me = this;
+  // me.address = location;
+}
+
+revGeocode(address, inlatLng) {
+  var me = this;
+  address = "LOCATION LOL";
+   var geocoder = new google.maps.Geocoder;
+   var location = "NO_ADDRESS";
+    var latLng = inlatLng;
+    geocoder.geocode({'location': latLng}, function(results, status) {
+              if (status === 'OK') {
+                if (results[0]) {
+                  location = results[0].formatted_address;
+                  console.log(location);
+                  // var getMyLocation = me.getLocationName.bind(me.address);
+                  // getMyLocation(location);       
+                } else {
+                  alert('No results.');
+                  location = 'Nothing.';
+                }
+              } else {
+                alert('Geocoder failed due to: ' + status);
+                location = 'GEOCODER_ERROR';
+              }});
+}
 
 startTracking() {
  

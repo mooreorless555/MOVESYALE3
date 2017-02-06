@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Platform, NavParams, NavController } from 'ionic-angular';
-import { NativeStorage } from 'ionic-native';
+// import { NativeStorage } from 'ionic-native';
 import { MovesService } from '../services/MovesService';
 import { StatsPage } from '../stats/stats'
 
@@ -34,11 +34,12 @@ export class MapPage {
 
         //this.listMoves();
         this.initializeMap();
-        /*
+        
         setInterval(() => {
-          this.map.setOptions({center: new google.maps.LatLng(this.locationTracker.lat, this.locationTracker.lng)});
-        }, 1000);
-        */
+          // this.map.setOptions({center: new google.maps.LatLng(this.locationTracker.lat, this.locationTracker.lng)});
+          this.map.panTo({lat: this.locationTracker.lat, lng: this.locationTracker.lng});
+        }, 300);
+        
         // setInterval(() => {
         //   this.map.setOptions({center: new google.maps.LatLng(this.locationTracker.lat, this.locationTracker.lng)});
         // }, 1000);
@@ -420,7 +421,8 @@ export class MapPage {
     });
 
     var geocoder = new google.maps.Geocoder;
-    var latLng = {lat: 41.3083, lng: -72.92790000000002};
+    // var latLng = {lat: 41.3083, lng: -72.92790000000002};
+    var latLng = {lat: this.locationTracker.lat, lng: this.locationTracker.lng};
     geocoder.geocode({'location': latLng}, function(results, status) {
           if (status === 'OK') {
             if (results[0]) {

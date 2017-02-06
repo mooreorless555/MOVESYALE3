@@ -38,3 +38,4 @@ UserInterfaceState.xcuserstate
 backend/models/move.js
 backend/README.md
 buildmoves.bat
+initmoves.bat

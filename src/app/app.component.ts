@@ -2,17 +2,18 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar, Splashscreen, NativeStorage } from 'ionic-native';
 
-import { MovesService } from '../pages/services/MovesService';
+// import { MovesService } from '../pages/services/MovesService';
 import { LoginProvider } from '../providers/login-provider';
+
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
-import { HomePage } from '../pages/home/home';
-
+// import { HomePage } from '../pages/home/home';
+// import { System, Globals } from '../pages/functions/functions';
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`,
-  //providers: [MovesService]
+  // providers: [System, Globals]
 })
 export class MyApp {
   
@@ -21,13 +22,13 @@ export class MyApp {
   rootPage: LoginPage;
 
   constructor(public platform: Platform, public loginProvider: LoginProvider) {
-    
     var me = this;
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.backgroundColorByHexString("#886FE8");
+      // StatusBar.backgroundColorByHexString("#886FE8");
+      StatusBar.styleBlackTranslucent();
       
       Splashscreen.show();
       
@@ -50,11 +51,13 @@ export class MyApp {
 
         me.nav.setRoot(TabsPage);
 
+
+
         Splashscreen.hide();
       })
       .catch(function(err) {
         
-        alert("Couldn't get data");
+        // alert("Couldn't get data");
         //alert('No user found');
         // user not previously logged in
         me.nav.setRoot(LoginPage);

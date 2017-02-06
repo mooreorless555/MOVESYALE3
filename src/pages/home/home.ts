@@ -1,7 +1,7 @@
 import { Component, ViewChildren } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { NativeStorage } from 'ionic-native';
+// import { NativeStorage } from 'ionic-native';
 
 import { MakePage } from '../make/make';
 import { StatsPage } from '../stats/stats';
@@ -11,6 +11,7 @@ import { MapPage } from '../map/map';
 import { MovesService } from '../services/MovesService';
 import { StatsProvider } from '../../providers/stats-provider';
 import { System, Globals } from '../functions/functions';
+import { LoginProvider } from '../../providers/login-provider';
 import { LocationTracker } from '../../providers/location-tracker';
 
 declare var ProgressBar: any;
@@ -33,7 +34,6 @@ export class HomePage {
   This is to allow @ViewChildren to work properly. */
   ngAfterViewInit() {
     this.stat.ResetCounters();
-
     if (this.globals.debugflag) {
       this.listMoves_1();
     } else {
@@ -43,6 +43,7 @@ export class HomePage {
 
   /* Upon any change, will update the progress bars. */
   ngAfterViewChecked() {
+
     if (this.container.toArray().length > 0) {
       if (this.system.checked == 0) {
           let moves = this.moves;
@@ -61,14 +62,14 @@ export class HomePage {
               let perc = moves[i].stats.people/moves[i].info.capacity;
               this.stat.UpdateCounter(counters[i], perc);
               }      
-            }, 800);
+            }, 2000);
             this.system.checked = 1;
           }
     }
     }
 
-  constructor(public navCtrl: NavController, public system: System, public locationTracker: LocationTracker, public globals: Globals, public stat:StatsProvider, public movesService:MovesService) {
-
+  constructor(public navCtrl: NavController, public system: System, public loginProvider: LoginProvider, public locationTracker: LocationTracker, public globals: Globals, public stat:StatsProvider, public movesService:MovesService) {
+    this.start();
   }
 
   /* GPS Tracking */
@@ -133,7 +134,7 @@ export class HomePage {
         setTimeout(() => {
           this.system.checked = 0; 
           this.stat.ResetCounters(); 
-          this.listMoves();  
+          this.listMoves_1();  
           this.system.showNotification('Done!', 1000);
           refresher.complete();
     }, 1000);

@@ -4,8 +4,12 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { MovesService } from '../services/MovesService';
 import { StatsProvider } from '../../providers/stats-provider';
+import { LocationTracker } from '../../providers/location-tracker';
+
 import { System } from '../functions/functions';
 
+declare var $:any;
+declare var google:any;
 declare var ProgressBar: any;
 
 @Component({
@@ -21,7 +25,15 @@ export class StatsPage {
   @ViewChild('funbar') funbar;
   @ViewChild('mehbar') mehbar;
   @ViewChild('deadbar') deadbar;
+  
+  lookup = {};
+
+  address = "Retrieving address...";
+
+  id:any;
   move:any;
+  moves:any;
+
   progbar:any;
   funstatbar:any;
   mehstatbar:any;
@@ -31,19 +43,36 @@ export class StatsPage {
   numppl = 0;
 
   ngAfterViewInit() {
-    this.progbar = this.stat.CreateStatsCounter(this.container, this.move);
-    this.funstatbar = this.stat.CreateGeneralCounter(this.funbar, 'line', '#27e833', 1400, this.move, this.move.stats.fun);
-    this.mehstatbar = this.stat.CreateGeneralCounter(this.mehbar, 'line', '#FBD200', 1600, this.move, this.move.stats.meh);
-    this.deadstatbar = this.stat.CreateGeneralCounter(this.deadbar, 'line', '#f9152f', 1800, this.move, this.move.stats.dead);
+    this.revGeocode(this.move.LatLng);
 
     setTimeout(() => {
-      this.updateStatsBars();
-    }, 2000);
+      this.system.updateStatsBars(this.move, this.progbar, this.funstatbar, this.mehstatbar, this.deadstatbar);
+      this.runUpdateStatsBars();
+    }, 4000);
+
   }
 
-  constructor(public navCtrl: NavController, public params: NavParams, public movesService: MovesService, public system: System, public stat: StatsProvider, public zone: NgZone) {
-     this.move = params.get("firstPassed");
-     //alert('Passed in: ' + this.move);
+  constructor(public navCtrl: NavController, public params: NavParams, public movesService: MovesService, public system: System, public stat: StatsProvider, public zone: NgZone, public locationTracker: LocationTracker) {
+      this.move = params.get("firstPassed");
+      this.introducePage();
+      // this.system.getFeedbackScreen(this.move);
+     // setInterval(() => {
+     //   this.movesService.getMoves_old()
+     //      .subscribe((data) => {
+     //          this.moves = data;
+     //          this.moves.sort(this.system.sortDescending);
+     //          this.system.moves = this.moves;
+     //          console.log(this.moves);
+     //        },
+     //        (err) => {
+     //          console.log(err);
+     //        },
+     //        () => {
+     //          console.log('Got Moves');
+     //          this.move = this.lookup[this.move._id];
+     //          console.log(this.lookup[this.move._id].info.name);
+     //      });
+     // }, 2000);
 
     /* Perform statistical analysis. */
      if (this.move.info.hasAlcohol) {
@@ -52,59 +81,91 @@ export class StatsPage {
   }
 
   runUpdateStatsBars() {
-      this.system.stat_updates = setInterval(() => {
-        this.updateStatsBars();       
-    }, 2000);    
+      setInterval(() => {
+        this.system.updateStatsBars(this.move, this.progbar, this.funstatbar, this.mehstatbar, this.deadstatbar);
+    }, 2000);
   }
 
-incStat(move, stat) {
-  this.system.showNotification('Increasing...', 1000);
-  switch(stat) {
-    case 'fun':
-      move.stats.fun++;
-      break;
-    case 'meh':
-      move.stats.meh++;
-      break;
-    case 'dead':
-      move.stats.dead++;
-      break;
-    default:
-      console.log('Mistake.');
- }
-  this.movesService.updateMove(move);
-  this.updateStatsBars();
+getLocationName(location) {
+  this.address = location;
 }
 
-  updateStatsBars() {
-    console.log("updating");
-    let value = this.move.stats.people/this.move.info.capacity;
-    let capacity = this.move.info.capacity;
-    var funbarperc;
-    var mehbarperc;
-    var deadbarperc;
-    funbarperc = this.move.stats.fun/capacity;
-    mehbarperc = this.move.stats.meh/capacity;
-    deadbarperc = this.move.stats.dead/capacity;
+revGeocode(inlatLng) {
+  var me = this;
+   var geocoder = new google.maps.Geocoder;
+   var location = "NO_ADDRESS";
+    var latLng = inlatLng;
+    geocoder.geocode({'location': latLng}, function(results, status) {
+              if (status === 'OK') {
+                if (results[0]) {
+                  location = results[0].formatted_address;
+                  console.log(location);
+                  me.getLocationName(location);       
+                } else {
+                  alert('No results.');
+                  location = 'Nothing.';
+                }
+              } else {
+                alert('Geocoder failed due to: ' + status);
+                location = 'GEOCODER_ERROR';
+              }});
+}
+// incStat(move, stat) {
+//   this.system.showNotification('You voted: ' + stat.toUpperCase(), 1000);
+//   switch(stat) {
+//     case 'fun':
+//       move.stats.fun++;
+//       break;
+//     case 'meh':
+//       move.stats.meh++;
+//       break;
+//     case 'dead':
+//       move.stats.dead++;
+//       break;
+//     case 'reset':
+//       move.stats.fun = 3;
+//       move.stats.meh = 2;
+//       move.stats.dead = 1;
+//     default:
+//       console.log('Mistake.');
+//  }
+//   this.movesService.updateMove(move);
+//   this.updateStatsBars();
+// }
 
-    this.progbar.animate(value);
-    if (funbarperc > 0) {
-      this.stat.UpdateCounter(this.funstatbar, funbarperc);
-    } else {
-      this.stat.UpdateCounter(this.funstatbar, 0.003);
-    }
-    if (mehbarperc > 0) {
-      this.stat.UpdateCounter(this.mehstatbar, mehbarperc);
-    } else {
-      this.stat.UpdateCounter(this.mehstatbar, 0.003);
-    }
-    if (deadbarperc > 0) {
-      this.stat.UpdateCounter(this.deadstatbar, deadbarperc);
-    } else {
-      this.stat.UpdateCounter(this.deadstatbar, 0.003);
-    }     
+  // updateStatsBars() {
 
-  }
+  //   try {
+  //   console.log("Updating Stats Bars");
+  //   let value = this.move.stats.people/this.move.info.capacity;
+  //   let capacity = this.move.info.capacity;
+  //   var funbarperc;
+  //   var mehbarperc;
+  //   var deadbarperc;
+  //   funbarperc = this.move.stats.fun/capacity;
+  //   mehbarperc = this.move.stats.meh/capacity;
+  //   deadbarperc = this.move.stats.dead/capacity;
+
+  //   this.progbar.animate(value);
+  //   if (funbarperc > 0) {
+  //     this.stat.UpdateCounter(this.funstatbar, funbarperc);
+  //   } else {
+  //     this.stat.UpdateCounter(this.funstatbar, 0.003);
+  //   }
+  //   if (mehbarperc > 0) {
+  //     this.stat.UpdateCounter(this.mehstatbar, mehbarperc);
+  //   } else {
+  //     this.stat.UpdateCounter(this.mehstatbar, 0.003);
+  //   }
+  //   if (deadbarperc > 0) {
+  //     this.stat.UpdateCounter(this.deadstatbar, deadbarperc);
+  //   } else {
+  //     this.stat.UpdateCounter(this.deadstatbar, 0.003);
+  //   } 
+  //  } catch(err) {
+  //    console.log('Weird error.', err);
+  //  }    
+  // }
 
   createProgBar(moves_container, move) {
         console.log("Executing createProgbar...");
@@ -147,4 +208,21 @@ incStat(move, stat) {
     this.progbar = progbar;
 
   }
+
+introducePage() {
+
+setTimeout(() => {$('#headerSection').removeClass('hide').addClass('animated fadeInDown')}, 100);
+setTimeout(() => {$('#headerTextSection').removeClass('hide').addClass('animated fadeInDown')}, 700);
+setTimeout(() => {$('#addressSection').removeClass('hide').addClass('animated fadeInDown')}, 800);
+setTimeout(() => {$('#ANIM_ratingstrip').removeClass('hide').addClass('animatestrip')}, 1300);
+setTimeout(() => {
+  $('#statsSection').removeClass('hide').addClass('animated fadeInLeft')
+    this.progbar = this.stat.CreateStatsCounter(this.container, this.move);
+    this.funstatbar = this.stat.CreateGeneralCounter(this.funbar, 'line', '#27e833', 1400, this.move, this.move.stats.fun);
+    this.mehstatbar = this.stat.CreateGeneralCounter(this.mehbar, 'line', '#FBD200', 1600, this.move, this.move.stats.meh);
+    this.deadstatbar = this.stat.CreateGeneralCounter(this.deadbar, 'line', '#f9152f', 1800, this.move, this.move.stats.dead);
+  }, 1000);
+
+}
+
 }

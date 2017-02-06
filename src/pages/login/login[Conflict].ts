@@ -27,7 +27,7 @@ export class LoginPage {
   FB_APP_ID: number = 1726230761032513;
 
   public info = "By Yalies. For Yalies.";
-  public user = "nullman";
+  public user = "nullmanlol";
 
   public firsttime = {
     email: "",
@@ -46,13 +46,7 @@ export class LoginPage {
 
   doLogin() {
     if (this.globals.debugflag) {
-        var element = <HTMLInputElement> document.getElementById("loginBtn");
-        element.disabled = true;
-        // this.navCtrl.setRoot(TabsPage);
-        setTimeout(() => {
-          this.presentPrompt();
-          element.disabled = false;
-        }, 700);
+      this.navCtrl.setRoot(TabsPage);
     } else {
     var me = this;
     var permissions = new Array();
@@ -67,11 +61,11 @@ export class LoginPage {
         let params = new Array();
 
         //alert(response.authResponse.accessToken);
-        return Promise.all([res, Facebook.api("/me?fields=name,email,first_name", params)]);
+        return Promise.all([res, Facebook.api("/me?fields=name,email", params)]);
       
       })
       .then(function(results) {
-        alert("Sign in results! " + JSON.stringify(results, null, 4));
+        //alert(results);
         //alert(results[0]);
         //alert("Results: " + results[1] + " name: " + results[1].name);
         //alert(results[1].name);
@@ -169,7 +163,7 @@ presentConfirmCode() {
         text: 'Confirm',
         handler: data => {
           if (1) {
-            this.navCtrl.setRoot(TabsPage);
+            this.navCtrl.push(TabsPage);
           } else {
             return false;
           }

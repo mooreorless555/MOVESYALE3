@@ -59,22 +59,50 @@ font-family: ButtonFont;
 src: url("../assets/fonts/Lobster-Regular.ttf");
 }
 
+@font-face {
+  font-family: FBFont;
+  src: url("../assets/fonts/gibson-light.otf");
+}
+
+@font-face {
+  font-family: TruLightFont;
+  src: url("../assets/fonts/gibson-light.otf");
+}
+
+@font-face {
+  font-family: TruSemiFont;
+  src: url("../assets/fonts/gibson-semibold.otf");
+}
+
 
 body, span, button, h2, h3, h5, h6 {
-font-family: 'AppFont' !important;
+font-family: 'Arial' sans-serif;
 }
 
 p {
-font-family: 'MoveDesc' !important;
+font-family: 'TruLightFont' !important;
 }
 
-h4 {
-	font-family: 'LightFont';
+ion-title, {
+  font-family: 'TruSemiFont';
+}
+
+h4, {
+	font-family: 'TruLightFont';
 }
 
 h1 {
 	font-family: 'MoveHeader' !important;
 }
+
+ion-scroll[direction=x] {
+  width: 100vw;
+}
+ion-scroll[direction=y] {
+  height: 100vh;
+}
+
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
