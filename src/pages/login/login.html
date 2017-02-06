@@ -1,0 +1,17 @@
+<ion-content padding text-center class="movesbg">
+<div class="space"></div>
+	<div class="centerme">
+			<div class="animated fadeIn">
+				<img src="assets/img/MOVES_logo.png"/>
+			</div>
+	</div>
+<br>
+<br>
+<br>
+<div class="animated fadeIn">
+  <button ion-button icon-left round color="facebook" (click)="doLogin()"><ion-icon name="logo-facebook"></ion-icon>Sign in with Facebook</button>
+  <button ion-button (click)='toggleDebugFlag()'>DEV: Debug Mode is {{ this.globals.debugflag ? 'on' : 'off' }}</button>
+</div>
+<br>
+<i>{{ info }}</i>
+</ion-content>

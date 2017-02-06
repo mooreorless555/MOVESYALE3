@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar color='navbar'>
+    <ion-title>
+      Make a Move
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<div>
+  <i>{{ hello }}</i>
+  <br>
+</div>
+<form (ngSubmit)="logForm()" novalidate class="animated fadeInUp">
+
+  <ion-item>
+    <ion-label floating>Event Name</ion-label>
+    <ion-input type="text" [(ngModel)]="move.info.name" name="name" maxlength="50" required></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Location</ion-label>
+    <ion-input type="text" [(ngModel)]="move.info.location" name="location" maxlength="50" required></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Capacity</ion-label>
+    <ion-input type="number" min="30" max="300" [(ngModel)]="move.info.capacity" name="capacity"></ion-input>
+  </ion-item>
+
+<ion-item>
+  <ion-label>Alcohol?</ion-label>
+  <ion-checkbox color="primary" checked="false" [(ngModel)]="move.info.hasAlcohol" name="hasAlcohol" (ionChange)="alcWarning()"></ion-checkbox>
+</ion-item>
+
+<ion-item>
+   <ion-label floating>Extra Info</ion-label>
+   <ion-textarea [(ngModel)]="move.info.extraInfo" name="extraInfo"></ion-textarea>
+ </ion-item>
+<button ion-button type="submit" block>Go Live</button>
+</form>
+</ion-content>

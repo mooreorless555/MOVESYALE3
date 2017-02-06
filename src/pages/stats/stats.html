@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-navbar color='navbar'>
+    <ion-title>Information</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<div class="centertext">
+		<div class="animated fadeInLeft">
+		<h1 class="largetext animated fadeIn">{{move.info.name}}</h1>
+		<p item-description class="animated fadeIn">{{move.info.extraInfo}}</p>
+		</div>
+		<div class="animated fadeInLeft">
+<!-- 			Rating Window -->
+			<div class="border">
+				<h4 class="largetext">YOU ARE HERE</h4>
+				<h4 class="mediumtext lessmargin-up">How is it?</h4>	
+
+				<button (click)='incStat(move, "fun")' class="button_sliding_bg fun-color lit">fun</button>
+				<button (click)='incStat(move, "meh")' class="button_sliding_bg meh-color meh">meh</button>
+				<button (click)='incStat(move, "dead")' class="button_sliding_bg dead-color dead">dead</button>
+			</div>
+<!-- 			Rating Window -->
+			<h4 class="largetext">{{ move.stats.people }}</h4>
+			<h4 class="mediumtext lessmargin-up">people are currently here</h4>
+			<div id="containerbig" class="containerbig" #containerbig></div>
+			<br>
+			<br>
+		<div class="border">
+			<h5 class="lessmargin-up">{{ move.stats.fun + move.stats.meh + move.stats.dead }} ratings in the last 10 minutes.</h5>			
+			<div id="funbar" class="linebar" #funbar></div>
+			<div id="mehbar" class="linebar" #mehbar></div>
+			<div id="deadbar" class="linebar" #deadbar></div>
+		</div>
+			<h4>Alcohol Status</h4>
+			<p item-description>{{alcStatus}}</p>
+		</div>
+	</div>
+
+
+
+
+</ion-content>
