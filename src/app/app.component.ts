@@ -16,7 +16,7 @@ import { LoginPage } from '../pages/login/login';
   // providers: [System, Globals]
 })
 export class MyApp {
-  
+
   @ViewChild(Nav) nav: Nav;
 
   rootPage: LoginPage;
@@ -27,43 +27,35 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      // StatusBar.backgroundColorByHexString("#886FE8");
-      StatusBar.styleBlackTranslucent();
-      
-      Splashscreen.show();
-      
-      setTimeout(() => {
-        Splashscreen.hide();
-      }, 3000);
-      
+      StatusBar.backgroundColorByHexString("#886FE8");
+
       // Check if the user is already logged in
       NativeStorage.getItem('data')
-      .then(function(data) {
-        //alert("Got tokens" + data);
-        // user was previously logged in
-        alert("In initial, User token: " + data.token);
-        me.loginProvider.setToken(data.token);
-        return Promise.all([data, me.loginProvider.getProfile()]);
-      })
-      .then(function(results) {
+        .then(function (data) {
+          //alert("Got tokens" + data);
+          // user was previously logged in
+          alert("In initial, User token: " + data.token);
+          me.loginProvider.setToken(data.token);
+          return Promise.all([data, me.loginProvider.getProfile()]);
+        })
+        .then(function (results) {
 
-        me.loginProvider.setUser(results[1]);
+          me.loginProvider.setUser(results[1]);
 
-        me.nav.setRoot(TabsPage);
+          me.nav.setRoot(TabsPage);
 
 
 
-        Splashscreen.hide();
-      })
-      .catch(function(err) {
-        
-        // alert("Couldn't get data");
-        //alert('No user found');
-        // user not previously logged in
-        me.nav.setRoot(LoginPage);
-        Splashscreen.hide();
 
-      });
+        })
+        .catch(function (err) {
+
+          // alert("Couldn't get data");
+          //alert('No user found');
+          // user not previously logged in
+          me.nav.setRoot(LoginPage);
+
+        });
 
     });
   }

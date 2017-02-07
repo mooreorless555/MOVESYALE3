@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 // import { Globals } from '../pages/functions/functions';
 
-import{ NativeStorage } from 'ionic-native';
+import { NativeStorage } from 'ionic-native';
 
 import 'rxjs/add/operator/map';
 
@@ -58,10 +58,10 @@ export class LoginProvider {
     alert(data)
 
     var body = JSON.stringify({
-          name: data[1].name,
-          email: data[1].email,
-          first_name: data[1].first_name,
-          social_token: data[0].authResponse.accessToken
+      name: data[1].name,
+      email: data[1].email,
+      first_name: data[1].first_name,
+      social_token: data[0].authResponse.accessToken
     });
 
     var headers = new Headers({ 'Content-Type': 'application/json', });
@@ -70,33 +70,33 @@ export class LoginProvider {
     return new Promise((resolve, reject) => {
 
       this.http.post(url + 'api/FBauthenticate', body, options)
-      .map((res) => res.json())
-      .subscribe((res) => {
+        .map((res) => res.json())
+        .subscribe((res) => {
 
-        alert("Response: " + res);
+          alert("Response: " + res);
 
 
 
-        if(res.success) {
+          if (res.success) {
 
-          alert("Got the data: " + res.user + res.token)
-          me.user = res.user,
-          me.token = res.token
+            alert("Got the data: " + res.user + res.token)
+            me.user = res.user,
+              me.token = res.token
 
-          NativeStorage.setItem('data', {
-            token: res.token,
-            user: res.user
-          });
+            NativeStorage.setItem('data', {
+              token: res.token,
+              user: res.user
+            });
 
-        }
+          }
 
-        resolve(data);
+          resolve(data);
 
-      }, (err) => {
-        //alert("Error is doApiLogin(): " + err);
-        reject(err);
+        }, (err) => {
+          //alert("Error is doApiLogin(): " + err);
+          reject(err);
 
-      });
+        });
     });
   }
 

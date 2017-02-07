@@ -4,53 +4,84 @@
 	</ion-navbar>
 </ion-header>
 <ion-content>
-<!-- <ion-scroll direction='y' style='height: 900px !important;'> -->
-<!-- <ion-slides pager>
+		<!-- <ion-slides pager>
 <ion-slide> -->
-<div id="ANIM_ratingstrip" class="ratingstrip hide"></div>
-<div id="headerSection" class="headerbg hide"></div>
-<div class="somepadding">
-	<div class="centertext">
-		<div id="headerTextSection" class="hide">
-			<h1 class="largetext  fadeIn">{{move.info.name}}</h1>
-			<p item-description>{{move.info.extraInfo}}</p>
-		</div>
-	</div>
-	<div class="tinyspace"></div>
-		<div class="centertext">
-			<div id="addressSection" class="address hide">
-				<h3 class="semifont">{{move.info.location}}</h3>
-				<p item-description class>{{address}}</p>
+		<!--<div id="headerSection_red" class="redbg hide"></div>	-->
+		<div id="ANIM_ratingstrip" class="ratingstrip hide"></div>
+		<div id="headerSection" class="headerbg"></div>
+	<ion-scroll direction='y' style='height: 800px !important;'>
+		<div class="somepadding">
+			<div class="centertext">
+				<div id="headerTextSection" class="hide">
+					<h1 class="largetext  fadeIn">{{move.info.name}}</h1>
+					<p item-description style="font-size: 2.2rem">{{move.info.extraInfo}}</p>
+				</div>
 			</div>
-		</div>
-	<div class="tinyspace"></div>
-	<div class="centertext">
-		<div id="statsSection" class="hide">
-			<!-- 			Rating Window -->
-			<!-- 			<div class="border">
+			<div class="tinyspace"></div>
+			<div class="centertext">
+				<div id="addressSection" class="address hide">
+					<h3 class="semifont">{{move.info.location}}</h3>
+					<p item-description class>{{address}}</p>
+				</div>
+			</div>
+			<div class="tinyspace"></div>
+			<div class="centertext">
+				<div id="statsSection" class="hide">
+					<!-- 			Rating Window -->
+					<!-- 			<div class="border">
 				<h4 class="largetext">YOU ARE HERE</h4>
 				<h4 class="mediumtext lessmargin-up">How is it?</h4>
 				<button (click)='incStat(move, "fun")' class="button_sliding_bg fun-color lit">fun</button>
 				<button (click)='incStat(move, "meh")' class="button_sliding_bg meh-color meh">meh</button>
 				<button (click)='incStat(move, "dead")' (press)='incStat(move, "reset")' class="button_sliding_bg dead-color dead">dead</button>
 			</div> -->
-			<!-- 			Rating Window -->
-			<h4 class="largetext">{{ move.stats.people }}</h4>
-			<h4 class="mediumtext lessmargin-up">people are currently here</h4>
-			<div id="containerbig" class="containerbig" #containerbig></div>
-			<br>
-			<br>
-			<div class="border">
+					<!-- 			Rating Window -->
+
+					<ion-grid>
+						<ion-row>
+							<ion-col width-50>
+								<h4>people</h4>
+								<div id="containerbig" class="containerbig" #containerbig></div>
+							</ion-col>
+							<ion-col width-50 (press)='system.incStat(move, "meh")'>
+								<h4>ratings</h4>
+								<div style="height: 15%"><span id="funbar" class="linebar" #funbar></span>
+									<span id="mehbar" class="linebar" #mehbar></span>
+									<span id="deadbar" class="linebar" #deadbar></span></div>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+					<!--<div class="col">
+	<div id="containerbig" class="containerbig" #containerbig></div>
+</div>
+<div class="col">
+	<div id="funbar" class="linebar" #funbar></div>
+	<div id="mehbar" class="linebar" #mehbar></div>
+	<div id="deadbar" class="linebar" #deadbar></div>
+</div>
+</div>			-->
+					<!--<h4 class="mediumtext">people</h4>
+			<div id="containerbig" class="containerbig" #containerbig></div>-->
+			</div>
+			<div id="infoSection" class="hide">
+					<div id="info">
+						<h5>
+							<ion-icon name="logo-facebook" class="bigicon fb-color"></ion-icon><b>3</b> of your friends are also here.</h5>
+					</div>
+					<!--<div class="border minispace">
 				<h5>{{ move.stats.fun + move.stats.meh + move.stats.dead }} ratings in the last hour.</h5>
 				<div id="funbar" class="linebar" #funbar></div>
 				<div id="mehbar" class="linebar" #mehbar></div>
 				<div id="deadbar" class="linebar" #deadbar></div>
+			</div>-->
+					<div id="info">
+						<h4>Alcohol Status</h4>
+						<p item-description>{{alcStatus}}</p>
+					</div>
+				</div>
 			</div>
-			<h4>Alcohol Status</h4>
-			<p item-description>{{alcStatus}}</p>
 		</div>
-	</div>
-</div>
-<!-- </ion-slide>
+	</ion-scroll>
+	<!-- </ion-slide>
 </ion-slides> -->
 </ion-content>

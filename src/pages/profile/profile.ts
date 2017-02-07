@@ -18,32 +18,32 @@ import { LoginProvider } from '../../providers/login-provider';
 })
 export class ProfilePage {
 
-	public user;
+  public user;
 
-  
-	ngAfterViewInit() {
-      this.user = this.loginProvider.getUser();
+
+  ngAfterViewInit() {
+    this.user = this.loginProvider.getUser();
 
     // var me = this;
 
-		// NativeStorage.getItem('user')
-  //     		.then(function(user) {
-  //           //alert("Got tokens: " + user);
-  //       		return Promise.all([user, me.loginProvider.getProfile()]);
-  //     		})
-  //     		.then(function(results) {
-  //           alert(results);
-  //           alert(results[1]);
-  //       		me.user = results[1];
-  //           //alert("Updated user: " + me.user);
-  //     		})
-  //     		.catch(function(err) {
-  //       		alert("Couldn't get user info, error: " + err);
-  //     		});
-	}
-  
+    // NativeStorage.getItem('user')
+    //     		.then(function(user) {
+    //           //alert("Got tokens: " + user);
+    //       		return Promise.all([user, me.loginProvider.getProfile()]);
+    //     		})
+    //     		.then(function(results) {
+    //           alert(results);
+    //           alert(results[1]);
+    //       		me.user = results[1];
+    //           //alert("Updated user: " + me.user);
+    //     		})
+    //     		.catch(function(err) {
+    //       		alert("Couldn't get user info, error: " + err);
+    //     		});
+  }
 
-  	constructor(public navCtrl: NavController, public loginProvider: LoginProvider) {
-    }
+
+  constructor(public navCtrl: NavController, public loginProvider: LoginProvider) {
+  }
 
 }

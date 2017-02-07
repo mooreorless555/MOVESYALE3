@@ -2,13 +2,17 @@ page-stats {
 
 .headerbg {
   padding: 10px !important;
-  border-left: 800px solid #6A57B5;
-  border-top:170px solid #6A57B5;
-  border-right:800px solid #6A57B5;
+  border-left: 800px solid #333333;
+  border-top:170px solid #333333;
+	border-bottom:0px solid #333333;
+  border-right:800px solid #333333;
   position: absolute;
   z-index: -1;
+}
 
-
+.redbg {
+	padding: 10px !important;
+  z-index: 0;
 }
 
 .ratingstrip {
@@ -21,21 +25,21 @@ page-stats {
 	height: 100%;
 	padding: 10px;
 
-	transform:rotate(-45deg);
+	transform:rotate(0deg);
 	// bottom: 150px;
 	// right: 130px;
 	// transform:rotate(90deg);
-	bottom: 230px;
-	left: 400px;
+	bottom: 890px;
 }
 
 .animatestrip {
- 	animation: stripenter-diag 2s ease 1;
+ 	animation: stripenter-diag 3s ease 1;
  }
 
 @keyframes stripenter-diag {
-  0%   { bottom: 0px; left: 630px; }
-  100% { bottom: 300px; left: 330px; }	
+  0%   { bottom: 800px; }
+  50% { bottom: 875px; }	
+  100%   { bottom: 890px; }
 }
 
 @keyframes stripenter-horiz {

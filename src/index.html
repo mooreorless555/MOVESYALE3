@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="UTF-8">
   <title>Ionic App</title>
@@ -10,17 +11,19 @@
   <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#7647A2">
-  
+
   <!-- cordova.js required for cordova apps -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMF633TMGg29nprtDO__Pe_qB81uF2Pjw"></script>
   <script src="cordova.js"></script>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script src="assets/js/progressbar.js"></script>
+  <script src="assets/js/velocity.min.js"></script>
+  <script src="assets/js/velocity.ui.min.js"></script>
 
-<script src="assets/js/es6-promise.auto.min.js"></script>
+  <script src="assets/js/es6-promise.auto.min.js"></script>
 
-<script src="assets/js/sweetalert2.min.js"></script>
-<link rel="stylesheet" href="assets/css/sweetalert2.css">
+  <script src="assets/js/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="assets/css/sweetalert2.css">
 
   <!-- un-comment this code to enable service worker
   <script>
@@ -39,9 +42,10 @@
 
 
   <!-- FONTS -->
-<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
 
 </head>
+
 <body>
 
   <!-- Ionic's root component and where the app will load -->
@@ -53,6 +57,9 @@
   <!-- The bundle js is generated during the build process -->
   <script src="build/main.js"></script>
 
-  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+  <script>
+    document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+  </script>
 </body>
+
 </html>

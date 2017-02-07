@@ -8,8 +8,8 @@
 }
 
 .address {
-  background-color: white;
-  color: #444444;
+  background-color: #f4e0c6;
+  color: #876b47;
   border-radius: 30px;
   padding: 10px;
 }
@@ -89,7 +89,7 @@
 
 #containerbig {
   margin: auto;
-  width: 200px;
+  width: 150px;
   height: 100px;
 }
 
@@ -216,13 +216,8 @@
   width: 60%;
 }
 
-.delay {
-
-  }
-
-.delay.01 {
-  ani
-}
+.fb-color {
+  color: #3B5998;
 }
 
 /* SLIDING BUTTONS */

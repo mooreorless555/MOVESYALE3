@@ -31,19 +31,19 @@ export class MovesService {
     var headers = new Headers({ 'Authorization': token });
 
     return new Promise((resolve, reject) => {
-      
-      this.http.get(url + 'api/', {headers: headers})
-      .map(res => res.json())
-      .subscribe(data => {
-        //alert(data);
-        resolve(data);
 
-      }, (err) => {
-        //alert(err);
-        reject(err);
-      
-      });
-    
+      this.http.get(url + 'api/', { headers: headers })
+        .map(res => res.json())
+        .subscribe(data => {
+          //alert(data);
+          resolve(data);
+
+        }, (err) => {
+          //alert(err);
+          reject(err);
+
+        });
+
     });
 
   }
@@ -68,7 +68,7 @@ export class MovesService {
 
     return new Promise((resolve, reject) => {
 
-      this.http.post(url + 'api/', body, {headers: headers}).subscribe(res => {
+      this.http.post(url + 'api/', body, { headers: headers }).subscribe(res => {
 
         let data = res.json();
         resolve(data);
@@ -83,7 +83,7 @@ export class MovesService {
   }
 
   deleteMove(move) {
-    
+
     console.log('Deleting move');
     console.log(move);
     let urlDelete = url + 'moves/' + move._id;
@@ -91,16 +91,16 @@ export class MovesService {
     return new Promise((resolve, reject) => {
 
       this.http.delete(urlDelete)
-      .subscribe(res => {
+        .subscribe(res => {
 
-        let data = res.json();
-        resolve(data);
+          let data = res.json();
+          resolve(data);
 
-      }, (err) => {
+        }, (err) => {
 
-        reject(err);
+          reject(err);
 
-      });
+        });
 
     });
   }
@@ -111,26 +111,26 @@ export class MovesService {
     let body = JSON.stringify(move);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let urlUpdate = url + 'moves/' + move._id;
-  
+
     return new Promise((resolve, reject) => {
 
       this.http.put(urlUpdate, body, { headers: headers })
-      .subscribe(res => {
+        .subscribe(res => {
 
-        resolve(res);
+          resolve(res);
 
-      }, (err) => {
+        }, (err) => {
 
-        alert(err);
-        reject(err);
+          alert(err);
+          reject(err);
 
-      });
-    
+        });
+
     });
   }
 
   // updateMove(move) {
-    
+
   //   console.log('Updating move');
   //   console.log(move);
   //   let urlUpdate = url + 'moves/' + move._id;
