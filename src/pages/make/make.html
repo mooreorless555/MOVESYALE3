@@ -11,7 +11,7 @@
     <i>{{ hello }}</i>
     <br>
   </div>
-  <form (ngSubmit)="logForm()" novalidate class="animated fadeInUp">
+  <form (ngSubmit)="logForm()" novalidate>
 
     <ion-item>
       <ion-label floating>Event Name</ion-label>
@@ -28,16 +28,16 @@
       <ion-input type="number" min="30" max="300" [(ngModel)]="move.info.capacity" name="capacity"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label>Alcohol?</ion-label>
+    <!--<ion-item>
+      <ion-label>Refreshments?</ion-label>
       <ion-checkbox color="primary" checked="false" [(ngModel)]="move.info.hasAlcohol" name="hasAlcohol" (ionChange)="alcWarning()"></ion-checkbox>
-    </ion-item>
+    </ion-item>-->
 
     <ion-item>
       <ion-label floating>Extra Info</ion-label>
       <ion-textarea [(ngModel)]="move.info.extraInfo" name="extraInfo"></ion-textarea>
     </ion-item>
     <div class="minispace"></div>
-    <button id="submitBtn" class="bigbutton widen golive" type="submit"><span class="lower">Go Live</span></button>
+    <button id="submitBtn" class="bigbutton widen golive hide" type="submit"><span class="lower">Go Live</span></button>
   </form>
 </ion-content>

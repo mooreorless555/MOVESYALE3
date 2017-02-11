@@ -9,7 +9,7 @@ import { LoginProvider } from '../providers/login-provider';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 // import { HomePage } from '../pages/home/home';
-// import { System, Globals } from '../pages/functions/functions';
+import { System } from '../pages/functions/functions';
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`,
@@ -23,18 +23,17 @@ export class MyApp {
 
   constructor(public platform: Platform, public loginProvider: LoginProvider) {
     var me = this;
-
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.backgroundColorByHexString("#886FE8");
+      StatusBar.backgroundColorByHexString('#886FE8');
 
       // Check if the user is already logged in
       NativeStorage.getItem('data')
         .then(function (data) {
           //alert("Got tokens" + data);
           // user was previously logged in
-          alert("In initial, User token: " + data.token);
+          // alert("In initial, User token: " + data.token);
           me.loginProvider.setToken(data.token);
           return Promise.all([data, me.loginProvider.getProfile()]);
         })
@@ -43,8 +42,6 @@ export class MyApp {
           me.loginProvider.setUser(results[1]);
 
           me.nav.setRoot(TabsPage);
-
-
 
 
         })

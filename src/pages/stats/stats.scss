@@ -15,21 +15,20 @@ page-stats {
   z-index: 0;
 }
 
-.ratingstrip {
-	background-image: url("../assets/img/ratingstrip.png");
-    background-repeat:no-repeat;
-	background-size: cover;
-	position: absolute;
-	z-index: 0;
-	width: 10%;
-	height: 100%;
-	padding: 10px;
+.centerthis {
+	text-align: center !important;
+	vertical-align: middle;
+}
 
-	transform:rotate(0deg);
-	// bottom: 150px;
-	// right: 130px;
-	// transform:rotate(90deg);
-	bottom: 890px;
+.headerback {
+	background-color: #333333;
+	padding-bottom: 50px;
+	text-align: center;
+}
+
+.headertruback {
+		position: absolute;
+	top: 0px;
 }
 
 .animatestrip {

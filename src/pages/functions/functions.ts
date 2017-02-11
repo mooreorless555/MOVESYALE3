@@ -12,6 +12,7 @@ import { StatsProvider } from '../../providers/stats-provider';
 import { LoginProvider } from '../../providers/login-provider';
 import swal from 'sweetalert2';
 
+declare var toastr: any;
 declare var $: any;
 declare var ProgressBar: any;
 
@@ -33,23 +34,64 @@ export class System {
 
   }
 
-  showNotification(msg, duration) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: duration
-    });
-    toast.present();
+  /**
+   * Displays a toast notification at the bottom of the screen.
+   * @param {string} msg Message to be displayed in the notification.
+   * @param {number} duration Number of milliseconds (ms) for the notification to be displayed.
+   */
+  showNotification(msg, duration, type?: string) {
+    // let toast = this.toastCtrl.create({
+    //   message: msg,
+    //   duration: duration
+    // });
+    // toast.present();
+
+    var bProgressBar = false;
+    if (type == 'loading') {
+      bProgressBar = true;
+    }
+
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": true,
+      "progressBar": bProgressBar,
+      "positionClass": "toast-bottom-center",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "100",
+      "hideDuration": "100",
+      "timeOut": duration,
+      "extendedTimeOut": "0",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    };
+    if (type === undefined) {
+      toastr.info(msg);
+    } else if (type == 'success') {
+      toastr.success(msg);
+    } else if (type == 'error') {
+      toastr.error(msg);
+    } else {
+      toastr.info(msg);
+    }
   }
 
   startLoading(msg, duration) {
     let loader = this.loadingCtrl.create({
       spinner: 'hide',
-      content: '<div class="centertext centerme"><img class="custom-spinner" src="assets/img/test_stroke_animated.svg"/><br>' + msg + '</div>',
+      content: '<div class="centertext"><img class="custom-spinner" src="assets/img/test_stroke_animated.svg"/><br>' + msg + '</div>',
       duration: duration
     });
     loader.present();
   }
 
+  /**
+   * Displays the move options screen.
+   * @param {Object} move Move to display information about.
+   */
   moveOptionsScreen(move) {
     let confirm = this.alertCtrl.create({
       message: 'Are you sure want to delete "' + move.info.name + '"?',
@@ -73,6 +115,11 @@ export class System {
     confirm.present();
   }
 
+  /**
+ * Increases the stats of a certain move.
+ * @param {Object} move Move whose stats you'd like to increase
+ * @param {String} stat Choose 'fun' 'meh' or 'dead' to increase. 'reset' will reset all stats.
+ */
   incStat(move, stat) {
     var msgs = ['Okay.', 'Got it.', 'Thanks!', 'Great!', 'Awesome!', 'Cool.']
     var msg = msgs[Math.floor(Math.random() * msgs.length)];
@@ -94,9 +141,23 @@ export class System {
         console.log('Mistake.');
     }
     this.movesService.updateMove(move);
-    this.showNotification(msg + ' You voted: ' + stat.toUpperCase(), 1000);
-    setTimeout(() => this.showNotification("Thanks for your feedback! You'll be able to vote for this move again in an hour.", 3300), 1100);
+    this.showNotification(msg + ' You voted: ' + stat.toUpperCase(), 1000, 'success');
+    setTimeout(() => this.showNotification("Thanks for your feedback! You'll be able to vote for this move again in an hour.", 3300, 'success'), 1500);
   }
+
+
+  welcomeUser(name) {
+    swal({
+      title: 'All signed up!',
+      type: 'success',
+      text: 'Welcome aboard, ' + name + '!',
+      showCloseButton: false,
+      showConfirmButton: true,
+      confirmButtonText: 'Sweet',
+      confirmButtonColor: '#886FE8',
+      allowOutsideClick: false
+    });
+    }
 
   updateStatsBars(move, progbar, funstatbar, mehstatbar, deadstatbar) {
 
@@ -291,7 +352,7 @@ export class Globals {
 
   public user: any;
 
-  constructor(public loginProvider: LoginProvider) {
+  constructor() {
   }
 
 

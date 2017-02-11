@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
-// import { Globals } from '../pages/functions/functions';
 
 import { NativeStorage } from 'ionic-native';
 
@@ -30,13 +29,12 @@ export class LoginProvider {
   }
 
   setUser(user) {
-    alert("Setting user: " + user);
+    // alert("Setting user: " + user);
     this.user = user;
-    // this.globals.user = user;
   }
 
   getUser() {
-    alert("In get user: " + JSON.stringify(this.user));
+    // alert("In get user: " + JSON.stringify(this.user));
     return this.user;
   }
 
@@ -55,7 +53,7 @@ export class LoginProvider {
   doApiLogin(data) {
 
     var me = this;
-    alert(data)
+    // alert(data)
 
     var body = JSON.stringify({
       name: data[1].name,
@@ -73,13 +71,13 @@ export class LoginProvider {
         .map((res) => res.json())
         .subscribe((res) => {
 
-          alert("Response: " + res);
+          // alert("Response: " + res);
 
 
 
           if (res.success) {
 
-            alert("Got the data: " + res.user + res.token)
+            // alert("Got the data: " + res.user + res.token)
             me.user = res.user,
               me.token = res.token
 

@@ -15,6 +15,8 @@ import 'rxjs/add/operator/map';
 import { TabsPage } from '../tabs/tabs';
 import { HomePage } from '../home/home';
 
+declare var $:any;
+
 
 //var url = 'http://54.175.164.247:80/';
 

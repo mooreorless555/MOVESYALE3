@@ -11,6 +11,9 @@ import { LocationTracker } from '../../providers/location-tracker';
 import { StatsProvider } from '../../providers/stats-provider';
 import { MovesService } from '../services/MovesService';
 
+declare var $: any;
+declare var velocity: any;
+
 @Component({
   selector: 'page-make',
   templateUrl: 'make.html',
@@ -44,22 +47,25 @@ export class MakePage {
     }
   }
 
+ngAfterViewInit() {
+      this.introducePage();
+}
  /* Form submission checking */
   logForm() {
     this.move.info.name = this.move.info.name.trim();
     this.move.info.location = this.move.info.location.trim();
     console.log(this.move.info.name);
     if (this.move.info.name == "") {
-      this.system.showNotification("You need to give your Move a name.", 3000);
+      this.system.showNotification("You need to give your Move a name.", 3000, 'error');
     } else if (this.allspaces(this.move.info.name)) {
       this.system.showNotification("This is an invalid name.", 3000);
     } else if (this.move.info.name.length < 3) {
-      this.system.showNotification("The name needs to be at least 3 characters long.", 3000);
+      this.system.showNotification("The name needs to be at least 3 characters long.", 3000, 'error');
     } else if (this.move.info.capacity < this.globals.config.min) {
-      this.system.showNotification("The minimum capacity is " + this.globals.config.min + " people.", 3000);
+      this.system.showNotification("The minimum capacity is " + this.globals.config.min + " people.", 3000, 'error');
       this.move.info.capacity = this.globals.config.min;
     } else if (this.move.info.capacity > this.globals.config.max) {
-      this.system.showNotification("The maximum capacity is " + this.globals.config.max + " people.", 3000);
+      this.system.showNotification("The maximum capacity is " + this.globals.config.max + " people.", 3000, 'error');
       this.move.info.capacity = this.globals.config.max;     
     } else {
       this.confirmMove();
@@ -159,6 +165,11 @@ export class MakePage {
         console.log("Move Not Created");
 
       });
+    }
+
+    introducePage() {
+      $("ion-item").velocity('transition.slideUpIn', { stagger: 130 });
+      setTimeout(() => {$('#submitBtn').removeClass('hide').velocity('transition.shrinkIn', { duration: 100});}, 900);
     }
 
 }

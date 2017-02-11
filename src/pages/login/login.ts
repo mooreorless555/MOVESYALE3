@@ -7,13 +7,16 @@ import { AlertController } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 
 import { LoginProvider } from '../../providers/login-provider';
-import { Globals } from '../functions/functions';
+import { StatsProvider } from '../../providers/stats-provider';
+import { System, Globals } from '../functions/functions';
 
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { TabsPage } from '../tabs/tabs';
 import { HomePage } from '../home/home';
+
+import swal from 'swal';
 
 declare var $: any;
 declare var velocity: any;
@@ -23,13 +26,14 @@ declare var velocity: any;
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [Globals]
+  providers: [StatsProvider, System, Globals]
 })
 export class LoginPage {
   FB_APP_ID: number = 1726230761032513;
 
   public info = "By Yalies. For Yalies.";
-  public user = "nullman";
+  user:any;
+  profinfo:any;
 
   public firsttime = {
     email: "",
@@ -42,7 +46,7 @@ export class LoginPage {
     this.introducePage();
   }
 
-  constructor(public loginProvider: LoginProvider, public globals: Globals, public http: Http, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
+  constructor(public loginProvider: LoginProvider, public system: System, public globals: Globals, public http: Http, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     Facebook.browserInit(this.FB_APP_ID, "v2.8");
   }
 
@@ -81,12 +85,11 @@ export class LoginPage {
 
         })
         .then(function (results) {
-          alert("Sign in results! " + JSON.stringify(results, null, 4));
+          alert("Sign in results! " + JSON.stringify(results[1], null, 4));
           //alert(results[0]);
           //alert("Results: " + results[1] + " name: " + results[1].name);
           //alert(results[1].name);
-          // this.user = results[1];
-
+          // alert("Sign in profinfo " + JSON.stringify(this.profinfo, null, 4));
           return Promise.all([results, me.loginProvider.doApiLogin(results)])
 
 
@@ -99,6 +102,7 @@ export class LoginPage {
           })
           */
           // this.presentWelcome();
+          this.system.welcomeUser(this.results[0][1].first_name);
           me.navCtrl.setRoot(TabsPage);
         })
         .catch(function (error) {

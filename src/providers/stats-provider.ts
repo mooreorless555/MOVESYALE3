@@ -31,8 +31,8 @@ export class StatsProvider {
         bar.path.setAttribute('stroke', state.color);
       }
     });
-    counter.animate(3);
     this.counters.push(counter);
+    counter.animate(3 + (Math.random() * 1));
     return counter;
   }
 

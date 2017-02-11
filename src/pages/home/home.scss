@@ -1,10 +1,37 @@
 page-home {
 
+.ratingstrip {
+	background-image: url("../assets/img/ratingstrip.png");
+    background-repeat:no-repeat;
+	background-size: cover;
+	position: absolute;
+	z-index: -1;
+	width: 10%;
+	height: 100%;
+	padding: 10px;
+	// bottom: 315px;
+	bottom: 620px;
+	transform:rotate(90deg);
+	// bottom: 150px;
+	// right: 130px;
+	// transform:rotate(90deg);
+	// bottom: 312px;
+	left: 60px;
+}
+
+.homebg {
+	background-image: url("../assets/img/MOVES_homebg.png");
+	background-size: cover;
+}
 	.animIn.ng-enter {
 	  -webkit-animation: fadeInLeft 1s;
       animation: fadeInLeft 1s;
 	}
 
+.moveslist {
+	border-radius: 30px !important;
+	margin-bottom: 20px !important;
+}
 	.circle1 {
 	    display:inline-block;
 	    height: 10px;

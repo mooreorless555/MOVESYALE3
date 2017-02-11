@@ -15,8 +15,8 @@ import { LoginProvider } from '../../providers/login-provider';
 import { LocationTracker } from '../../providers/location-tracker';
 
 declare var ProgressBar: any;
-declare var $:any;
-declare var velocity:any;
+declare var $: any;
+declare var velocity: any;
 
 @Component({
   selector: 'page-home',
@@ -41,6 +41,8 @@ export class HomePage {
     } else {
       this.listMoves();
     }
+    this.start();
+
   }
 
   /* Upon any change, will update the progress bars. */
@@ -48,6 +50,14 @@ export class HomePage {
 
     if (this.container.toArray().length > 0) {
       if (this.system.checked == 0) {
+        if (this.stat.counters) {
+          if (this.stat.counters.length > this.moves.length) {
+            this.stat.ResetCounters();
+            this.system.checked = 0;
+          }
+        }
+
+        this.system.checked = 1;
         let moves = this.moves;
         setTimeout(() => {
           let containers = this.container.toArray();
@@ -59,19 +69,44 @@ export class HomePage {
         console.log('Your counters are: ', this.stat.counters);
 
         setTimeout(() => {
-          for (var i = 0; i < this.moves.length; i++) {
-            let counters = this.stat.counters;
-            let perc = moves[i].stats.people / moves[i].info.capacity;
-            this.stat.UpdateCounter(counters[i], perc);
+          try {
+            for (var i = 0; i < this.moves.length; i++) {
+              let counters = this.stat.counters;
+              let perc = moves[i].stats.people / moves[i].info.capacity;
+              this.stat.UpdateCounter(counters[i], perc);
+            }
+          } catch (err) {
+            this.system.showNotification('Fetching...', 500, 'info');
           }
         }, 2000);
-        this.system.checked = 1;
       }
+
+
+
     }
+
+
   }
 
+  // ngAfterViewChecked() {
+  //   console.log(this.container);
+  //   setTimeout(() => {
+  //         let containers = this.container.toArray();
+  //         if (this.stat.counters.length <= 0) {
+  //           for (var i = 0; i < containers.length; i++) {
+  //             this.stat.CreatePeopleCounter(containers[i]);
+  //           }
+  //         }
+
+  //         for (var i = 0; i < this.stat.counters.length; i++) {
+  //           let counters = this.stat.counters;
+  //           let perc = this.moves[i].stats.people / this.moves[i].info.capacity;
+  //           this.stat.UpdateCounter(counters[i], perc);
+  //         }
+  //   }, 5000);
+  // }
+
   constructor(public navCtrl: NavController, public system: System, public loginProvider: LoginProvider, public locationTracker: LocationTracker, public globals: Globals, public stat: StatsProvider, public movesService: MovesService) {
-    this.start();
   }
 
   /* GPS Tracking */
@@ -120,8 +155,8 @@ export class HomePage {
       }
       );
 
-      // $('*[id*=indivMove]').velocity('transition.slideUpIn', { stagger: 800 });
-      // $('*[id*=extraInfo]').velocity('transition.slideLeftIn', { stagger: 800 });
+    // $('*[id*=indivMove]').velocity('transition.slideUpIn', { stagger: 800 });
+    // $('*[id*=extraInfo]').velocity('transition.slideLeftIn', { stagger: 800 });
   }
 
   listMoves() {
@@ -140,14 +175,50 @@ export class HomePage {
 
   /* Refresh list of moves event. */
   refreshMoves(refresher) {
-    this.system.showNotification('Updating list, standby...', 1000);
-    setTimeout(() => {
-      this.system.checked = 0;
-      this.stat.ResetCounters();
-      this.listMoves_1();
-      this.system.showNotification('Done!', 1000);
-      refresher.complete();
-    }, 1000);
+    this.stat.ResetCounters();
+    this.system.showNotification('Refreshing...', 500, 'loading');
+    if (this.globals.debugflag) {
+      this.movesService.getMoves_old()
+        .subscribe((data) => {
+          this.moves = data;
+          this.moves.sort(this.system.sortDescending);
+          this.system.moves = this.moves;
+          console.log(this.moves);
+          // this.system.getFeedbackScreen(this.moves[0]);
+        },
+        (err) => {
+          console.log(err);
+          this.system.showNotification("Couldn't get moves: " + err, 5000, 'error');
+          refresher.complete();
+          this.moves = undefined;
+          this.system.checked = 1;
+        },
+        () => {
+          console.log('Got Moves');
+          this.system.showNotification('Done!', 1000, 'success');
+          $('#indivMove').velocity('transition.slideUpIn', { stagger: 800 });
+          refresher.complete();
+          this.system.checked = 0;
+        }
+        );
+    } else {
+      var me = this;
+
+      me.movesService.getMoves()
+        .then((data) => {
+          me.movesService.setMoves(data);
+          me.moves = data;
+          $('#indivMove').velocity('transition.slideUpIn', { stagger: 800 });
+          this.system.showNotification('Done!', 1000, 'success');
+          refresher.complete();
+          this.system.checked = 0;
+        }, (err) => {
+          this.system.showNotification("Couldn't get moves: " + err, 5000, 'error');
+          refresher.complete();
+          this.moves = undefined;
+          this.system.checked = 1;
+        })
+    }
   }
 
   /* Go to the Stats page */

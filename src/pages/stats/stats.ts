@@ -93,6 +93,11 @@ export class StatsPage {
     }, 2000);
   }
 
+
+/**
+ * Sets the variable 'this.address' to location.
+ * @param {string} location - Name of the location.
+ */
   getLocationName(location) {
     this.address = location;
   }
@@ -219,14 +224,14 @@ export class StatsPage {
   }
 
   introducePage() {
-    
+
     setTimeout(() => { $('#headerTextSection').removeClass('hide').velocity('transition.shrinkIn') });
     setTimeout(() => { $('#addressSection').removeClass('hide').velocity('transition.flipYIn') }, 800);
     setTimeout(() => { $('#ANIM_ratingstrip').removeClass('hide').addClass('animatestrip') }, 1300);
     setTimeout(() => {
 
       $('#statsSection').removeClass('hide');
-      $("ion-col").velocity('transition.flipXIn', { stagger: 800 });
+      $("ion-col").velocity('transition.flipXIn', { stagger: 400 });
       this.progbar = this.stat.CreateStatsCounter(this.container, this.move);
       this.funstatbar = this.stat.CreateGeneralCounter(this.funbar, 'line', '#27e833', 1400, this.move, this.move.stats.fun);
       this.mehstatbar = this.stat.CreateGeneralCounter(this.mehbar, 'line', '#FBD200', 1600, this.move, this.move.stats.meh);
@@ -235,7 +240,9 @@ export class StatsPage {
     setTimeout(() => {
       $('#infoSection').removeClass('hide');
       $("*[id*=info]").velocity('transition.shrinkIn', { stagger: 800 })
+      $('#infoSection').animate({scrollTop: 0});
     }, 2400)
+
   }
 
 }

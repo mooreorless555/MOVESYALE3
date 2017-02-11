@@ -11,11 +11,14 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="homebg">
+  <div id="ANIM_ratingstrip" class="ratingstrip"></div>
+  <div style="margin-bottom: 30px"></div>
   <ion-refresher (ionRefresh)="refreshMoves($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="" refreshingSpinner="circles" refreshingText="">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="" refreshingSpinner="circles" style="color: white;" refreshingText="">
     </ion-refresher-content>
   </ion-refresher>
+
   <div class="centertext">
     <h4 class="mediumtext">{{ this.system.currentday }}</h4>
     <h4>{{ this.system.currentdate }}</h4>
@@ -43,7 +46,7 @@
     <br>
     <ion-list>
       <div id="indivMove">
-      <ion-item no-lines *ngFor="let move of moves" (click)="checkStats(move)" (press)="system.moveOptionsScreen(move)">
+      <ion-item class="moveslist" no-lines *ngFor="let move of moves" (click)="checkStats(move)" (press)="system.moveOptionsScreen(move)">
         <ion-icon item-right>
           <div id="container" class="container" #container></div>
 

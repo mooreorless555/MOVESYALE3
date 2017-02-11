@@ -8,10 +8,13 @@
 }
 
 .address {
-  background-color: #f4e0c6;
-  color: #876b47;
+  background-color: #32a3ef;
+  color: #fff;
   border-radius: 30px;
   padding: 10px;
+  position: relative;
+  bottom: 50px;
+  margin-bottom: -50px;
 }
 
 .somepadding {
@@ -41,7 +44,7 @@
 }
 
 .centertext {
-	text-align: center;
+	text-align: center !important;
 }
 
 .largetext {
@@ -150,9 +153,8 @@
 }
 
 .bigbutton.golive:active {
-  width: 60%;
   border-radius: 10px;
-  font-size: 3rem;
+
 }
 
  .higher {

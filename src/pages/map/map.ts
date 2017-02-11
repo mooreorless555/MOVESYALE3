@@ -452,7 +452,7 @@ export class MapPage {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: new google.maps.LatLng(move.location.lat, move.location.long)
+      position: new google.maps.LatLng(move.LatLng)
     });
 
     //alert("move: " + move);

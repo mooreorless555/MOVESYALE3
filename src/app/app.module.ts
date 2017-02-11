@@ -42,6 +42,6 @@ import { MovesService } from '../pages/services/MovesService';
     TabsPage,
     MapPage
   ],
-  providers: [LocationTracker, LoginProvider, MovesService, System]
+  providers: [LocationTracker, LoginProvider, MovesService]
 })
 export class AppModule {}
