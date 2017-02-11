@@ -4,7 +4,9 @@
 #### Start date: September 13th, 2016
 
 
+
 ![MOVES TITLE IMAGE](/src/assets/img/MOVES_logo_git.png "Moves Logo")
+
 **Moves** (at Yale University) is a mobile app written in the [Ionic Framework](http://ionicframework.com/) that will allow you to see analytics of events on campus (with a focus on parties at the moment.) Through GPS tracking, users will be able to see:
 - how many people are at a party
 - traffic flow in and out of the party
