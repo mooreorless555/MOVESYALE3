@@ -1,7 +1,22 @@
-# MOVESYALE
+# Moves
 ### *(reuploaded)*
+#### Start date: September 13th, 2016
 
-Same Moves app, new repo! (For the THIRD TIME! OMG.) Chris and Sam diverged too much on their own without making commits, had an issue with FB authentication and therefore Chris used what was on the Git and manually fixed all merges as well as overhauled the code structure.
+**Moves** (at Yale University) is a mobile app written in the [Ionic Framework](http://ionicframework.com/) that will allow you to see analytics of events on campus (with a focus on parties at the moment.) Through GPS tracking, users will be able to see:
+- how many people are at a party
+- traffic flow in and out of the party
+- and who of their Facebook friends are there 
+
+before they make the decision to go or not. All of this is presented in realtime. 
+
+The app is supposed to be lightweight (we know you'll be out and about) and give you the information you need when you want it and in a presentable and clean way! I have and am spending a lotttt of time on the UI/UX to make this the case. Of course, the app's premise hangs on the notion that a lot of people will have it installed.
+
+--------
+
+### Screenshots
+Will go here.
+
+Same Moves app, new repo! (For the THIRD TIME! OMG.) Chris (AKA me) and Sam diverged too much on their own without making commits, had an issue with FB authentication and therefore Chris used what was on the Git and manually fixed all merges as well as overhauled the code structure. Then Chris added a bunch of new additions to stabilize the login, home, and stats pages as well as new native plugins!
 
 If you're collabing with us and want to get up and running, make sure you've already installed cordova and ionic.
 
@@ -35,8 +50,14 @@ ionic plugin add cordova-plugin-statusbar
 ```
 ionic plugin add cordova-plugin-splashscreen
 ```
+
+## Other Plugins
+Also these...
 ```
 npm install --save sweetalert2
+```
+```
+npm install --save toastr
 ```
 
 If you have any questions just message me or Sam!
