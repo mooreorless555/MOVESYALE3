@@ -50,8 +50,14 @@ ionic plugin add cordova-plugin-statusbar
 ```
 ionic plugin add cordova-plugin-splashscreen
 ```
+
+## Other Plugins
+Also these...
 ```
 npm install --save sweetalert2
+```
+```
+npm install --save toastr
 ```
 
 If you have any questions just message me or Sam!
