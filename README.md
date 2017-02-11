@@ -16,7 +16,7 @@ The app is supposed to be lightweight (we know you'll be out and about) and give
 ### Screenshots
 Will go here.
 
-Same Moves app, new repo! (For the THIRD TIME! OMG.) Chris (AKA me) and Sam diverged too much on their own without making commits, had an issue with FB authentication and therefore Chris used what was on the Git and manually fixed all merges as well as overhauled the code structure.
+Same Moves app, new repo! (For the THIRD TIME! OMG.) Chris (AKA me) and Sam diverged too much on their own without making commits, had an issue with FB authentication and therefore Chris used what was on the Git and manually fixed all merges as well as overhauled the code structure. Then Chris added a bunch of new additions to stabilize the login, home, and stats pages as well as new native plugins!
 
 If you're collabing with us and want to get up and running, make sure you've already installed cordova and ionic.
 
