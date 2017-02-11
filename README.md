@@ -9,7 +9,7 @@
 
 before they make the decision to go or not. All of this is presented in realtime. 
 
-The app is supposed to be lightweight (we know you'll be out and about) and give you the information you need when you want it and in a presentable and clean way.
+The app is supposed to be lightweight (we know you'll be out and about) and give you the information you need when you want it and in a presentable and clean way! Of course, the app's premise hangs on the notion that a lot of people will have it installed.
 
 --------
 
