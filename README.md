@@ -19,6 +19,8 @@ The app is supposed to be lightweight (we know you'll be out and about) and give
 --------
 
 ### Screenshots
+
+<img src="/screenshots/login.png" width="48">
 ![login](/screenshots/login.png "Login")![login_02](/screenshots/login_02.png "Login with Facebook")
 ![hub](/screenshots/hub.png "Hub")![hub_02](/screenshots/hub_02.png "Hub (scrolled down)")
 ![info](/screenshots/info.png "Hub")![info_02](/screenshots/info_02.png "Info (scrolled down)")
