@@ -20,9 +20,16 @@ The app is supposed to be lightweight (we know you'll be out and about) and give
 
 ### Screenshots
 
+#### Login
 <img src="/screenshots/login.png" width="300"><img src="/screenshots/login_02.png" width="300">
+
+#### Hub
 <img src="/screenshots/hub.png" width="300"><img src="/screenshots/hub_02.png" width="300">
+
+#### Information (stats)
 <img src="/screenshots/info.png" width="300"><img src="/screenshots/info_02.png" width="300">
+
+#### Make a Move!
 <img src="/screenshots/make.png" width="300">
 
 Same Moves app, new repo! (For the THIRD TIME! OMG.) Chris (AKA me) and Sam diverged too much on our own without making commits, had an issue with FB authentication and therefore Chris used what was on the Git and manually fixed all merges as well as overhauled the code structure. Later, Chris added a bunch of new additions to stabilize the login, home, and stats pages as well as new native plugins!
