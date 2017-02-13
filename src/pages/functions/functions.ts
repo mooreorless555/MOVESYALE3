@@ -38,6 +38,7 @@ export class System {
    * Displays a toast notification at the bottom of the screen.
    * @param {string} msg Message to be displayed in the notification.
    * @param {number} duration Number of milliseconds (ms) for the notification to be displayed.
+   * @param {string} type Optional argument, change type of notification to be displayed: 'success', 'error'
    */
   showNotification(msg, duration, type?: string) {
     // let toast = this.toastCtrl.create({
@@ -157,7 +158,7 @@ export class System {
       confirmButtonColor: '#886FE8',
       allowOutsideClick: false
     });
-    }
+  }
 
   updateStatsBars(move, progbar, funstatbar, mehstatbar, deadstatbar) {
 
@@ -189,7 +190,7 @@ export class System {
         this.stat.UpdateCounter(deadstatbar, 0.003);
       }
     } catch (err) {
-      console.log('Weird error.', err);
+      console.log('Cannot animate length error.');
     }
   }
 
@@ -254,13 +255,9 @@ export class System {
 
   deleteMove(move) {
     this.movesService.deleteMove(move).then((result) => {
-
       console.log("Deleted")
-
     }, (err) => {
-
       console.log(err);
-
     });
 
 

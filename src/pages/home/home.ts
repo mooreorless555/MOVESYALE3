@@ -17,6 +17,7 @@ import { LocationTracker } from '../../providers/location-tracker';
 declare var ProgressBar: any;
 declare var $: any;
 declare var velocity: any;
+declare var marquee: any;
 
 @Component({
   selector: 'page-home',
@@ -151,12 +152,10 @@ export class HomePage {
       },
       () => {
         console.log('Got Moves');
-        $('#indivMove').velocity('transition.slideUpIn', { stagger: 800 });
+        this.animateMoves();
       }
       );
-
-    // $('*[id*=indivMove]').velocity('transition.slideUpIn', { stagger: 800 });
-    // $('*[id*=extraInfo]').velocity('transition.slideLeftIn', { stagger: 800 });
+    this.clearIntervals();
   }
 
   listMoves() {
@@ -166,16 +165,18 @@ export class HomePage {
       .then((data) => {
         me.movesService.setMoves(data);
         me.moves = data;
-        $('#indivMove').velocity('transition.slideUpIn', { stagger: 800 });
+        this.animateMoves();
       }, (err) => {
         alert("Couldn't get moves " + err);
       })
+      this.clearIntervals();
   }
 
 
   /* Refresh list of moves event. */
   refreshMoves(refresher) {
     this.stat.ResetCounters();
+    this.clearIntervals();
     this.system.showNotification('Refreshing...', 500, 'loading');
     if (this.globals.debugflag) {
       this.movesService.getMoves_old()
@@ -227,5 +228,29 @@ export class HomePage {
       firstPassed: move
     }
     );
+  }
+
+  totalRatings(move) {
+    let nFun = move.stats.fun;
+    let nMeh = move.stats.meh;
+    let nDead = move.stats.dead;
+    let nMax = Math.max(nFun, nMeh, nDead);
+
+    if (nMax == nFun) return 1;
+    if (nMax == nMeh) return 2;
+    if (nMax == nDead) return 3;
+  }
+
+  animateMoves() {
+    $("*[id*=indivMove]").velocity('transition.slideUpIn', { stagger: 200 });
+  }
+
+  clearIntervals() {
+    if (this.system.stat_updates) {
+      clearInterval(this.system.stat_updates);
+      console.log('Interval cleared!');
+    } else {
+      console.log('No interval to clear.', this.system.stat_updates);
+    }
   }
 }

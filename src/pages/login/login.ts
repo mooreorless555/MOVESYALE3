@@ -102,7 +102,7 @@ export class LoginPage {
           })
           */
           // this.presentWelcome();
-          this.system.welcomeUser(this.results[0][1].first_name);
+          // this.system.welcomeUser(this.results[0][1].first_name);
           me.navCtrl.setRoot(TabsPage);
         })
         .catch(function (error) {

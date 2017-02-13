@@ -25,26 +25,26 @@ export class MakePage {
 
 
   /* Move Object */
-  public move = {
-    info: {
-      name: "",
-      location: "",
-      capacity: 30,
-      hasAlcohol: false,
-      extraInfo: ""
-    },
-    
-    LatLng: {
-      lat: 0,
-      lng: 0
-    },
+  public move   = {
+      info        : {
+        name      : "",
+        location  : "",
+        capacity  : 30,
+        hasAlcohol: false,
+        extraInfo : ""
+      },
+      
+      LatLng      : {
+        lat       : 0,
+        lng       : 0
+      },
 
-    stats: {
-      people: 1,
-      fun: 0,
-      meh: 0,
-      dead: 0
-    }
+      stats       : {
+        people    : 1,
+        fun       : 0,
+        meh       : 0,
+        dead      : 0
+      }
   }
 
 ngAfterViewInit() {

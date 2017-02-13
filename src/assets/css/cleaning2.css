@@ -1,20 +1,24 @@
 *{
- -lit-normal: #b42ea1;
- -lit-highlight: #ea4700;
- -meh-normal: #982eb4;
- -meh-highlight: #7cff00;
- -dead-normal: #752aa9;
+ -lit-normal    : #b42ea1;
+ -lit-highlight : #ea4700;
+ -meh-normal    : #982eb4;
+ -meh-highlight : #7cff00;
+ -dead-normal   : #752aa9;
  -dead-highlight: #477496;
 }
 
 .address {
-  background-color: #32a3ef;
+  background-color: #752aa9;
   color: #fff;
   border-radius: 30px;
   padding: 10px;
   position: relative;
   bottom: 50px;
   margin-bottom: -50px;
+}
+
+.purple-text {
+
 }
 
 .somepadding {
@@ -61,10 +65,36 @@
 }
 
 .cutoff {
+  position: relative;
 	text-overflow: ellipsis;
-	width: 200px;
+  left: 0%;
+	width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
+}
+
+.invisible {
+  opacity: 0;
+}
+
+.movescroll {
+  position: relative;
+	text-overflow: ellipsis;
+  left: 0%;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+  animation: marquee 10s linear infinite;
+}
+
+.move-desc {
+  font-size: 1.4rem !important;
+  font-family: 'Roboto Slab', serif;
+  font-weight: bold;
+  color: #fff;
+  background: #7c4dff;
+  border: solid 8px #7c4dff;
+  border-radius: 10px;
 }
 
 .nomoves {
@@ -289,6 +319,8 @@
   color: #f9152f;
 }
 
+
+
 .small-font {
   font-size: 20px;
 }
@@ -322,4 +354,53 @@ background: -moz-linear-gradient(top,  #b48ee2 0%, #775fcc 91%); /* FF3.6-15 */
 background: -webkit-linear-gradient(top,  #b48ee2 0%,#775fcc 91%); /* Chrome10-25,Safari5.1-6 */
 background: linear-gradient(to bottom,  #b48ee2 0%,#775fcc 91%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b48ee2', endColorstr='#775fcc',GradientType=0 ); /* IE6-9 */
+}
+
+@keyframes marquee {
+    0% { opacity: 0; left: 0%; width: 100%;}
+    3%   { opacity: 1; left: 3%; width: 103%; }
+    97% { opacity: 1; left: -97%; width: 197%; }
+    100% { opacity: 0; left: -100%; width: 200%;}
+}
+
+/*@keyframes marquee {
+  0% { margin-left: 0% }
+  100% { margin-left: -400%}
+}
+*/
+
+
+@keyframes left-one {
+  0%  {
+    transform:translateX(100%);
+  }
+  10% {
+    transform:translateX(0);
+  }
+  40% {
+    transform:translateX(0);
+  }
+  50% {
+    transform:translateX(-100%);
+  }
+  100%{
+    transform:translateX(-100%);
+  }
+}
+@keyframes left-two {
+  0% {
+    transform:translateX(100%);
+  }
+  50% {
+    transform:translateX(100%);
+  }
+  60% {
+    transform:translateX(0);    
+  }
+  90% {
+    transform:translateX(0);    
+  }
+  100%{
+    transform:translateX(-100%);
+  }
 }

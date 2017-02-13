@@ -4,56 +4,58 @@
 	</ion-navbar>
 </ion-header>
 <ion-content>
-		<!-- <ion-slides pager>
+	<!-- <ion-slides pager>
 <ion-slide> -->
-		<!--<div id="headerSection_red" class="redbg hide"></div>	-->
-		<div id="headerSection"></div>
-	<ion-scroll direction='y' style='height: 750px !important;'>
-		<ion-grid>
-			<ion-row class="headerback">
-		<div class='centerthis'>
+	<!--<div id="headerSection_red" class="redbg hide"></div>	-->
+	<div id="headerSection"></div>
+	<ion-grid>
+		<ion-row class="headerback">
+			<div class='centerthis'>
 				<div id="headerTextSection" class="centerthis hide">
 					<h1 class="largetext">{{move.info.name}}</h1>
-					<p item-description style="font-size: 2.2rem">{{move.info.extraInfo}}</p>
+					<p item-description id="extraInfoTextSection" class='move-desc purple-text invisible'>{{move.info.extraInfo}}</p>
 				</div>
 			</div>
-			</ion-row>
-			<ion-row class="centerme centertext">
+		</ion-row>
+		<ion-row class="centerme centertext">
 			<div>
 				<div id="addressSection" class="address hide">
 					<h3 class="semifont">{{move.info.location}}</h3>
 					<p item-description class>{{address}}</p>
 				</div>
 			</div>
-			</ion-row>
-										<div id="statsSection" class="centertext somepadding hide">
-						<ion-row>
-							<ion-col width-50>
-								<h4>people</h4>
-								<div id="containerbig" class="containerbig" #containerbig></div>
-							</ion-col>
-							<ion-col width-50 (click)='system.getFeedbackScreen(move)'>
-								<h4>ratings</h4>
-								<div style="height: 15%"><span id="funbar" class="linebar" #funbar></span>
-									<span id="mehbar" class="linebar" #mehbar></span>
-									<span id="deadbar" class="linebar" #deadbar></span></div>
-							</ion-col>
-						</ion-row>
-						<ion-row>
-							<ion-col width-50>
-								<h4>flow</h4>
-								<div id="containerbig" class="containerbig somepadding"><img src="assets/img/up_arrow.png"/></div>
-							</ion-col>
-							<ion-col width-50>
-								<h4>friends</h4>
-								<h3><ion-item>
-  <ion-icon name="logo-facebook" item-left></ion-icon>24
-</ion-item></h3>
-							</ion-col>
-						</ion-row>
-					</div>
-					</ion-grid>
-					<!--<div class="col">
+		</ion-row>
+		<!--<ion-scroll direction='y' style='height: 450px !important;'>-->
+			<div id="statsSection" class="centertext somepadding invisible">
+				<ion-row>
+					<ion-col width-50>
+						<h4>people</h4>
+						<div id="containerbig" class="containerbig" #containerbig></div>
+					</ion-col>
+					<ion-col width-50 (click)='system.getFeedbackScreen(move)'>
+						<h4>ratings</h4>
+						<div style="height: 15%"><span id="funbar" class="linebar" #funbar></span>
+							<span id="mehbar" class="linebar" #mehbar></span>
+							<span id="deadbar" class="linebar" #deadbar></span></div>
+					</ion-col>
+				</ion-row>
+				<ion-row>
+					<ion-col width-50>
+						<h4>flow</h4>
+						<div id="containerbig" class="containerbig somepadding"><img src="assets/img/up_arrow.png" /></div>
+					</ion-col>
+					<ion-col width-50>
+						<h4>friends</h4>
+						<h3>
+							<ion-item>
+								<ion-icon name="logo-facebook" item-left></ion-icon>24
+							</ion-item>
+						</h3>
+					</ion-col>
+				</ion-row>
+			</div>
+	</ion-grid>
+	<!--<div class="col">
 	<div id="containerbig" class="containerbig" #containerbig></div>
 </div>
 <div class="col">
@@ -62,25 +64,25 @@
 	<div id="deadbar" class="linebar" #deadbar></div>
 </div>
 </div>			-->
-					<!--<h4 class="mediumtext">people</h4>
+	<!--<h4 class="mediumtext">people</h4>
 			<div id="containerbig" class="containerbig" #containerbig></div>-->
-			<div id="infoSection" class="centertext hide">
-					<!--<div id="info">
+	<div id="infoSection" class="centertext hide">
+		<!--<div id="info">
 						<h5>
 							<ion-icon name="logo-facebook" class="bigicon fb-color"></ion-icon><b>3</b> of your friends are also here.</h5>
 					</div>-->
-					<!--<div class="border minispace">
+		<!--<div class="border minispace">
 				<h5>{{ move.stats.fun + move.stats.meh + move.stats.dead }} ratings in the last hour.</h5>
 				<div id="funbar" class="linebar" #funbar></div>
 				<div id="mehbar" class="linebar" #mehbar></div>
 				<div id="deadbar" class="linebar" #deadbar></div>
 			</div>-->
-					<!--<div id="info">
+		<!--<div id="info">
 						<h4>Alcohol Status</h4>
 						<p item-description>{{alcStatus}}</p>
 					</div>-->
-			</div>
-	</ion-scroll>
+	</div>
+	<div class="space invisible">lol</div>
 	<!-- </ion-slide>
 </ion-slides> -->
 </ion-content>

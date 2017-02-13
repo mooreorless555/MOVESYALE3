@@ -123,7 +123,6 @@ export class MovesService {
 
           alert(err);
           reject(err);
-
         });
 
     });

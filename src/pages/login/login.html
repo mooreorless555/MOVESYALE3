@@ -20,11 +20,11 @@
       <button id="loginBtn" class="bigbutton addicon" (click)="doLogin()"><ion-icon name="logo-facebook" class="bigicon"></ion-icon><span class="higher">Login with Facebook</span></button>
     </div>
     <br>
-    <i>{{ info }}</i>
+    <i (click)='toggleDebugFlag()'>{{ info }}</i>
     <br>
     <br>
     <br>
     <br>
     <div class="minispace"></div>
-    <button ion-button (click)='toggleDebugFlag()'>DEV: Debug Mode is {{ this.globals.debugflag ? 'on' : 'off' }}</button>
+    <button ion-button class='hide' (click)='toggleDebugFlag()'>DEV: Debug Mode is {{ this.globals.debugflag ? 'on' : 'off' }}</button>
 </ion-content>

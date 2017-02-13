@@ -21,7 +21,7 @@ export class StatsProvider {
 
       text: {
         value: '',
-        alignToBottom: false
+        className: "progressbar__label",
       },
 
       from: { color: '#9932CC' },
@@ -29,8 +29,20 @@ export class StatsProvider {
 
       step: (state, bar) => {
         bar.path.setAttribute('stroke', state.color);
+        // if (this.between(bar.value(), 0.0, 0.1)) bar.setText(':(');
+        // if (this.between(bar.value(), 0.1, 0.4)) bar.setText(':|');
+        // if (this.between(bar.value(), 0.4, 0.5)) bar.setText(':)');
+        // if (this.between(bar.value(), 0.5, 0.7)) bar.setText(':)!');
+        // if (this.between(bar.value(), 0.7, 0.9)) bar.setText(':)!!');
+        // if (this.between(bar.value(), 0.9, 1.0)) bar.setText('>:D');
+        // if (this.between(bar.value(), 1.0, 1.5)) bar.setText('>:O');
+        // bar.text.style.color = state.color;
       }
     });
+
+    counter.text.style.fontFamily = 'AppFont';
+    counter.text.style.fontSize = '1.4rem';
+    counter.text.style.top = '40px';
     this.counters.push(counter);
     counter.animate(3 + (Math.random() * 1));
     return counter;
@@ -142,5 +154,8 @@ export class StatsProvider {
     this.counters = [];
   }
 
+  between(x, min, max) {
+    return x >= min && x <= max;
+  }
 
 }

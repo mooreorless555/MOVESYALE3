@@ -8,9 +8,9 @@ import { LocationTracker } from '../../providers/location-tracker';
 
 import { System } from '../functions/functions';
 
-declare var $: any;
-declare var velocity: any;
-declare var google: any;
+declare var $          : any;
+declare var velocity   : any;
+declare var google     : any;
 declare var ProgressBar: any;
 
 @Component({
@@ -27,21 +27,21 @@ export class StatsPage {
   @ViewChild('mehbar') mehbar;
   @ViewChild('deadbar') deadbar;
 
-  lookup = {};
+  lookup     = {};
 
-  address = "Retrieving address...";
+  address    = "Retrieving address...";
 
-  id: any;
-  move: any;
-  moves: any;
+  id         : any;
+  move       : any;
+  moves      : any;
 
-  progbar: any;
-  funstatbar: any;
-  mehstatbar: any;
+  progbar    : any;
+  funstatbar : any;
+  mehstatbar : any;
   deadstatbar: any;
-  percentage: any;
-  alcStatus = "No.";
-  numppl = 0;
+  percentage : any;
+  alcStatus  = "No.";
+  numppl     =   0;
 
   ngAfterViewInit() {
     this.revGeocode(this.move.LatLng);
@@ -88,7 +88,7 @@ export class StatsPage {
   }
 
   runUpdateStatsBars() {
-    setInterval(() => {
+    this.system.stat_updates = setInterval(() => {
       this.system.updateStatsBars(this.move, this.progbar, this.funstatbar, this.mehstatbar, this.deadstatbar);
     }, 2000);
   }
@@ -103,10 +103,10 @@ export class StatsPage {
   }
 
   revGeocode(inlatLng) {
-    var me = this;
+    var me       = this;
     var geocoder = new google.maps.Geocoder;
     var location = "NO_ADDRESS";
-    var latLng = inlatLng;
+    var latLng   = inlatLng;
     geocoder.geocode({ 'location': latLng }, function (results, status) {
       if (status === 'OK') {
         if (results[0]) {
@@ -226,15 +226,16 @@ export class StatsPage {
   introducePage() {
 
     setTimeout(() => { $('#headerTextSection').removeClass('hide').velocity('transition.shrinkIn') });
-    setTimeout(() => { $('#addressSection').removeClass('hide').velocity('transition.flipYIn') }, 800);
+    setTimeout(() => { $('#extraInfoTextSection').removeClass('invisible').velocity('transition.flipBounceXIn', { duration: 2000 }) }, 500);
+    setTimeout(() => { $('#addressSection').removeClass('hide').velocity('transition.flipYIn'), { duration: 2000 } }, 800);
     setTimeout(() => { $('#ANIM_ratingstrip').removeClass('hide').addClass('animatestrip') }, 1300);
     setTimeout(() => {
 
-      $('#statsSection').removeClass('hide');
+      $('#statsSection').removeClass('invisible');
       $("ion-col").velocity('transition.flipXIn', { stagger: 400 });
-      this.progbar = this.stat.CreateStatsCounter(this.container, this.move);
-      this.funstatbar = this.stat.CreateGeneralCounter(this.funbar, 'line', '#27e833', 1400, this.move, this.move.stats.fun);
-      this.mehstatbar = this.stat.CreateGeneralCounter(this.mehbar, 'line', '#FBD200', 1600, this.move, this.move.stats.meh);
+      this.progbar     = this.stat.CreateStatsCounter(this.container, this.move);
+      this.funstatbar  = this.stat.CreateGeneralCounter(this.funbar, 'line', '#27e833', 1400, this.move, this.move.stats.fun);
+      this.mehstatbar  = this.stat.CreateGeneralCounter(this.mehbar, 'line', '#FBD200', 1600, this.move, this.move.stats.meh);
       this.deadstatbar = this.stat.CreateGeneralCounter(this.deadbar, 'line', '#f9152f', 1800, this.move, this.move.stats.dead);
     }, 1600);
     setTimeout(() => {

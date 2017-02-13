@@ -86,7 +86,7 @@ export class LocationTracker {
       stationaryRadius: 20,
       distanceFilter: 3,
       debug: true,
-      interval: 1000
+      interval: 10000
     };
 
     BackgroundGeolocation.configure((location) => {

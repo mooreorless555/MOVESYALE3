@@ -52,6 +52,7 @@ src: url("../assets/fonts/BebasNeue-Bold.ttf");
 @font-face {
 font-family: MoveHeader;
 src: url("../assets/fonts/DINPro-BlackItalic.otf");
+// src: url("../assets/fonts/DIN-Black.otf");
 }
 
 @font-face {
@@ -95,13 +96,6 @@ h1 {
 	font-family: 'MoveHeader' !important;
 }
 
-ion-scroll[direction=x] {
-  width: 100vw;
-}
-ion-scroll[direction=y] {
-  height: 100vh;
-}
-
 
 // App iOS Variables
 // --------------------------------------------------
@@ -129,6 +123,15 @@ $font-family-base: 'Oxygen', sans-serif !default;
 // then be future customized. This import comes last
 // so that the above variables are used and Ionic's
 // default are overridden.
+
+
+ion-scroll[direction=x] {
+  width: 100vw;
+}
+ion-scroll[direction=y] {
+  height: 300vh;
+}
+
 
 @import "ionic.theme.default";
 
