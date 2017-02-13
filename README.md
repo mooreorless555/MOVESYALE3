@@ -25,7 +25,7 @@ The app is supposed to be lightweight (we know you'll be out and about) and give
 <img src="/screenshots/info.png" width="300"><img src="/screenshots/info_02.png" width="300">
 <img src="/screenshots/make.png" width="300">
 
-Same Moves app, new repo! (For the THIRD TIME! OMG.) Chris (AKA me) and Sam diverged too much on their own without making commits, had an issue with FB authentication and therefore Chris used what was on the Git and manually fixed all merges as well as overhauled the code structure. Then Chris added a bunch of new additions to stabilize the login, home, and stats pages as well as new native plugins!
+Same Moves app, new repo! (For the THIRD TIME! OMG.) Chris (AKA me) and Sam diverged too much on our own without making commits, had an issue with FB authentication and therefore Chris used what was on the Git and manually fixed all merges as well as overhauled the code structure. Later, Chris added a bunch of new additions to stabilize the login, home, and stats pages as well as new native plugins!
 
 If you're collabing with us and want to get up and running, make sure you've already installed cordova and ionic.
 
