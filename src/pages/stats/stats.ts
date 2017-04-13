@@ -30,6 +30,8 @@ export class StatsPage {
   lookup     = {};
 
   address    = "Retrieving address...";
+ dataStreamInfo = "Fetching data...";
+  dot = ".";
 
   id         : any;
   move       : any;
@@ -43,8 +45,10 @@ export class StatsPage {
   alcStatus  = "No.";
   numppl     =   0;
 
+
   ngAfterViewInit() {
     this.revGeocode(this.move.LatLng);
+    this.animatedDot();
 
     setTimeout(() => {
       this.system.updateStatsBars(this.move, this.progbar, this.funstatbar, this.mehstatbar, this.deadstatbar);
@@ -60,17 +64,20 @@ export class StatsPage {
       var id = this.move._id;
       this.movesService.getMoves_old()
         .subscribe((data) => {
-          this.moves = data;
-          this.moves.sort(this.system.sortDescending);
-          this.system.moves = this.moves;
-          console.log(this.moves);
+          if (!(this.moves == data)) {
+            this.moves = data;
+            this.moves.sort(this.system.sortDescending);
+            this.system.moves = this.moves;
+            console.log(this.moves);
+          } else {
+            console.log('No change in move.');
+          }
         },
         (err) => {
           console.log(err);
         },
         () => {
           console.log('Got Moves');
-          var me = this;
           for (var i = 0; i < this.moves.length; i++) {
             if (this.moves[i]._id == id) {
               this.move = this.moves[i];
@@ -122,6 +129,15 @@ export class StatsPage {
         location = 'GEOCODER_ERROR';
       }
     });
+  }
+
+  animatedDot() {
+    setInterval(() => {
+      this.dataStreamInfo = "Watching data stream from " + this.move.info.name;
+      setTimeout(() => this.dataStreamInfo += ".", 1000);
+      setTimeout(() => this.dataStreamInfo += ".", 2000);
+      setTimeout(() => this.dataStreamInfo += ".", 3000); 
+    }, 5000);
   }
   // incStat(move, stat) {
   //   this.system.showNotification('You voted: ' + stat.toUpperCase(), 1000);
@@ -226,7 +242,7 @@ export class StatsPage {
   introducePage() {
 
     setTimeout(() => { $('#headerTextSection').removeClass('hide').velocity('transition.shrinkIn') });
-    setTimeout(() => { $('#extraInfoTextSection').removeClass('invisible').velocity('transition.flipBounceXIn', { duration: 2000 }) }, 500);
+    setTimeout(() => { $('#extraInfoTextSection').removeClass('invisible').velocity('transition.flipXIn', 500)}, 500);
     setTimeout(() => { $('#addressSection').removeClass('hide').velocity('transition.flipYIn'), { duration: 2000 } }, 800);
     setTimeout(() => { $('#ANIM_ratingstrip').removeClass('hide').addClass('animatestrip') }, 1300);
     setTimeout(() => {

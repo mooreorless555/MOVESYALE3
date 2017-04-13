@@ -30,6 +30,8 @@ $colors: (
   dark:       #222,
   navbar:	  #886FE8,
   tabbar:	  #886aea,
+  // navbar: #9932CC,
+  // tabbar: #9932CC,
   facebook:   #3B5998
 );
 
@@ -74,6 +76,22 @@ src: url("../assets/fonts/Lobster-Regular.ttf");
   font-family: TruSemiFont;
   src: url("../assets/fonts/gibson-semibold.otf");
 }
+
+@font-face {
+  font-family: TruSemiFont2;
+  src: url("../assets/fonts/SourceSansPro-Semibold.ttf");
+}
+
+@font-face {
+  font-family: NotoSans;
+  src: url("../assets/fonts/NotoSansThaiUI-Bold.ttf");
+}
+
+@font-face {
+  font-family: TruRoboto;
+  src: url("../assets/fonts/RobotoCondensed-Regular.ttf");
+}
+
 
 
 body, span, button, h2, h3, h5, h6 {

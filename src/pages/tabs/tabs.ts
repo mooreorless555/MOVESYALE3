@@ -1,4 +1,5 @@
 import { Component } 	from '@angular/core';
+import { NavController } from 'ionic-angular';
 
 import { HomePage } 	from '../home/home';
 import { MapPage } 		from '../map/map';
@@ -16,7 +17,12 @@ export class TabsPage {
   tab3Root: any = MakePage;
   tab4Root: any = ProfilePage;
 
-  constructor() {
+  constructor(public navCtrl: NavController) {
 
+  }
+  
+  goToMake() {
+    console.log('Make!');
+    this.navCtrl.push(MakePage);
   }
 }

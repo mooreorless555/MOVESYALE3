@@ -9,7 +9,7 @@ import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { MovesService } from '../services/MovesService';
 import { StatsProvider } from '../../providers/stats-provider';
-import { LoginProvider } from '../../providers/login-provider';
+// import { LoginProvider } from '../../providers/login-provider';
 import swal from 'sweetalert2';
 
 declare var toastr: any;
@@ -143,22 +143,22 @@ export class System {
     }
     this.movesService.updateMove(move);
     this.showNotification(msg + ' You voted: ' + stat.toUpperCase(), 1000, 'success');
-    setTimeout(() => this.showNotification("Thanks for your feedback! You'll be able to vote for this move again in an hour.", 3300, 'success'), 1500);
+    setTimeout(() => this.showNotification("Thanks for your feedback! You'll be able to vote for " + move.info.name + " again in an hour.", 3300, 'success'), 1500);
   }
 
 
-  welcomeUser(name) {
-    swal({
-      title: 'All signed up!',
-      type: 'success',
-      text: 'Welcome aboard, ' + name + '!',
-      showCloseButton: false,
-      showConfirmButton: true,
-      confirmButtonText: 'Sweet',
-      confirmButtonColor: '#886FE8',
-      allowOutsideClick: false
-    });
-  }
+  // welcomeUser(name) {
+  //   swal({
+  //     title: 'All signed up!',
+  //     type: 'success',
+  //     text: 'Welcome aboard, ' + name + '!',
+  //     showCloseButton: false,
+  //     showConfirmButton: true,
+  //     confirmButtonText: 'Sweet',
+  //     confirmButtonColor: '#886FE8',
+  //     allowOutsideClick: false
+  //   });
+  // }
 
   updateStatsBars(move, progbar, funstatbar, mehstatbar, deadstatbar) {
 
@@ -195,10 +195,9 @@ export class System {
   }
 
   getFeedbackScreen(move) {
-    var msgs = ['Hang on!', 'Hold up!', 'Wait a minute!', 'Hey!'];
-    var msg = msgs[Math.floor(Math.random() * msgs.length)];
+    var msg = 'Rate';
     var me = this;
-    var ratingBtns = "You're at <b>" + move.info.name + "</b> right now. How is it?<br><br>" +
+    var ratingBtns = "How is it for you?<br><span style='font-size: 1.4rem; line-height: 0.2em'>Your feedback will be anonymously added to this move's data feed (and everyone will appreciate it.)</span><br><br>" +
       "<button id='funBtn' class='button_sliding_bg fun-color lit'>fun</button>" +
       "<button id='mehBtn' class='button_sliding_bg meh-color meh'>meh</button>" +
       "<button id='deadBtn' class='button_sliding_bg dead-color dead'>dead</button>";
@@ -209,21 +208,16 @@ export class System {
       showConfirmButton: false,
       allowOutsideClick: false
     }).then(function () {
-      swal(
-        'Deleted!',
-        'Your imaginary file has been deleted.',
-        'success'
-      )
+      console.log('Okay..');
     }, function (dismiss) {
       // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer' 
       if (dismiss === 'cancel') {
-        swal(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
+        swal.close();
       }
     })
+
+    
+
 
     $('#funBtn').on('click', function (e) {
       me.incStat(move, 'fun');
@@ -239,6 +233,44 @@ export class System {
     });
   }
 
+
+  getHoldOnScreen(move) {
+    var msgs = ['Hang on!', 'Hold up!', 'Wait a minute!', 'Hey!'];
+    var msg = msgs[Math.floor(Math.random() * msgs.length)];
+    var me = this;
+    var ratingBtns = "You're at <b>" + move.info.name + "</b> right now. How is it?<br><br>" +
+      "<button id='funBtn' class='button_sliding_bg fun-color lit'>fun</button>" +
+      "<button id='mehBtn' class='button_sliding_bg meh-color meh'>meh</button>" +
+      "<button id='deadBtn' class='button_sliding_bg dead-color dead'>dead</button>";
+    swal({
+      title: msg,
+      html: ratingBtns,
+      showCloseButton: true,
+      showConfirmButton: false,
+      allowOutsideClick: false
+    }).then(function () {
+      console.log('Okay..');
+    }, function (dismiss) {
+      // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer' 
+      if (dismiss === 'cancel') {
+        swal.close();
+      }
+    })
+
+
+    $('#funBtn').on('click', function (e) {
+      me.incStat(move, 'fun');
+      swal.close();
+    });
+    $('#mehBtn').on('click', function (e) {
+      me.incStat(move, 'meh');
+      swal.close();
+    });
+    $('#deadBtn').on('click', function (e) {
+      me.incStat(move, 'dead');
+      swal.close();
+    });
+  }
 
   // listMoves() {
   //   this.movesService.getMoves().then((data) => {

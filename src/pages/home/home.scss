@@ -19,8 +19,13 @@ page-home {
 	left: 60px;
 }
 
+.date-time {
+	font-family: 'TruRoboto';
+}
+
 .homebg {
-	background-image: url("../assets/img/MOVES_homebg.png");
+	// background-image: url("../assets/img/MOVES_homebg.png");
+	background-color: #222;
 	background-size: cover;
 }
 	.animIn.ng-enter {
@@ -34,19 +39,30 @@ page-home {
 }
 
 .fun-border {
-    border-bottom: 8px solid #27e833 !important;
+    border: 0px solid #27e833 !important;
+    color: #27e833 !important;
 }
 
 .meh-border {
-    border-bottom: 8px solid #FBD200 !important;
+    border: 0px solid #FBD200 !important;
+    color: #FBD200 !important;
 }
 
 .dead-border {
-    border-bottom: 8px solid #f9152f !important;
+    border: 0px solid #f9152f !important;
+    color: #f9152f !important;
+}
+
+.ratingdot {
+	font-size: 0rem;
+	position: relative;
+	bottom: 5px;
+	padding-right: 3px;
 }
 
 .extra-info-text {
 	color: #886FE8;
+	// color: #dddddd;
 }
 
 .host-text {

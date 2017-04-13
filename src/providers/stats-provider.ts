@@ -25,7 +25,7 @@ export class StatsProvider {
       },
 
       from: { color: '#9932CC' },
-      to: { color: '#FFFFFF' },
+      to: { color: '#DCD6F4' },
 
       step: (state, bar) => {
         bar.path.setAttribute('stroke', state.color);

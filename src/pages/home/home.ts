@@ -33,6 +33,8 @@ export class HomePage {
   @ViewChildren('container') container: any;
   moves;
 
+  sMoveSummary = "Getting data...";
+
   /* Lists all the moves after the page has fully loaded. 
   This is to allow @ViewChildren to work properly. */
   ngAfterViewInit() {
@@ -79,6 +81,7 @@ export class HomePage {
           } catch (err) {
             this.system.showNotification('Fetching...', 500, 'info');
           }
+      this.sMoveSummary = this.moveSummary();
         }, 2000);
       }
 
@@ -134,6 +137,20 @@ export class HomePage {
     this.navCtrl.push(MapPage, {
       moves: this.moves
     });
+  }
+
+  moveSummary() {
+    let nPeople = 0;
+    let nMoves = 0;
+    let nRatings = 0;
+    for (var i = 0; i < this.moves.length; i++) {
+      nRatings += this.moves[i].stats.fun + this.moves[i].stats.meh + this.moves[i].stats.dead;
+      nMoves = i+1;
+      nPeople += this.moves[i].stats.people;
+    }
+
+    let sSummary = nPeople + " PEOPLE at " + nMoves + " MOVES with a total of " + nRatings + " RATINGS.";
+    return sSummary;
   }
 
 
@@ -193,6 +210,7 @@ export class HomePage {
           refresher.complete();
           this.moves = undefined;
           this.system.checked = 1;
+          this.sMoveSummary = "Data unavailable.";
         },
         () => {
           console.log('Got Moves');
@@ -218,6 +236,7 @@ export class HomePage {
           refresher.complete();
           this.moves = undefined;
           this.system.checked = 1;
+          this.sMoveSummary = "Data unavailable.";
         })
     }
   }

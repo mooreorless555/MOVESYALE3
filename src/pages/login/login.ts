@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Facebook, NativeStorage } from 'ionic-native';
+import { Facebook } from 'ionic-native';
 
 import { ToastController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
@@ -14,9 +14,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { TabsPage } from '../tabs/tabs';
-import { HomePage } from '../home/home';
-
-import swal from 'swal';
+// import { HomePage } from '../home/home';
 
 declare var $: any;
 declare var velocity: any;

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
-import { StatusBar, Splashscreen, NativeStorage } from 'ionic-native';
+import { StatusBar, NativeStorage } from 'ionic-native';
 
 // import { MovesService } from '../pages/services/MovesService';
 import { LoginProvider } from '../providers/login-provider';
@@ -9,7 +9,6 @@ import { LoginProvider } from '../providers/login-provider';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 // import { HomePage } from '../pages/home/home';
-import { System } from '../pages/functions/functions';
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`,

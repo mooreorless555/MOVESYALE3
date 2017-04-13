@@ -20,8 +20,12 @@
   </ion-refresher>
 
   <div class="centertext">
-    <h4 class="mediumtext">{{ this.system.currentday }}</h4>
-    <h4>{{ this.system.currentdate }}</h4>
+    <h4 class="mediumtext date-time">{{ this.system.currentday }}</h4>
+    <h4 class="date-time">{{ this.system.currentdate }}</h4>
+    <div class="infoborder">
+      <p class='robototext'><b>RIGHT NOW</b></p>
+      <p class='robototext'>{{sMoveSummary}}</p>
+    </div>
     <!--<h4 class="mediumtext">Saturday night</h4>
     <h4>February 11th, 2017</h4>-->
     <!--   <h4 class="lessmargin">It's a</h4>
@@ -49,15 +53,15 @@
     <!--<ion-scroll direction='y' style="height: 100% !important;">-->
     <ion-list>
       <div id="indivMove">
-      <ion-item id='oneMove' [ngClass]="{ 'fun-border': totalRatings(move) == 1, 'meh-border': totalRatings(move) == 2, 'dead-border': totalRatings(move) == 3 }" class="moveslist" no-lines *ngFor="let move of moves" (click)="checkStats(move)" (press)="system.moveOptionsScreen(move)">
-        <ion-icon item-right>
-          <div id="container" class="container" #container></div>
+        <ion-item id='oneMove' class="moveslist" no-lines *ngFor="let move of moves" (click)="checkStats(move)" (press)="system.moveOptionsScreen(move)">
+          <ion-icon item-right>
+            <div id="container" class="container" #container></div>
 
-        </ion-icon>
-        <span><h1 id="moveName" class='cutoff'>{{move.info.name}}</h1></span>
-        <p id="extraInfo" class="extra-info-text item-description">{{move.info.extraInfo}}</p>
-        <p class="host-text"><i>Hosted by FB_USER_ID</i></p>
-      </ion-item>
+          </ion-icon>
+          <span><ion-icon name="arrow-dropright-circle" class="ratingdot" [ngClass]="{ 'fun-border': totalRatings(move) == 1, 'meh-border': totalRatings(move) == 2, 'dead-border': totalRatings(move) == 3 }"></ion-icon><h1 id="moveName" class='cutoff' style="display: inline">{{move.info.name}}</h1></span>
+          <p id="extraInfo" class="extra-info-text item-description">{{move.info.extraInfo}}</p>
+          <p class="host-text"><i>Hosted by FB_USER_ID</i></p>
+        </ion-item>
       </div>
     </ion-list>
     <!--</ion-scroll>-->
@@ -84,34 +88,11 @@
       <p class="item-description animated fadeInLeft">Free cookies in SSS!</p>
     </ion-item>
   </ion-list> -->
-    
-    <div *ngIf="moves" class='invisible'>
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-    viewBox="0 0 568.5 73.5" enable-background="new 0 0 568.5 73.5" xml:space="preserve">
-    <line class="path" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" x2="0" y2="36.2" x1="598.5" y1="36.2"
-    />
-    <g>
-      <path class="path" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" d="M304.3,18c-3.5,0.2-5.1,1.3-6.9,4.3l-10.2,16.9v12
-    c1.3,2.9,4.1,3.2,7,3.3v1.4h-19.7v-1.4c2.8-0.1,6.2-0.6,7.2-2.5V39.6L271,22.2c-1.8-2.9-3.5-4-6.9-4.2v-1.4h17V18
-    c-3.3,0.2-4.3,0.9-5.2,1.6l9.8,16.5l9.6-16.4c-1-0.7-1.9-1.5-5.2-1.7v-1.4h14.1V18z" />
-    </g>
-    </svg>
-    <!-- SVG DESIGN END -->
-    <br>
-    <br>
-    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-    viewBox="0 0 568.5 73.5" enable-background="new 0 0 568.5 73.5" xml:space="preserve">
-    <line class="path" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" x1="0" y1="36.2" x2="598.5" y2="36.2"
-    />
-    <g>
-      <path class="path" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" d="M304.3,18c-3.5,0.2-5.1,1.3-6.9,4.3l-10.2,16.9v12
-    c1.3,2.9,4.1,3.2,7,3.3v1.4h-19.7v-1.4c2.8-0.1,6.2-0.6,7.2-2.5V39.6L271,22.2c-1.8-2.9-3.5-4-6.9-4.2v-1.4h17V18
-    c-3.3,0.2-4.3,0.9-5.2,1.6l9.8,16.5l9.6-16.4c-1-0.7-1.9-1.5-5.2-1.7v-1.4h14.1V18z" />
-    </g>
-    </svg>
-    <!-- SVG DESIGN END -->
-    <br>
-    <br></div>
+
+    <div *ngIf="moves" class='space invisible'>
+      <div class="space"></div>
+      <div class="space"></div>
+      LOL</div>
     <div *ngIf="!(moves) || moves.length <= 0" class="nomoves centertext">
       <p class="circle1"></p>
       <p class="circle1 slower"></p>
