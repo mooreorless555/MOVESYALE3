@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-
-import { Facebook } from 'ionic-native';
+// import { Facebook } from '@ionic-native/facebook';
+// import firebase from 'firebase';
 
 import { ToastController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
@@ -33,6 +33,8 @@ export class LoginPage {
   user:any;
   profinfo:any;
 
+  userProfile: any = null;
+
   public firsttime = {
     email: "",
     confirmcode: ""
@@ -45,8 +47,25 @@ export class LoginPage {
   }
 
   constructor(public loginProvider: LoginProvider, public system: System, public globals: Globals, public http: Http, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
-    Facebook.browserInit(this.FB_APP_ID, "v2.8");
+    // Facebook.browserInit(this.FB_APP_ID, "v2.8");
   }
+
+//   facebookLogin(){
+//     this.facebook.login(['email']).then( (response) => {
+//         const facebookCredential = firebase.auth.FacebookAuthProvider
+//             .credential(response.authResponse.accessToken);
+
+//         firebase.auth().signInWithCredential(facebookCredential)
+//         .then((success) => {
+//             console.log("Firebase success: " + JSON.stringify(success));
+//             this.userProfile = success;
+//         })
+//         .catch((error) => {
+//             console.log("Firebase failure: " + JSON.stringify(error));
+//         });
+
+//     }).catch((error) => { console.log(error) });
+// }
 
   introducePage() {
     $('#loginLogo').velocity('transition.flipXIn', { duration: 3000 });
@@ -56,59 +75,59 @@ export class LoginPage {
     this.globals.debugflag = !(this.globals.debugflag);
   }
 
-  doLogin() {
-    if (this.globals.debugflag) {
-      var element = <HTMLInputElement>document.getElementById("loginBtn");
-      element.disabled = true;
-      // this.navCtrl.setRoot(TabsPage);
-      setTimeout(() => {
-        this.presentPrompt();
-        element.disabled = false;
-      }, 700);
-    } else {
-      var me = this;
-      var permissions = new Array();
+  // doLogin() {
+  //   if (this.globals.debugflag) {
+  //     var element = <HTMLInputElement>document.getElementById("loginBtn");
+  //     element.disabled = true;
+  //     // this.navCtrl.setRoot(TabsPage);
+  //     setTimeout(() => {
+  //       this.presentPrompt();
+  //       element.disabled = false;
+  //     }, 700);
+  //   } else {
+  //     var me = this;
+  //     var permissions = new Array();
 
-      permissions = ["public_profile", "email"];
+  //     permissions = ["public_profile", "email"];
 
-      Facebook.login(permissions)
-        .then(function (res) {
+  //     Facebook.login(permissions)
+  //       .then(function (res) {
 
-          //let userId = res.authResponse.userID;
-          //let social_token = res.authResponse.accessToken;
-          let params = new Array();
+  //         //let userId = res.authResponse.userID;
+  //         //let social_token = res.authResponse.accessToken;
+  //         let params = new Array();
 
-          //alert(response.authResponse.accessToken);
-          return Promise.all([res, Facebook.api("/me?fields=name,email,first_name", params)]);
+  //         //alert(response.authResponse.accessToken);
+  //         return Promise.all([res, Facebook.api("/me?fields=name,email,first_name", params)]);
 
-        })
-        .then(function (results) {
-          alert("Sign in results! " + JSON.stringify(results[1], null, 4));
-          //alert(results[0]);
-          //alert("Results: " + results[1] + " name: " + results[1].name);
-          //alert(results[1].name);
-          // alert("Sign in profinfo " + JSON.stringify(this.profinfo, null, 4));
-          return Promise.all([results, me.loginProvider.doApiLogin(results)])
+  //       })
+  //       .then(function (results) {
+  //         alert("Sign in results! " + JSON.stringify(results[1], null, 4));
+  //         //alert(results[0]);
+  //         //alert("Results: " + results[1] + " name: " + results[1].name);
+  //         //alert(results[1].name);
+  //         // alert("Sign in profinfo " + JSON.stringify(this.profinfo, null, 4));
+  //         return Promise.all([results, me.loginProvider.doApiLogin(results)])
 
 
-        })
-        .then(function (results) {
-          /*
-          NativeStorage.setItem('user', {
-            social_token: results[0][0],
-            token: results[1]
-          })
-          */
-          // this.presentWelcome();
-          // this.system.welcomeUser(this.results[0][1].first_name);
-          me.navCtrl.setRoot(TabsPage);
-        })
-        .catch(function (error) {
-          alert("Error in doLogin(): " + error);
-        });
-    }
+  //       })
+  //       .then(function (results) {
+  //         /*
+  //         NativeStorage.setItem('user', {
+  //           social_token: results[0][0],
+  //           token: results[1]
+  //         })
+  //         */
+  //         // this.presentWelcome();
+  //         // this.system.welcomeUser(this.results[0][1].first_name);
+  //         me.navCtrl.setRoot(TabsPage);
+  //       })
+  //       .catch(function (error) {
+  //         alert("Error in doLogin(): " + error);
+  //       });
+  //   }
 
-  }
+  // }
 
   presentWelcome() {
     let welcome = this.toastCtrl.create({

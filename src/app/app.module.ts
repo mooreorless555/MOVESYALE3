@@ -8,10 +8,11 @@ import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ProfilePage } from '../pages/profile/profile';
 import { MapPage } from '../pages/map/map';
-
+import { Facebook } from '@ionic-native/facebook';
 import { LocationTracker } from '../providers/location-tracker';
 import { LoginProvider } from '../providers/login-provider';
 import { MovesService } from '../pages/services/MovesService';
+import 'rxjs/add/operator/map';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,6 @@ import { MovesService } from '../pages/services/MovesService';
     TabsPage,
     MapPage
   ],
-  providers: [LocationTracker, LoginProvider, MovesService]
+  providers: [LocationTracker, LoginProvider, MovesService, Facebook]
 })
 export class AppModule {}

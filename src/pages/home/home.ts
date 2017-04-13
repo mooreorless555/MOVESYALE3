@@ -45,7 +45,7 @@ export class HomePage {
       this.listMoves();
     }
     this.start();
-
+    this.introducePage();
   }
 
   /* Upon any change, will update the progress bars. */
@@ -111,7 +111,7 @@ export class HomePage {
   // }
 
   constructor(public navCtrl: NavController, public system: System, public loginProvider: LoginProvider, public locationTracker: LocationTracker, public globals: Globals, public stat: StatsProvider, public movesService: MovesService) {
-  }
+}
 
   /* GPS Tracking */
   start() {
@@ -262,6 +262,11 @@ export class HomePage {
 
   animateMoves() {
     $("*[id*=indivMove]").velocity('transition.slideUpIn', { stagger: 200 });
+  }
+
+  introducePage() {
+    $("*[id*=day]").velocity('transition.slideUpIn', { duration: 800 });
+    $("*[id*=date]").velocity('transition.slideUpIn', { duration: 900 });
   }
 
   clearIntervals() {
