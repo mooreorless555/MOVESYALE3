@@ -1,5 +1,7 @@
-body.swal2-in {
-  height: 999999999px;
+html.swal2-shown {
+  overflow-y: hidden; }
+
+body.swal2-shown {
   overflow-y: hidden; }
 
 body.swal2-iosfix {
@@ -19,39 +21,33 @@ body.swal2-iosfix {
   left: 0;
   bottom: 0;
   right: 0;
-  padding: 0px;
+  padding: 10px;
   background-color: transparent;
   z-index: 1060; }
-  .swal2-container:not(.swal2-in) {
-    pointer-events: none; }
   .swal2-container.swal2-fade {
     -webkit-transition: background-color .1s;
     transition: background-color .1s; }
-  .swal2-container.swal2-in {
-    background-color: rgba(0, 0, 0, 0.7);
-  filter: blur(10px);
-   filter: url(#blur);
-     }
+  .swal2-container.swal2-shown {
+    background-color: rgba(0, 0, 0, 0.4); }
 
 .swal2-modal {
-  background-color: #222222 !important;
-  font-family: 'TruLightFont';
-  border-radius: 100px;
+  background-color: #222 !important;
+  /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+  font-family: 'TruSemiFont';
+  border-radius: 10px;
   box-sizing: border-box;
   text-align: center;
-  margin: 20px;
+  margin: 10px;
   overflow-x: hidden;
   overflow-y: auto;
-  display: none;  
+  display: none;
   position: relative; }
   .swal2-modal:focus {
     outline: none; }
   .swal2-modal.swal2-loading {
     overflow-y: hidden; }
   .swal2-modal .swal2-title {
-    font-family: 'TruLightFont' !important;
-/*    color: #595959;*/
-    color: #eee;
+    color: #fff;
     font-size: 30px;
     text-align: center;
     font-weight: 600;
@@ -66,7 +62,7 @@ body.swal2-iosfix {
     border: 0; }
   .swal2-modal .swal2-styled {
     border: 0;
-    border-radius: 20px;
+    border-radius: 3px;
     box-shadow: none;
     color: #fff;
     cursor: pointer;
@@ -77,6 +73,8 @@ body.swal2-iosfix {
     .swal2-modal .swal2-styled:not(.swal2-loading)[disabled] {
       opacity: .4;
       cursor: no-drop; }
+    .swal2-modal .swal2-styled .swal2-styled + .swal2-styled {
+      margin-top: 15px; }
     .swal2-modal .swal2-styled.swal2-loading {
       box-sizing: border-box;
       border: 4px solid transparent;
@@ -114,7 +112,7 @@ body.swal2-iosfix {
   .swal2-modal .swal2-close {
     font-size: 36px;
     line-height: 36px;
-    font-family: 'TruLightFont';
+    font-family: serif;
     position: absolute;
     top: 5px;
     right: 13px;
@@ -134,14 +132,14 @@ body.swal2-iosfix {
   .swal2-modal .swal2-content {
     font-size: 18px;
     text-align: center;
-    font-weight: 300;
+    font-weight: 0;
     position: relative;
     float: none;
     margin: 0;
     padding: 0;
     line-height: normal;
-/*    color: #545454;*/
-      color: #eee; }
+    color: #fff;
+    font-family: 'TruSemiFont2'; }
   .swal2-modal .swal2-input,
   .swal2-modal .swal2-file,
   .swal2-modal .swal2-textarea,
@@ -325,21 +323,21 @@ body.swal2-iosfix {
                 transform: rotate(-45deg);
         right: 16px; }
   .swal2-icon.swal2-warning {
-    font-family: 'TruLightFont';
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #f8bb86;
     border-color: #facea8;
     font-size: 60px;
     line-height: 80px;
     text-align: center; }
   .swal2-icon.swal2-info {
-    font-family: 'TruLightFont';
+    font-family: 'Open Sans', sans-serif;
     color: #3fc3ee;
     border-color: #9de0f6;
     font-size: 60px;
     line-height: 80px;
     text-align: center; }
   .swal2-icon.swal2-question {
-    font-family: 'TruLightFont';
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #87adbd;
     border-color: #c9dae1;
     font-size: 60px;
@@ -496,8 +494,8 @@ body.swal2-iosfix {
     opacity: 0; } }
 
 .swal2-show {
-  -webkit-animation: showSweetAlert 0.6s;
-          animation: showSweetAlert 0.6s; }
+  -webkit-animation: showSweetAlert 0.3s;
+          animation: showSweetAlert 0.3s; }
   .swal2-show.swal2-noanimation {
     -webkit-animation: none;
             animation: none; }

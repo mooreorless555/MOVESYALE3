@@ -8,7 +8,7 @@
 .toast-message a,
 .toast-message label {
   color: #ffffff;
-  font-size: 80px !important;
+  font-size: 3rem !important;
 }
 .toast-message a:hover {
   color: #cccccc;
@@ -87,7 +87,7 @@ button.toast-close-button {
   /*position: fixed;*/
   z-index: 999999;
   pointer-events: none;
-  font-family: 'TruLightFont';
+  font-family: 'TruRoboto';
   font-size: 200px;
   position: absolute;
   bottom: 60px;

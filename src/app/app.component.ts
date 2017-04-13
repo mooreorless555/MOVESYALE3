@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
+import firebase from 'firebase';
 import { Platform, Nav } from 'ionic-angular';
-import { StatusBar, Splashscreen, NativeStorage } from 'ionic-native';
+import { StatusBar, NativeStorage } from 'ionic-native';
 
 // import { MovesService } from '../pages/services/MovesService';
 import { LoginProvider } from '../providers/login-provider';
@@ -9,7 +10,6 @@ import { LoginProvider } from '../providers/login-provider';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 // import { HomePage } from '../pages/home/home';
-import { System } from '../pages/functions/functions';
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`,
@@ -23,36 +23,46 @@ export class MyApp {
 
   constructor(public platform: Platform, public loginProvider: LoginProvider) {
     var me = this;
+    firebase.initializeApp({
+      apiKey: "AIzaSyANmdr_oNcjak8eVKUI7esAoyk4mtWKD-M",
+      authDomain: "moves-ad1b4.firebaseapp.com",
+      databaseURL: "https://moves-ad1b4.firebaseio.com",
+      projectId: "moves-ad1b4",
+      storageBucket: "moves-ad1b4.appspot.com",
+      messagingSenderId: "583373480587"
+    });
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.backgroundColorByHexString('#886FE8');
-
-      // Check if the user is already logged in
-      NativeStorage.getItem('data')
-        .then(function (data) {
-          //alert("Got tokens" + data);
-          // user was previously logged in
-          // alert("In initial, User token: " + data.token);
-          me.loginProvider.setToken(data.token);
-          return Promise.all([data, me.loginProvider.getProfile()]);
-        })
-        .then(function (results) {
-
-          me.loginProvider.setUser(results[1]);
-
-          me.nav.setRoot(TabsPage);
+      
 
 
-        })
-        .catch(function (err) {
+      // // Check if the user is already logged in POSSIBLY OBSOLETE
+      // NativeStorage.getItem('data')
+      //   .then(function (data) {
+      //     //alert("Got tokens" + data);
+      //     // user was previously logged in
+      //     // alert("In initial, User token: " + data.token);
+      //     me.loginProvider.setToken(data.token);
+      //     return Promise.all([data, me.loginProvider.getProfile()]);
+      //   })
+      //   .then(function (results) {
 
-          // alert("Couldn't get data");
-          //alert('No user found');
-          // user not previously logged in
-          me.nav.setRoot(LoginPage);
+      //     me.loginProvider.setUser(results[1]);
 
-        });
+      //     me.nav.setRoot(TabsPage);
+
+
+      //   })
+      //   .catch(function (err) {
+
+      //     // alert("Couldn't get data");
+      //     //alert('No user found');
+      //     // user not previously logged in
+      //     me.nav.setRoot(LoginPage);
+
+      //   });
 
     });
   }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
-import { Facebook, NativeStorage } from 'ionic-native';
+import { Facebook } from 'ionic-native';
+import firebase from 'firebase';
 
 import { ToastController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
@@ -14,9 +15,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { TabsPage } from '../tabs/tabs';
-import { HomePage } from '../home/home';
-
-import swal from 'swal';
+// import { HomePage } from '../home/home';
 
 declare var $: any;
 declare var velocity: any;
@@ -32,8 +31,8 @@ export class LoginPage {
   FB_APP_ID: number = 1726230761032513;
 
   public info = "By Yalies. For Yalies.";
-  user:any;
-  profinfo:any;
+  // user:any;
+  userProfile: any = null;
 
   public firsttime = {
     email: "",
@@ -46,8 +45,8 @@ export class LoginPage {
     this.introducePage();
   }
 
-  constructor(public loginProvider: LoginProvider, public system: System, public globals: Globals, public http: Http, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
-    Facebook.browserInit(this.FB_APP_ID, "v2.8");
+  constructor(private facebook: Facebook, public loginProvider: LoginProvider, public system: System, public globals: Globals, public http: Http, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
+    // Facebook.browserInit(this.FB_APP_ID, "v2.8");
   }
 
   introducePage() {
@@ -56,6 +55,23 @@ export class LoginPage {
 
   toggleDebugFlag() {
     this.globals.debugflag = !(this.globals.debugflag);
+  }
+
+  facebookLogin(): void {
+    this.facebook.login(['email']).then( (response) => {
+      const facebookCredential = firebase.auth.FacebookAuthProvider
+        .credential(response.authResponse.accessToken);
+
+      firebase.auth().signInWithCredential(facebookCredential)
+        .then((success) => {
+          console.log("Firebase success: " + JSON.stringify(success));
+          this.userProfile = success;
+        })
+        .catch((error) => {
+          console.log("Firebase failure: " + JSON.stringify(error));
+      });
+
+    }).catch((error) => { console.log(error) });
   }
 
   doLogin() {
@@ -114,7 +130,7 @@ export class LoginPage {
 
   presentWelcome() {
     let welcome = this.toastCtrl.create({
-      message: "Hey " + this.user + "!",
+      message: "Hey!",
       duration: 1000
     });
     welcome.present();

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { LoginProvider } from '../../providers/login-provider';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/observable';
 import 'rxjs/add/operator/map';
 
 var url = 'http://54.175.164.247:80/';
@@ -12,7 +12,7 @@ export class MovesService {
   moves: Array<any>;
 
   static get parameters() {
-    return [[Http]];
+    return [[Http, Observable]];
   }
 
   constructor(public http: Http, public loginProvider: LoginProvider) {

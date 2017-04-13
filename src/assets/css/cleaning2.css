@@ -8,18 +8,33 @@
 }
 
 .address {
-  background-color: #752aa9;
+  background-color: #775fcc;
   color: #fff;
-  border-radius: 30px;
+  border-radius: 10px;
   padding: 10px;
   position: relative;
-  bottom: 50px;
-  margin-bottom: -50px;
+  bottom: 90px;
+  margin-bottom: -90px;
+}
+
+.robototext {
+  font-family: 'TruRoboto' !important;
+  font-weight: 400;
 }
 
 .purple-text {
 
 }
+
+	.infoborder {
+    /*background-color: #775fcc;*/
+    border: solid 2px #775fcc;
+    padding: 2px;
+    line-height: 2px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+	
+	}
 
 .somepadding {
   padding-left: 20px;

@@ -54,7 +54,6 @@ export class LocationTracker {
   }
 
   revGeocode(address, inlatLng) {
-    var me = this;
     address = "LOCATION LOL";
     var geocoder = new google.maps.Geocoder;
     var location = "NO_ADDRESS";

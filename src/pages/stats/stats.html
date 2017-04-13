@@ -9,10 +9,10 @@
 	<!--<div id="headerSection_red" class="redbg hide"></div>	-->
 	<div id="headerSection"></div>
 	<ion-grid>
-		<ion-row class="headerback">
+		<ion-row class="headerback" center>
 			<div class='centerthis'>
-				<div id="headerTextSection" class="centerthis hide">
-					<h1 class="largetext">{{move.info.name}}</h1>
+				<div id="headerTextSection" class="headerback centerthis hide">
+					<h1 class="title-text">{{move.info.name}}</h1>
 					<p item-description id="extraInfoTextSection" class='move-desc purple-text invisible'>{{move.info.extraInfo}}</p>
 				</div>
 			</div>
@@ -20,13 +20,14 @@
 		<ion-row class="centerme centertext">
 			<div>
 				<div id="addressSection" class="address hide">
-					<h3 class="semifont">{{move.info.location}}</h3>
+					<h3 class="robototext">{{move.info.location}}</h3>
 					<p item-description class>{{address}}</p>
 				</div>
 			</div>
 		</ion-row>
-		<!--<ion-scroll direction='y' style='height: 450px !important;'>-->
+			<div class="tinyspace"></div>
 			<div id="statsSection" class="centertext somepadding invisible">
+				<div class='centertext robototext'>{{ dataStreamInfo }}</div>
 				<ion-row>
 					<ion-col width-50>
 						<h4>people</h4>

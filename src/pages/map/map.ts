@@ -460,7 +460,7 @@ export class MapPage {
     marker.addListener('click', function () {
       //this.map.setCenter(marker.getPosition());
       //this.checkStats(move);
-      let lmove = move;
+      // let lmove = move;
 
       //alert("In listener, move: " + move.info.name);
       this.navCtrl.push(StatsPage);

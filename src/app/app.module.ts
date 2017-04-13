@@ -11,7 +11,6 @@ import { MapPage } from '../pages/map/map';
 
 import { LocationTracker } from '../providers/location-tracker';
 import { LoginProvider } from '../providers/login-provider';
-import { System } from '../pages/functions/functions';
 import { MovesService } from '../pages/services/MovesService';
 
 @NgModule({
