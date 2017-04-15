@@ -23,7 +23,7 @@
     <h4 id ="day" class="mediumtext date-time">{{ this.system.currentday }}</h4>
     <h4 id ="date" class="date-time">{{ this.system.currentdate }}</h4>
     <div class="infoborder">
-      <p class='robototext'><b>RIGHT NOW</b></p>
+      <p class='robototext'><b>RIGHT NOW {{ thing }}</b></p>
       <p class='robototext'>{{sMoveSummary}}</p>
     </div>
     <!--<h4 class="mediumtext">Saturday night</h4>
@@ -53,14 +53,14 @@
     <!--<ion-scroll direction='y' style="height: 100% !important;">-->
     <ion-list>
       <div id="indivMove">
-        <ion-item id='oneMove' class="moveslist" no-lines *ngFor="let move of moves" (click)="checkStats(move)" (press)="system.moveOptionsScreen(move)">
+        <ion-item id='oneMove' class="moveslist" no-lines *ngFor="let move of mp.moves" (click)="checkStats(move)" (press)="system.moveOptionsScreen(move)">
           <ion-icon item-right>
             <div id="container" class="container" #container></div>
 
           </ion-icon>
           <span><ion-icon name="arrow-dropright-circle" class="ratingdot" [ngClass]="{ 'fun-border': totalRatings(move) == 1, 'meh-border': totalRatings(move) == 2, 'dead-border': totalRatings(move) == 3 }"></ion-icon><h1 id="moveName" class='cutoff' style="display: inline">{{move.info.name}}</h1></span>
           <p id="extraInfo" class="extra-info-text item-description">{{move.info.extraInfo}}</p>
-          <p class="host-text"><i>Hosted by FB_USER_ID</i></p>
+          <p class="host-text"><i>Hosted by {{ move.info.hosts[0] }}</i></p>
         </ion-item>
       </div>
     </ion-list>
@@ -89,11 +89,9 @@
     </ion-item>
   </ion-list> -->
 
-    <div *ngIf="moves" class='space invisible'>
-      <div class="space"></div>
-      <div class="space"></div>
-      LOL</div>
-    <div *ngIf="!(moves) || moves.length <= 0" class="nomoves centertext">
+  <pre id="object"></pre>
+
+    <div *ngIf="!(mp.moves) || mp.moves.length <= 0" class="nomoves centertext">
       <p class="circle1"></p>
       <p class="circle1 slower"></p>
       <p class="circle1 slower2"></p>
@@ -102,5 +100,9 @@
       <p class="circle1 slower5"></p>
       <!--   <img src="assets/img/nomoves.svg"/> -->
     </div>
+    <div *ngIf="mp.moves" class='space invisible'>
+      <div class="space"></div>
+      <div class="space"></div>
+      </div>
 
 </ion-content>

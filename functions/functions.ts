@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+import { MovesService } from '../services/MovesService';
 import { StatsProvider } from '../../providers/stats-provider';
 // import { LoginProvider } from '../../providers/login-provider';
 import swal from 'sweetalert2';
@@ -29,7 +30,7 @@ export class System {
 
   public stat_updates = null;
 
-  constructor(public toastCtrl: ToastController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public stat: StatsProvider) {
+  constructor(public toastCtrl: ToastController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public stat: StatsProvider, private movesService: MovesService) {
 
   }
 
@@ -140,7 +141,7 @@ export class System {
       default:
         console.log('Mistake.');
     }
-/* TODO UPDATE MOVE HERE */
+    this.movesService.updateMove(move);
     this.showNotification(msg + ' You voted: ' + stat.toUpperCase(), 1000, 'success');
     setTimeout(() => this.showNotification("Thanks for your feedback! You'll be able to vote for " + move.info.name + " again in an hour.", 3300, 'success'), 1500);
   }
@@ -285,7 +286,11 @@ export class System {
 
 
   deleteMove(move) {
-      /* TODO DELETE MOVE */
+    this.movesService.deleteMove(move).then((result) => {
+      console.log("Deleted")
+    }, (err) => {
+      console.log(err);
+    });
 
 
     this.startLoading('Deleting move, standby...', 1000);
@@ -373,9 +378,7 @@ export class Globals {
   // public rooms = {
   //   landing.
   // }
-
-  public user: any;
-
+  
   constructor() {
   }
 

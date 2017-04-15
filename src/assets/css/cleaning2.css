@@ -378,6 +378,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b48ee2', end
     100% { opacity: 0; left: -100%; width: 200%;}
 }
 
+.profile-pic {
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+}
+
 /*@keyframes marquee {
   0% { margin-left: 0% }
   100% { margin-left: -400%}

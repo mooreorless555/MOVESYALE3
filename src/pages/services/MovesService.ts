@@ -27,7 +27,7 @@ export class MovesService {
 
   getMoves() {
 
-    var token = this.loginProvider.getToken();
+    var token = null;
     var headers = new Headers({ 'Authorization': token });
 
     return new Promise((resolve, reject) => {

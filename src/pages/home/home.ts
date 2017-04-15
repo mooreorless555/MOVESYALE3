@@ -1,5 +1,6 @@
 import { Component, ViewChildren } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import firebase from 'firebase';
 
 // import { NativeStorage } from 'ionic-native';
 
@@ -7,11 +8,10 @@ import { MakePage } from '../make/make';
 import { StatsPage } from '../stats/stats';
 import { ProfilePage } from '../profile/profile';
 import { MapPage } from '../map/map';
-
-import { MovesService } from '../services/MovesService';
 import { StatsProvider } from '../../providers/stats-provider';
-import { System, Globals } from '../functions/functions';
 import { LoginProvider } from '../../providers/login-provider';
+import { MovesProvider } from '../../providers/moves-provider';
+import { System, Globals } from '../functions/functions';
 import { LocationTracker } from '../../providers/location-tracker';
 
 declare var ProgressBar: any;
@@ -22,7 +22,7 @@ declare var marquee: any;
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [System, Globals, StatsProvider]
+  providers: [System, Globals, LoginProvider, StatsProvider, MovesProvider]
 })
 
 export class HomePage {
@@ -31,91 +31,34 @@ export class HomePage {
   /* Gathers all references to elements labeled 
   'container' for the progress bars (people counters) */
   @ViewChildren('container') container: any;
-  moves;
+  // public moves = [];
+  thing: any;
 
   sMoveSummary = "Getting data...";
 
   /* Lists all the moves after the page has fully loaded. 
   This is to allow @ViewChildren to work properly. */
   ngAfterViewInit() {
-    this.stat.ResetCounters();
-    if (this.globals.debugflag) {
-      this.listMoves_1();
-    } else {
-      this.listMoves();
-    }
+    let containers;
+      setTimeout(() => {
+        this.mp.trackChanges()}, 600);
+        setTimeout(() => containers = this.container.toArray(), 800);
+      setTimeout(() => {for (var i = 0; i < this.mp.moves.length; i++) {
+              this.stat.CreatePeopleCounter(containers[i]);
+            }
+      }, 1200);
+    this.listMoves();
     this.start();
     this.introducePage();
   }
 
-  /* Upon any change, will update the progress bars. */
-  ngAfterViewChecked() {
-
-    if (this.container.toArray().length > 0) {
-      if (this.system.checked == 0) {
-        if (this.stat.counters) {
-          if (this.stat.counters.length > this.moves.length) {
-            this.stat.ResetCounters();
-            this.system.checked = 0;
-          }
-        }
-
-        this.system.checked = 1;
-        let moves = this.moves;
-        setTimeout(() => {
-          let containers = this.container.toArray();
-          for (var i = 0; i < containers.length; i++) {
-            this.stat.CreatePeopleCounter(containers[i]);
-          }
-        }, 700);
-
-        console.log('Your counters are: ', this.stat.counters);
-
-        setTimeout(() => {
-          try {
-            for (var i = 0; i < this.moves.length; i++) {
-              let counters = this.stat.counters;
-              let perc = moves[i].stats.people / moves[i].info.capacity;
-              this.stat.UpdateCounter(counters[i], perc);
-            }
-          } catch (err) {
-            this.system.showNotification('Fetching...', 500, 'info');
-          }
-      this.sMoveSummary = this.moveSummary();
-        }, 2000);
-      }
-
-
-
-    }
-
-
-  }
-
-  // ngAfterViewChecked() {
-  //   console.log(this.container);
-  //   setTimeout(() => {
-  //         let containers = this.container.toArray();
-  //         if (this.stat.counters.length <= 0) {
-  //           for (var i = 0; i < containers.length; i++) {
-  //             this.stat.CreatePeopleCounter(containers[i]);
-  //           }
-  //         }
-
-  //         for (var i = 0; i < this.stat.counters.length; i++) {
-  //           let counters = this.stat.counters;
-  //           let perc = this.moves[i].stats.people / this.moves[i].info.capacity;
-  //           this.stat.UpdateCounter(counters[i], perc);
-  //         }
-  //   }, 5000);
-  // }
-
-  constructor(public navCtrl: NavController, public system: System, public loginProvider: LoginProvider, public locationTracker: LocationTracker, public globals: Globals, public stat: StatsProvider, public movesService: MovesService) {
+  constructor(public navCtrl: NavController, public system: System, public loginProvider: LoginProvider, public locationTracker: LocationTracker, public globals: Globals, public stat: StatsProvider, public mp: MovesProvider) {
 }
+
 
   /* GPS Tracking */
   start() {
-    this.system.showNotification("Tracking started.", 1000);
+    this.system.showNotification("Locating...", 400);
     this.locationTracker.startTracking();
   }
 
@@ -135,7 +78,7 @@ export class HomePage {
 
   goToMap() {
     this.navCtrl.push(MapPage, {
-      moves: this.moves
+      // moves: this.moves;
     });
   }
 
@@ -143,10 +86,10 @@ export class HomePage {
     let nPeople = 0;
     let nMoves = 0;
     let nRatings = 0;
-    for (var i = 0; i < this.moves.length; i++) {
-      nRatings += this.moves[i].stats.fun + this.moves[i].stats.meh + this.moves[i].stats.dead;
+    for (var i = 0; i < this.mp.moves.length; i++) {
+      nRatings += this.mp.moves[i].stats.fun + this.mp.moves[i].stats.meh + this.mp.moves[i].stats.dead;
       nMoves = i+1;
-      nPeople += this.moves[i].stats.people;
+      nPeople += this.mp.moves[i].stats.people;
     }
 
     let sSummary = nPeople + " PEOPLE at " + nMoves + " MOVES with a total of " + nRatings + " RATINGS.";
@@ -154,39 +97,8 @@ export class HomePage {
   }
 
 
-
-  listMoves_1() {
-    this.movesService.getMoves_old()
-      .subscribe((data) => {
-        this.moves = data;
-        this.moves.sort(this.system.sortDescending);
-        this.system.moves = this.moves;
-        console.log(this.moves);
-        // this.system.getFeedbackScreen(this.moves[0]);
-      },
-      (err) => {
-        console.log(err);
-      },
-      () => {
-        console.log('Got Moves');
-        this.animateMoves();
-      }
-      );
-    this.clearIntervals();
-  }
-
   listMoves() {
-    var me = this;
 
-    me.movesService.getMoves()
-      .then((data) => {
-        me.movesService.setMoves(data);
-        me.moves = data;
-        this.animateMoves();
-      }, (err) => {
-        alert("Couldn't get moves " + err);
-      })
-      this.clearIntervals();
   }
 
 
@@ -196,49 +108,50 @@ export class HomePage {
     this.clearIntervals();
     this.system.showNotification('Refreshing...', 500, 'loading');
     if (this.globals.debugflag) {
-      this.movesService.getMoves_old()
-        .subscribe((data) => {
-          this.moves = data;
-          this.moves.sort(this.system.sortDescending);
-          this.system.moves = this.moves;
-          console.log(this.moves);
-          // this.system.getFeedbackScreen(this.moves[0]);
-        },
-        (err) => {
-          console.log(err);
-          this.system.showNotification("Couldn't get moves: " + err, 5000, 'error');
-          refresher.complete();
-          this.moves = undefined;
-          this.system.checked = 1;
-          this.sMoveSummary = "Data unavailable.";
-        },
-        () => {
-          console.log('Got Moves');
-          this.system.showNotification('Done!', 1000, 'success');
-          $('#indivMove').velocity('transition.slideUpIn', { stagger: 800 });
-          refresher.complete();
-          this.system.checked = 0;
-        }
-        );
+      // this.movesService.getMoves_old()
+      //   .subscribe((data) => {
+      //     this.moves = data;
+      //     this.moves.sort(this.system.sortDescending);
+      //     this.system.moves = this.moves;
+      //     console.log(this.moves);
+      //     // this.system.getFeedbackScreen(this.moves[0]);
+      //   },
+      //   (err) => {
+      //     console.log(err);
+      //     this.system.showNotification("Couldn't get moves: " + err, 5000, 'error');
+      //     refresher.complete();
+      //     this.moves = undefined;
+      //     this.system.checked = 1;
+      //     this.sMoveSummary = "Data unavailable.";
+      //   },
+      //   () => {
+      //     console.log('Got Moves');
+      //     this.system.showNotification('Done!', 1000, 'success');
+      //     $('#indivMove').velocity('transition.slideUpIn', { stagger: 800 });
+      //     refresher.complete();
+      //     this.system.checked = 0;
+      //   }
+      //   );
     } else {
-      var me = this;
+      // var me = this;
 
-      me.movesService.getMoves()
-        .then((data) => {
-          me.movesService.setMoves(data);
-          me.moves = data;
-          $('#indivMove').velocity('transition.slideUpIn', { stagger: 800 });
-          this.system.showNotification('Done!', 1000, 'success');
-          refresher.complete();
-          this.system.checked = 0;
-        }, (err) => {
-          this.system.showNotification("Couldn't get moves: " + err, 5000, 'error');
-          refresher.complete();
-          this.moves = undefined;
-          this.system.checked = 1;
-          this.sMoveSummary = "Data unavailable.";
-        })
+      // me.movesService.getMoves()
+      //   .then((data) => {
+      //     me.movesService.setMoves(data);
+      //     me.moves = data;
+      //     $('#indivMove').velocity('transition.slideUpIn', { stagger: 800 });
+      //     this.system.showNotification('Done!', 1000, 'success');
+      //     refresher.complete();
+      //     this.system.checked = 0;
+      //   }, (err) => {
+      //     this.system.showNotification("Couldn't get moves: " + err, 5000, 'error');
+      //     refresher.complete();
+      //     this.moves = undefined;
+      //     this.system.checked = 1;
+      //     this.sMoveSummary = "Data unavailable.";
+      //   })
     }
+    refresher.complete();
   }
 
   /* Go to the Stats page */

@@ -25,4 +25,9 @@ export class TabsPage {
     console.log('Make!');
     this.navCtrl.push(MakePage);
   }
+
+  goToProfile() {
+    console.log('Profile!');
+    this.navCtrl.push(ProfilePage);
+  }
 }
