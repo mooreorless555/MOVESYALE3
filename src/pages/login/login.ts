@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-
-import { Facebook } from 'ionic-native';
+import { Facebook } from '@ionic-native/facebook';
 import firebase from 'firebase';
 
 import { ToastController } from 'ionic-angular';
@@ -30,8 +29,10 @@ declare var velocity: any;
 export class LoginPage {
   FB_APP_ID: number = 1726230761032513;
 
-  public info = "By Yalies. For Yalies.";
-  // user:any;
+  public info = "This app is neither affiliated with nor endorsed by Yale University or the #YALECorporation. It's just made by Yalies who wanna try to get lit.";
+  user: any;
+  profinfo: any;
+
   userProfile: any = null;
 
   public firsttime = {
@@ -45,8 +46,35 @@ export class LoginPage {
     this.introducePage();
   }
 
-  constructor(private facebook: Facebook, public loginProvider: LoginProvider, public system: System, public globals: Globals, public http: Http, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
+  constructor(public loginProvider: LoginProvider, private facebook: Facebook, public system: System, public globals: Globals, public http: Http, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     // Facebook.browserInit(this.FB_APP_ID, "v2.8");
+  }
+
+
+  facebookLogin() {
+    if (!this.globals.debugflag) {
+      this.facebook.login(['email', 'public_profile']).then((response) => {
+        const facebookCredential = firebase.auth.FacebookAuthProvider
+          .credential(response.authResponse.accessToken);
+
+          let params = new Array();
+
+        firebase.auth().signInWithCredential(facebookCredential)
+        return Promise.all([response, this.facebook.api("/me?fields=name,email,first_name", params)])
+          .then((success) => {
+            alert("Firebase success: " + JSON.stringify(success));
+            this.loginProvider.setUser(success);
+            this.navCtrl.setRoot(TabsPage);
+          })
+          .catch((error) => {
+            alert("Firebase failure: " + JSON.stringify(error));
+          });
+
+      }).catch((error) => { console.log(error) });
+    } else {
+      // this.presentPrompt();
+      this.navCtrl.setRoot(TabsPage);
+    }
   }
 
   introducePage() {
@@ -57,80 +85,9 @@ export class LoginPage {
     this.globals.debugflag = !(this.globals.debugflag);
   }
 
-  facebookLogin(): void {
-    this.facebook.login(['email']).then( (response) => {
-      const facebookCredential = firebase.auth.FacebookAuthProvider
-        .credential(response.authResponse.accessToken);
-
-      firebase.auth().signInWithCredential(facebookCredential)
-        .then((success) => {
-          console.log("Firebase success: " + JSON.stringify(success));
-          this.userProfile = success;
-        })
-        .catch((error) => {
-          console.log("Firebase failure: " + JSON.stringify(error));
-      });
-
-    }).catch((error) => { console.log(error) });
-  }
-
-  doLogin() {
-    if (this.globals.debugflag) {
-      var element = <HTMLInputElement>document.getElementById("loginBtn");
-      element.disabled = true;
-      // this.navCtrl.setRoot(TabsPage);
-      setTimeout(() => {
-        this.presentPrompt();
-        element.disabled = false;
-      }, 700);
-    } else {
-      var me = this;
-      var permissions = new Array();
-
-      permissions = ["public_profile", "email"];
-
-      Facebook.login(permissions)
-        .then(function (res) {
-
-          //let userId = res.authResponse.userID;
-          //let social_token = res.authResponse.accessToken;
-          let params = new Array();
-
-          //alert(response.authResponse.accessToken);
-          return Promise.all([res, Facebook.api("/me?fields=name,email,first_name", params)]);
-
-        })
-        .then(function (results) {
-          alert("Sign in results! " + JSON.stringify(results[1], null, 4));
-          //alert(results[0]);
-          //alert("Results: " + results[1] + " name: " + results[1].name);
-          //alert(results[1].name);
-          // alert("Sign in profinfo " + JSON.stringify(this.profinfo, null, 4));
-          return Promise.all([results, me.loginProvider.doApiLogin(results)])
-
-
-        })
-        .then(function (results) {
-          /*
-          NativeStorage.setItem('user', {
-            social_token: results[0][0],
-            token: results[1]
-          })
-          */
-          // this.presentWelcome();
-          // this.system.welcomeUser(this.results[0][1].first_name);
-          me.navCtrl.setRoot(TabsPage);
-        })
-        .catch(function (error) {
-          alert("Error in doLogin(): " + error);
-        });
-    }
-
-  }
-
   presentWelcome() {
     let welcome = this.toastCtrl.create({
-      message: "Hey!",
+      message: "Hey " + this.user + "!",
       duration: 1000
     });
     welcome.present();
@@ -178,6 +135,11 @@ export class LoginPage {
   }
 
   presentConfirmCode() {
+    // Send email verification.
+    firebase.auth().onAuthStateChanged(function(user) {
+      user.sendEmailVerification(); 
+    });
+
     let alert = this.alertCtrl.create({
       title: 'Confirm',
       message: "Okay, we sent a confirmation code to " + this.firsttime.email + ". Type it in here and that's it!",
@@ -198,11 +160,13 @@ export class LoginPage {
         {
           text: 'Confirm',
           handler: data => {
-            if (1) {
-              this.navCtrl.setRoot(TabsPage);
-            } else {
-              return false;
-            }
+            firebase.auth().onAuthStateChanged(function (user) {
+              if (user.emailVerified) {
+                this.navCtrl.setRoot(TabsPage);
+              } else {
+                this.presentError("You haven't yet verified your email!");
+              }
+            });
           }
         }
       ]

@@ -4,12 +4,13 @@ import { AlertController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 
-import { HomePage } from '../home/home';
+import { TabsPage } from '../tabs/tabs';
 
 import { System, Globals } from '../functions/functions';
 import { LocationTracker } from '../../providers/location-tracker';
 import { StatsProvider } from '../../providers/stats-provider';
-import { MovesService } from '../services/MovesService';
+import { LoginProvider } from '../../providers/login-provider';
+import { MovesProvider } from '../../providers/moves-provider';
 
 declare var $: any;
 declare var velocity: any;
@@ -17,7 +18,7 @@ declare var velocity: any;
 @Component({
   selector: 'page-make',
   templateUrl: 'make.html',
-  providers:[MovesService, System, Globals, StatsProvider]
+  providers:[MovesProvider, LoginProvider, System, Globals, StatsProvider]
 })
 
 export class MakePage {
@@ -26,8 +27,10 @@ export class MakePage {
 
   /* Move Object */
   public move   = {
+      key: "",
       info        : {
         name      : "",
+        hosts      : [],
         location  : "",
         capacity  : 30,
         hasAlcohol: false,
@@ -94,7 +97,7 @@ ngAfterViewInit() {
 
 
 
-  constructor(public navCtrl: NavController, public locationTracker: LocationTracker, public toastCtrl: ToastController, public alertCtrl: AlertController, public system: System, private globals: Globals, private movesService: MovesService) {
+  constructor(public navCtrl: NavController, public mp: MovesProvider, public loginProvider: LoginProvider, public locationTracker: LocationTracker, public toastCtrl: ToastController, public alertCtrl: AlertController, public system: System, private globals: Globals) {
     let messages = [
       "Please enter Move here.", 
       "What's the move?", 
@@ -125,13 +128,19 @@ ngAfterViewInit() {
           this.move.stats.dead = Math.floor(Math.random() * this.move.info.capacity);
           this.move.LatLng.lat = this.locationTracker.lat;
           this.move.LatLng.lng = this.locationTracker.lng;
+          let host = this.loginProvider.getUser();
+          if (!host) {
+            this.move.info.hosts.push("Test Man");
+          } else {
+            this.move.info.hosts.push(host.displayName);
+          }
 
 
-          this.saveMove(this.move);
+          this.mp.makeMove(this.move);
           this.system.startLoading("Adding your move to the map.", 1000);
           setTimeout(() => {
             this.system.showNotification("Your move is now on the map. Check it out!", 1000);
-            this.navCtrl.push(HomePage);
+            this.navCtrl.setRoot(TabsPage);
             console.log('Confirmed.');
             console.log("Move creation success. Sending out object data for database storage."); 
             this.resetFields(this.move);           
@@ -153,19 +162,6 @@ ngAfterViewInit() {
        warning.present();
      }
    }
-
-
-    saveMove(move) {
-      this.movesService.makeMove(move).then((result) => {
-
-         console.log("Move Created");
-
-      }, (err) => {
-
-        console.log("Move Not Created");
-
-      });
-    }
 
     introducePage() {
       $("ion-item").velocity('transition.slideUpIn', { stagger: 130 });

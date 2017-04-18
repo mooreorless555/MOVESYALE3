@@ -7,6 +7,24 @@
  -dead-highlight: #477496;
 }
 
+/* Add animation */
+.my-repeat-animation.ng-enter.ng-enter-active, 
+.my-repeat-animation.ng-leave {
+    opacity: 1;
+    -webkit-transition: opacity 300ms linear;
+    -moz-transition: opacity 300ms linear;
+    transition: opacity 300ms linear;
+}
+
+/* Remove animation */
+.my-repeat-animation.ng-leave.ng-leave-active, 
+.my-repeat-animation.ng-enter {
+    opacity: 0;
+    -webkit-transition: opacity 300ms linear;
+    -moz-transition: opacity 300ms linear;
+    transition: opacity 300ms linear;
+}
+
 .address {
   background-color: #775fcc;
   color: #fff;
@@ -24,6 +42,11 @@
 
 .purple-text {
 
+}
+
+.disclaimer {
+  margin: auto;
+  font-size: 14px;
 }
 
 	.infoborder {
@@ -129,8 +152,8 @@
     padding: 0px !important;
 }
 
-#container {
-  margin: auto;
+.container {
+  /*margin: auto;*/
   width: 90px;
   height: 90px;
 }
@@ -246,9 +269,9 @@
   display:none
 }
 
-.fade {
+/*.fade {
   color: red;
-}
+}*/
 
 .thin {
   color: red !important;
@@ -376,6 +399,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b48ee2', end
     3%   { opacity: 1; left: 3%; width: 103%; }
     97% { opacity: 1; left: -97%; width: 197%; }
     100% { opacity: 0; left: -100%; width: 200%;}
+}
+
+.profile-pic {
+  border-radius: 50%;
+  display: block;
+  margin: auto;
 }
 
 /*@keyframes marquee {

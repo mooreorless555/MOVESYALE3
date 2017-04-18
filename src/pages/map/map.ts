@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Platform, NavParams, NavController } from 'ionic-angular';
 // import { NativeStorage } from 'ionic-native';
-import { MovesService } from '../services/MovesService';
 import { StatsPage } from '../stats/stats'
 
 import { LocationTracker } from '../../providers/location-tracker';
@@ -26,9 +25,8 @@ export class MapPage {
   moves: Array<any>;
 
 
-  constructor(public platform: Platform, public navCtrl: NavController, public params: NavParams, public locationTracker: LocationTracker, public movesService: MovesService) {
+  constructor(public platform: Platform, public navCtrl: NavController, public params: NavParams, public locationTracker: LocationTracker) {
     this.platform = platform;
-    this.moves = this.movesService.retrieveMoves();
     //alert("Moves: " + this.moves);
     //alert(this.moves);
 

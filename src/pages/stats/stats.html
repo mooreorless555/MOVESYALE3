@@ -56,6 +56,25 @@
 				</ion-row>
 			</div>
 	</ion-grid>
+
+ <!-- Button item with an icon on the left -->
+<h3 class='centertext robototext'>Comment Stream</h3>
+ <ion-list>
+  <ion-item ion-item text-wrap>
+    <ion-avatar item-avatar item-left>
+      <div *ngIf="user != null"><img [src]="user.photoURL"/>
+      {{user.displayName}}</div></ion-avatar>
+    A fake comment here. wow what even is going on lol
+  </ion-item>
+  </ion-list>
+ <form (ngSubmit)="logForm()" novalidate>
+    <ion-item>
+      <ion-label>Message</ion-label>
+      <ion-input type="text" [(ngModel)]="move.info.name" name="name" maxlength="50" required></ion-input>
+    </ion-item>
+    <div style="padding: 10px"></div>
+    <button id="submitBtn" class="bigbutton widen golive" type="submit"><span class="lower">Send</span></button>
+  </form>
 	<!--<div class="col">
 	<div id="containerbig" class="containerbig" #containerbig></div>
 </div>

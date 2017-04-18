@@ -1,15 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import firebase from 'firebase';
 import { Platform, Nav } from 'ionic-angular';
-import { StatusBar, NativeStorage } from 'ionic-native';
-
-// import { MovesService } from '../pages/services/MovesService';
 import { LoginProvider } from '../providers/login-provider';
-
-
+import {SplashScreen} from "@ionic-native/splash-screen";
+import {StatusBar} from "@ionic-native/status-bar";
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
-// import { HomePage } from '../pages/home/home';
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`,
@@ -21,22 +16,29 @@ export class MyApp {
 
   rootPage: LoginPage;
 
-  constructor(public platform: Platform, public loginProvider: LoginProvider) {
+  constructor(public platform: Platform, public loginProvider: LoginProvider, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     var me = this;
-    firebase.initializeApp({
-      apiKey: "AIzaSyANmdr_oNcjak8eVKUI7esAoyk4mtWKD-M",
-      authDomain: "moves-ad1b4.firebaseapp.com",
-      databaseURL: "https://moves-ad1b4.firebaseio.com",
-      projectId: "moves-ad1b4",
-      storageBucket: "moves-ad1b4.appspot.com",
-      messagingSenderId: "583373480587"
-    });
+    // firebase.initializeApp({
+    //   apiKey: "AIzaSyANmdr_oNcjak8eVKUI7esAoyk4mtWKD-M",
+    //   authDomain: "moves-ad1b4.firebaseapp.com",
+    //   databaseURL: "https://moves-ad1b4.firebaseio.com",
+    //   projectId: "moves-ad1b4",
+    //   storageBucket: "moves-ad1b4.appspot.com",
+    //   messagingSenderId: "583373480587"
+    // });
     platform.ready().then(() => {
+      me = this;
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.backgroundColorByHexString('#886FE8');
-      
-
+      statusBar.backgroundColorByHexString('#886FE8');
+      splashScreen.hide();     
+      // firebase.auth().onAuthStateChanged(function(user) {
+      //   if (user) {
+      //     me.nav.setRoot(TabsPage);
+      //   } else {
+          me.nav.setRoot(LoginPage);
+      //   }
+      // });
 
       // // Check if the user is already logged in POSSIBLY OBSOLETE
       // NativeStorage.getItem('data')

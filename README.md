@@ -14,14 +14,25 @@
 
 before they make the decision to go or not. All of this is presented in realtime. 
 
-The app is supposed to be lightweight (we know you'll be out and about) and give you the information you need when you want it and in a presentable and clean way! I have and am spending a lotttt of time on the UI/UX to make this the case. Of course, the app's premise hangs on the notion that a lot of people will have it installed.
+The app is supposed to be lightweight (we know you'll be out and about) and give you the information you need when you want it and in a presentable and clean way! I have and am spending a lot of time on the UI/UX to make this the case. Having said that, the interface and general design will continue to be changed and improved upon until it's as pleasing and functional as possible. Finally, the app's premise hangs on the notion that a lot of people will have it installed.
 
 --------
 
 ### Screenshots
-Will go here.
 
-Same Moves app, new repo! (For the THIRD TIME! OMG.) Chris (AKA me) and Sam diverged too much on their own without making commits, had an issue with FB authentication and therefore Chris used what was on the Git and manually fixed all merges as well as overhauled the code structure. Then Chris added a bunch of new additions to stabilize the login, home, and stats pages as well as new native plugins!
+#### Login
+<img src="/screenshots/login.png" width="300"><img src="/screenshots/login_02.png" width="300">
+
+#### Hub
+<img src="/screenshots/hub.png" width="300"><img src="/screenshots/hub_02.png" width="300">
+
+#### Information (stats)
+<img src="/screenshots/info.png" width="300"><img src="/screenshots/info_02.png" width="300">
+
+#### Make a Move!
+<img src="/screenshots/make.png" width="300">
+
+Same Moves app, new repo! (For the THIRD TIME! OMG.) Chris (AKA me) and Sam diverged too much on our own without making commits, had an issue with FB authentication and therefore Chris used what was on the Git and manually fixed all merges as well as overhauled the code structure. Later, Chris added a bunch of new additions to stabilize the login, home, and stats pages as well as new native plugins!
 
 If you're collabing with us and want to get up and running, make sure you've already installed cordova and ionic.
 

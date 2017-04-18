@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 // import { System } from '../functions/functions';
 
+declare var $: any;
 declare var ProgressBar: any;
 declare var google: any;
 
 @Injectable()
 export class StatsProvider {
 
-  public counters = new Array();
+  public counters = [];
+  public cnum = 0;
 
-  CreatePeopleCounter(container) {
-    console.log("Creating Counter");
+  CreatePeopleCounter(key, value) {
+    console.log("Creating Counter at container: " + key);
 
-    var counter = new ProgressBar.SemiCircle(container.nativeElement, {
+    var counter = new ProgressBar.SemiCircle('#ctn_' + key, {
       strokeWidth: 18,
       easing: 'easeInOut',
       duration: 1400,
@@ -29,23 +31,46 @@ export class StatsProvider {
 
       step: (state, bar) => {
         bar.path.setAttribute('stroke', state.color);
-        // if (this.between(bar.value(), 0.0, 0.1)) bar.setText(':(');
-        // if (this.between(bar.value(), 0.1, 0.4)) bar.setText(':|');
-        // if (this.between(bar.value(), 0.4, 0.5)) bar.setText(':)');
-        // if (this.between(bar.value(), 0.5, 0.7)) bar.setText(':)!');
-        // if (this.between(bar.value(), 0.7, 0.9)) bar.setText(':)!!');
-        // if (this.between(bar.value(), 0.9, 1.0)) bar.setText('>:D');
-        // if (this.between(bar.value(), 1.0, 1.5)) bar.setText('>:O');
-        // bar.text.style.color = state.color;
       }
     });
 
     counter.text.style.fontFamily = 'AppFont';
     counter.text.style.fontSize = '1.4rem';
     counter.text.style.top = '40px';
-    this.counters.push(counter);
-    counter.animate(3 + (Math.random() * 1));
-    return counter;
+
+    // if (this.CounterExists(key)) {
+    //   console.log("Replacing counter data.");
+    //   let idx = this.GetCounter(key);
+    //   this.counters[idx].c = counter;
+    // } else {
+    // console.log("Counter does not yet exist. Making room for it.");
+    // this.counters.push(
+    //   {c: counter, 
+    //    key: key});
+    // }
+    counter.animate(value);
+    this.cnum++;
+    // console.log(this.counters);
+    // return counter;
+  }
+
+  RemoveCounter(myKey) {
+    let c = this.counters;
+    for (let i = 0; i < this.counters.length; i++) {
+      if (c[i].key == myKey) {
+        c[i].c.destroy();
+        c.splice(i, 1);
+      }
+    }
+  }
+
+  CounterExists(myKey) {
+    for (let c of this.counters) {
+      if (c.key == myKey) {
+        return true;
+      }
+    }
+    return false;
   }
 
   CreateStatsCounter(container, move) {
@@ -142,12 +167,19 @@ export class StatsProvider {
 
   }
 
-  UpdateCounter(counter, value) {
-    if (value < 1) {
-      counter.animate(value);
-    } else {
-      counter.animate(1);
+  GetCounter(myKey) {
+    for (let c of this.counters) {
+      if (c.key == myKey) {
+        let idx = this.counters.indexOf(c);
+        console.log('FOUND, here: ', idx);
+        return idx;
+      }
     }
+    return null;
+  }
+
+  UpdateCounter(counter, value) {
+    counter.animate(value);
   }
 
   ResetCounters() {

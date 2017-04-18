@@ -80,32 +80,32 @@ export class LocationTracker {
 
     // Background Tracking
 
-    let config = {
-      desiredAccuracy: 0,
-      stationaryRadius: 20,
-      distanceFilter: 3,
-      debug: true,
-      interval: 10000
-    };
+    // let config = {
+    //   desiredAccuracy: 0,
+    //   stationaryRadius: 20,
+    //   distanceFilter: 3,
+    //   debug: true,
+    //   interval: 10000
+    // };
 
-    BackgroundGeolocation.configure((location) => {
+    // BackgroundGeolocation.configure((location) => {
 
-      console.log('BackgroundGeolocation:  ' + location.latitude + ',' + location.longitude);
+    //   console.log('BackgroundGeolocation:  ' + location.latitude + ',' + location.longitude);
 
-      // Run update inside of Angular's zone
-      this.zone.run(() => {
-        this.lat = location.latitude;
-        this.lng = location.longitude;
-        this.status++;
-      });
+    //   // Run update inside of Angular's zone
+    //   this.zone.run(() => {
+    //     this.lat = location.latitude;
+    //     this.lng = location.longitude;
+    //     this.status++;
+    //   });
 
-      BackgroundGeolocation.finish(); // FOR IOS ONLY
+    //   BackgroundGeolocation.finish(); // FOR IOS ONLY
 
-    }, (err) => {
+    // }, (err) => {
 
-      console.log(err);
+    //   console.log(err);
 
-    }, config);
+    // }, config);
 
     // Turn ON the background-geolocation system.
     BackgroundGeolocation.start();

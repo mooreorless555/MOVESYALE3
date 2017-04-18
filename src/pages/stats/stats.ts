@@ -1,10 +1,11 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
-
-import { MovesService } from '../services/MovesService';
+import firebase from 'firebase';
+import { MovesProvider } from '../../providers/moves-provider';
 import { StatsProvider } from '../../providers/stats-provider';
 import { LocationTracker } from '../../providers/location-tracker';
+import { LoginProvider } from '../../providers/login-provider';
 
 import { System } from '../functions/functions';
 
@@ -16,7 +17,7 @@ declare var ProgressBar: any;
 @Component({
   selector: 'page-stats',
   templateUrl: 'stats.html',
-  providers: [MovesService, StatsProvider, System]
+  providers: [MovesProvider, LoginProvider, StatsProvider, System]
 })
 
 
@@ -28,6 +29,7 @@ export class StatsPage {
   @ViewChild('deadbar') deadbar;
 
   lookup     = {};
+  user: any;
 
   address    = "Retrieving address...";
  dataStreamInfo = "Fetching data...";
@@ -51,42 +53,17 @@ export class StatsPage {
     this.animatedDot();
 
     setTimeout(() => {
-      this.system.updateStatsBars(this.move, this.progbar, this.funstatbar, this.mehstatbar, this.deadstatbar);
-      this.runUpdateStatsBars();
+      this.mp.trackStatChanges(this.move, this.funstatbar, this.mehstatbar, this.deadstatbar, this.progbar);
+      this.mp.trackChanges();
     }, 4000);
 
   }
 
-  constructor(public navCtrl: NavController, public params: NavParams, public movesService: MovesService, public system: System, public stat: StatsProvider, public zone: NgZone, public locationTracker: LocationTracker) {
+  constructor(public navCtrl: NavController, public params: NavParams, public lp: LoginProvider, public mp: MovesProvider, public system: System, public stat: StatsProvider, public zone: NgZone, public locationTracker: LocationTracker) {
     this.move = params.get("firstPassed");
+    // this.move = firebase.database().ref().child('moves/' + params.get("movekey"))
     this.introducePage();
-    setInterval(() => {
-      var id = this.move._id;
-      this.movesService.getMoves_old()
-        .subscribe((data) => {
-          if (!(this.moves == data)) {
-            this.moves = data;
-            this.moves.sort(this.system.sortDescending);
-            this.system.moves = this.moves;
-            console.log(this.moves);
-          } else {
-            console.log('No change in move.');
-          }
-        },
-        (err) => {
-          console.log(err);
-        },
-        () => {
-          console.log('Got Moves');
-          for (var i = 0; i < this.moves.length; i++) {
-            if (this.moves[i]._id == id) {
-              this.move = this.moves[i];
-              break;
-            }
-          }
-          // console.log(this.lookup[this.move._id].info.name);
-        });
-    }, 2000);
+    this.user = this.lp.getUser();
 
     /* Perform statistical analysis. */
     if (this.move.info.hasAlcohol) {
@@ -95,9 +72,9 @@ export class StatsPage {
   }
 
   runUpdateStatsBars() {
-    this.system.stat_updates = setInterval(() => {
-      this.system.updateStatsBars(this.move, this.progbar, this.funstatbar, this.mehstatbar, this.deadstatbar);
-    }, 2000);
+    // this.system.stat_updates = setInterval(() => {
+    //   this.system.updateStatsBars(this.move, this.progbar, this.funstatbar, this.mehstatbar, this.deadstatbar);
+    // }, 2000);
   }
 
 

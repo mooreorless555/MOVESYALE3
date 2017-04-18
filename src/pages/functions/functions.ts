@@ -7,8 +7,8 @@ import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
-import { MovesService } from '../services/MovesService';
 import { StatsProvider } from '../../providers/stats-provider';
+import { MovesProvider } from '../../providers/moves-provider';
 // import { LoginProvider } from '../../providers/login-provider';
 import swal from 'sweetalert2';
 
@@ -30,7 +30,7 @@ export class System {
 
   public stat_updates = null;
 
-  constructor(public toastCtrl: ToastController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public stat: StatsProvider, private movesService: MovesService) {
+  constructor(public toastCtrl: ToastController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public stat: StatsProvider, public mp: MovesProvider) {
 
   }
 
@@ -52,13 +52,18 @@ export class System {
       bProgressBar = true;
     }
 
+    var bPrevDups = false;
+    if (type == 'error') {
+      bPrevDups = true;
+    }
+
     toastr.options = {
       "closeButton": false,
       "debug": false,
       "newestOnTop": true,
       "progressBar": bProgressBar,
       "positionClass": "toast-bottom-center",
-      "preventDuplicates": false,
+      "preventDuplicates": bPrevDups,
       "onclick": null,
       "showDuration": "100",
       "hideDuration": "100",
@@ -107,7 +112,7 @@ export class System {
         {
           text: 'Yes',
           handler: data => {
-            this.deleteMove(move);
+            this.mp.deleteMove(move);
           }
         }
       ]
@@ -141,7 +146,7 @@ export class System {
       default:
         console.log('Mistake.');
     }
-    this.movesService.updateMove(move);
+/* TODO UPDATE MOVE HERE */
     this.showNotification(msg + ' You voted: ' + stat.toUpperCase(), 1000, 'success');
     setTimeout(() => this.showNotification("Thanks for your feedback! You'll be able to vote for " + move.info.name + " again in an hour.", 3300, 'success'), 1500);
   }
@@ -286,11 +291,7 @@ export class System {
 
 
   deleteMove(move) {
-    this.movesService.deleteMove(move).then((result) => {
-      console.log("Deleted")
-    }, (err) => {
-      console.log(err);
-    });
+
 
 
     this.startLoading('Deleting move, standby...', 1000);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.movesyale428225" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.movesyale428225" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
   <name>Moves</name>
   <description>An awesome Ionic/Cordova app.</description>
   <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -54,6 +54,7 @@
     <variable name="APP_ID" value="1726230761032513"/>
     <variable name="APP_NAME" value="movesYALE"/>
   </plugin>
+  <plugin name="cordova-plugin-geolocation" spec="~2.4.1"/>
   <allow-navigation href="http://192.168.0.13:8100"/>
   <allow-navigation href="http://192.168.1.224:8000"/>
   <icon src="resources\android\icon\drawable-xhdpi-icon.png"/>
