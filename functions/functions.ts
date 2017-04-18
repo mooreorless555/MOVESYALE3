@@ -52,18 +52,25 @@ export class System {
       bProgressBar = true;
     }
 
+<<<<<<< HEAD
     var bPrevDups = false;
     if (type == 'error') {
       bPrevDups = true;
     }
 
+=======
+>>>>>>> 4daf302ab2c6e4f1a488d65ee46c7d85331b9b02
     toastr.options = {
       "closeButton": false,
       "debug": false,
       "newestOnTop": true,
       "progressBar": bProgressBar,
       "positionClass": "toast-bottom-center",
+<<<<<<< HEAD
       "preventDuplicates": bPrevDups,
+=======
+      "preventDuplicates": false,
+>>>>>>> 4daf302ab2c6e4f1a488d65ee46c7d85331b9b02
       "onclick": null,
       "showDuration": "100",
       "hideDuration": "100",

@@ -26,10 +26,6 @@ export class MyApp {
     //   storageBucket: "moves-ad1b4.appspot.com",
     //   messagingSenderId: "583373480587"
     // });
-    platform.ready().then(() => {
-      me = this;
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       statusBar.backgroundColorByHexString('#886FE8');
       splashScreen.hide();     
       // firebase.auth().onAuthStateChanged(function(user) {
@@ -66,6 +62,5 @@ export class MyApp {
 
       //   });
 
-    });
-  }
+    }
 }

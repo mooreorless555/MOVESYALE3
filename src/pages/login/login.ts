@@ -84,7 +84,6 @@ export class LoginPage {
   toggleDebugFlag() {
     this.globals.debugflag = !(this.globals.debugflag);
   }
-
   presentWelcome() {
     let welcome = this.toastCtrl.create({
       message: "Hey " + this.user + "!",

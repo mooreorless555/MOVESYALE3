@@ -1,5 +1,6 @@
 import { Component, trigger, style, animate, transition } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import firebase from 'firebase';
 
 // import { NativeStorage } from 'ionic-native';
 

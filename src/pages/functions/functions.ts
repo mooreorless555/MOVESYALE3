@@ -9,6 +9,7 @@ import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { StatsProvider } from '../../providers/stats-provider';
 import { MovesProvider } from '../../providers/moves-provider';
+
 // import { LoginProvider } from '../../providers/login-provider';
 import swal from 'sweetalert2';
 
@@ -291,9 +292,6 @@ export class System {
 
 
   deleteMove(move) {
-
-
-
     this.startLoading('Deleting move, standby...', 1000);
     setTimeout(() => {
       this.checked = 0;
