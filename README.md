@@ -34,16 +34,15 @@ The app is supposed to be lightweight (we know you'll be out and about) and give
 
 Same Moves app, new repo! (For the THIRD TIME! OMG.) Chris (AKA me) and Sam diverged too much on our own without making commits, had an issue with FB authentication and therefore Chris used what was on the Git and manually fixed all merges as well as overhauled the code structure. Later, Chris added a bunch of new additions to stabilize the login, home, and stats pages as well as new native plugins!
 
-If you're collabing with us and want to get up and running, make sure you've already installed cordova and ionic.
+If you're collabing and want to get up and running, make sure you've already installed cordova and ionic.
 
 - Download this repo.
-- cd to the repo and run `npm install`
-- [Hit up Sam's repo for the backend.](https://github.com/smbddha/moves_backend)
-- Put his repo in a folder called "backend" inside this repo and run `npm install` in that new folder.
-then you should be all set on the basics. Finally, cd back to this repo and run
+- cd to this repo and run
+
 ```
-ionic serve --lab
+movesupdate.bat && updatepackage.bat
 ```
+
 If you're getting errors, you may be missing some native plugins.
 
 ---
@@ -53,7 +52,7 @@ You need to install these plugins for the app to be fully functional.
 ```
 ionic plugin add cordova-plugin-facebook4 --variable APP_ID="xxxxxxxxxxxxxx" --variable APP_NAME="name"
 ```
-Ask me or Sam personally for the APP_ID and APP_NAME.
+Ask me personally for the APP_ID and APP_NAME.
 ```
 ionic plugin add cordova-plugin-geolocation
 ```
@@ -76,4 +75,4 @@ npm install --save sweetalert2
 npm install --save toastr
 ```
 
-If you have any questions just message me or Sam!
+If you have any questions just message me!
