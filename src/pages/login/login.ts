@@ -6,7 +6,7 @@ import { ToastController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 
-import { LoginProvider } from '../../providers/login-provider';
+import { LoginProvider, MoveUser } from '../../providers/login-provider';
 import { StatsProvider } from '../../providers/stats-provider';
 import { System, Globals } from '../functions/functions';
 
@@ -29,7 +29,7 @@ declare var velocity: any;
 export class LoginPage {
   FB_APP_ID: number = 1726230761032513;
 
-  public info = "This app is neither affiliated with nor endorsed by Yale University or the #YALECorporation. It's just made by Yalies who wanna try to get lit.";
+  public info = "Literally just like Yale Dining for parties";
   user: any;
   profinfo: any;
 
@@ -46,24 +46,27 @@ export class LoginPage {
     this.introducePage();
   }
 
-  constructor(public loginProvider: LoginProvider, private facebook: Facebook, public system: System, public globals: Globals, public http: Http, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
+  constructor(public loginProvider: LoginProvider, private mUser: MoveUser, private facebook: Facebook, public system: System, public globals: Globals, public http: Http, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     // Facebook.browserInit(this.FB_APP_ID, "v2.8");
   }
 
 
   facebookLogin() {
+    $('#loginBtn').prop('disabled', true);
+    setTimeout(() => {
     if (!this.globals.debugflag) {
-      this.facebook.login(['email', 'public_profile']).then((response) => {
+      this.facebook.login(['email', 'public_profile', 'user_friends']).then((response) => {
         const facebookCredential = firebase.auth.FacebookAuthProvider
           .credential(response.authResponse.accessToken);
 
           let params = new Array();
 
         firebase.auth().signInWithCredential(facebookCredential)
-        return Promise.all([response, this.facebook.api("/me?fields=name,email,first_name", params)])
+        return Promise.all([response, this.facebook.api("/me?fields=name,email,first_name,friends", params)])
           .then((success) => {
-            alert("Firebase success: " + JSON.stringify(success));
-            this.loginProvider.setUser(success);
+            this.mUser.setFB(success);
+            alert("Firebase success: " + JSON.stringify(success[1]));
+            // this.presentWelcome();
             this.navCtrl.setRoot(TabsPage);
           })
           .catch((error) => {
@@ -73,8 +76,10 @@ export class LoginPage {
       }).catch((error) => { console.log(error) });
     } else {
       // this.presentPrompt();
+      // this.presentWelcome();
       this.navCtrl.setRoot(TabsPage);
     }
+    }, 800);
   }
 
   introducePage() {
@@ -85,11 +90,22 @@ export class LoginPage {
     this.globals.debugflag = !(this.globals.debugflag);
   }
   presentWelcome() {
-    let welcome = this.toastCtrl.create({
-      message: "Hey " + this.user + "!",
-      duration: 1000
+    // let welcome = this.toastCtrl.create({
+    //   message: "Hey " + this.mUser.getFB().first_name + "!",
+    //   duration: 3000
+    // });
+    // welcome.present();
+    setTimeout(() => this.presentToast('Hey!', 2000), 500);
+    setTimeout(() => this.presentToast("This is the Hub- here you'll be able to see an overview of the moves going on right now.", 3000), 3300);
+    setTimeout(() => this.presentToast("Really excited you've joined. This'll be the place to check to see if anything is going on! If you want to make a move yourself, just click the + tab below.", 6000), 7000);
+  }
+
+  presentToast(msg, duration) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: duration
     });
-    welcome.present();
+    toast.present();
   }
 
   presentPrompt() {

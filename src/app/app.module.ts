@@ -15,10 +15,16 @@ import {SplashScreen} from "@ionic-native/splash-screen";
 import {StatusBar} from "@ionic-native/status-bar";
 import { Facebook } from '@ionic-native/facebook';
 import { LocationTracker } from '../providers/location-tracker';
-import { LoginProvider } from '../providers/login-provider';
+import { LoginProvider, MoveUser } from '../providers/login-provider';
 import { MovesProvider } from '../providers/moves-provider';
 import { StatsProvider } from '../providers/stats-provider';
 import { AngularFireModule } from 'angularfire2';
+import { NativeAudio } from '@ionic-native/native-audio';
+
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Geofence } from '@ionic-native/geofence';
 import 'rxjs/add/operator/map';
 
 export const firebaseConfig = {
@@ -62,6 +68,6 @@ export const firebaseConfig = {
     TabsPage,
     MapPage
   ],
-  providers: [LocationTracker, LoginProvider, MovesProvider, StatsProvider, SplashScreen, StatusBar, Facebook]
+  providers: [LocationTracker, LoginProvider, MoveUser, MovesProvider, StatsProvider, BackgroundMode, BackgroundGeolocation, Geolocation, Geofence, NativeAudio, SplashScreen, StatusBar, Facebook]
 })
 export class AppModule {}

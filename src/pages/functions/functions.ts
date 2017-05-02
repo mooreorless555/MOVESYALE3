@@ -368,11 +368,11 @@ export class Globals {
 
   public config = {
     min: 30,
-    max: 10000,
+    max: 600,
     displayMsg: false
   };
 
-  public debugflag = true;
+  public debugflag = false;
 
   // public rooms = {
   //   landing.
