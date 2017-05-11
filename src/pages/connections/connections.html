@@ -1,0 +1,48 @@
+<!--
+  Generated template for the ConnectionsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color='navbar'>
+    <ion-title>{{ui.title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="onInput($event)">
+  </ion-searchbar>
+
+  <!--<img class="small-pic" [src]="http://graph.facebook.com/1248413801916793/picture?type=large">-->
+  <!--<ion-list>
+    <ion-list-header class="lheader">
+    YOUR FACEBOOK CONNECTIONS
+  </ion-list-header>
+  <ion-item no-lines>
+    <ion-avatar item-left>
+      <img class="small-pic" src="http://graph.facebook.com/1858334444490693/picture?type=square">
+    </ion-avatar>
+    <h2 class="nametext">Zachary</h2>
+    <h3>Zachary Balleisen</h3>
+     <button ion-button outline item-right (click)="buttonClick()">SEND REQUEST</button>
+  </ion-item>
+</ion-list>-->
+  <ion-list>
+    <ion-list-header class="lheader">
+      {{ui.info.title}}
+    </ion-list-header>
+    <ion-item no-lines *ngFor="let con of actualList">
+      <ion-avatar item-left>
+        <img class="small-pic" [src]="mUser.getPhoto(con.id).square">
+      </ion-avatar>
+      <h2 class="nametext">{{con.name.split(" ")[0]}}</h2>
+      <h3>{{con.name}}</h3>
+      <button *ngIf="con.status == 0" ion-button outline item-right (click)="updateList(con.id)">{{ui.info.status.a}}</button>
+      <button color="off" *ngIf="con.status == 1" disabled="true" ion-button item-right (click)="buttonClick()">{{ui.info.status.b}}</button>
+      <button color="good" *ngIf="con.status == 2" ion-button outline item-right (click)="buttonClick()">{{ui.info.status.c}}</button>
+    </ion-item>
+  </ion-list>
+</ion-content>

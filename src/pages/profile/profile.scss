@@ -1,3 +1,46 @@
 page-profile {
 
+.buttontext {
+    font-family: 'Oxygen', sans-serif !important;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.captiontext {
+    font-size: 16px;
+}
+
+.name {
+    font-family: 'Oxygen';
+    font-weight: 600;
+}
+
+.prof-button {
+    border-radius: 10px;
+}
+
+.prof-button:hover {
+    background-color: #8b00d0 !important;
+    color: #ffffff !important;
+}
+
+.slidebutton {
+    font-size: 30px;
+    font-family: MoveHeader !important;
+}
+
+.bg-purp {
+    background-color: #4c3a86!important;
+    margin-top: 10px !important;
+}
+
+.left {
+    text-align: left !important;
+}
+
+.prof-pic {
+    width: 50%;
+    height: 50%;
+}
+
 }

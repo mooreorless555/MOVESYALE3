@@ -1,7 +1,5 @@
-import { Component, trigger, style, animate, transition } from '@angular/core';
+import { Component, NgZone, trigger, style, animate, transition } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import firebase from 'firebase';
-
 // import { NativeStorage } from 'ionic-native';
 
 import { MakePage } from '../make/make';
@@ -9,9 +7,10 @@ import { StatsPage } from '../stats/stats';
 import { ProfilePage } from '../profile/profile';
 import { MapPage } from '../map/map';
 import { StatsProvider } from '../../providers/stats-provider';
-import { LoginProvider } from '../../providers/login-provider';
+import { LoginProvider, MoveUser } from '../../providers/login-provider';
 import { MovesProvider } from '../../providers/moves-provider';
 import { System, Globals } from '../functions/functions';
+
 import { LocationTracker } from '../../providers/location-tracker';
 
 declare var ProgressBar: any;
@@ -19,6 +18,7 @@ declare var $: any;
 declare var velocity: any;
 declare var marquee: any;
 declare var toastr: any;
+declare var google: any;
 
 @Component({
   selector: 'page-home',
@@ -46,6 +46,7 @@ export class HomePage {
   // @ViewChildren('container') container: any;
   // public moves = [];
   sMoveSummary = "Getting data...";
+  // counterbar: any;
 
   /* Lists all the moves after the page has fully loaded. 
   This is to allow @ViewChildren to work properly. */
@@ -54,11 +55,28 @@ export class HomePage {
     this.introducePage();
   }
 
-  constructor(public navCtrl: NavController, public system: System, public loginProvider: LoginProvider, public locationTracker: LocationTracker, public globals: Globals, public stat: StatsProvider, public mp: MovesProvider) {
+  constructor(public navCtrl: NavController, 
+              public zone: NgZone, 
+              public system: System, 
+              public loginProvider: LoginProvider, 
+              public mUser: MoveUser,
+              public locationTracker: LocationTracker, 
+              public globals: Globals, 
+              public stat: StatsProvider, 
+              public mp: MovesProvider) {
     this.mp.trackChanges().then(() => {
-      console.log('AWESOME!')
+      console.log('AWESOME!');
     this.mp.stopTrackingChanges()}).catch((error) =>
       this.system.showNotification('Yikes! Something went wrong. ERROR: ' + error, 3000, 'error'));
+
+            this.zone.run(() => {
+                // Update the fields of the form, and Angular will update
+                // the view for you.
+                console.log("A CHANGE!");
+            });
+
+
+            // this.zone.run(() => this.counterbar = "YO");
 }
 
 
@@ -120,11 +138,13 @@ export class HomePage {
 
   /* Go to the Stats page */
   checkStats(move, key) {
+    this.mp.stopTrackingChanges();
     this.navCtrl.push(StatsPage, {
       firstPassed: move,
       movekey: key
     }
     );
+    // this.system.showNotification("LOL", 3000, 'success');
   }
 
   totalRatings(move) {

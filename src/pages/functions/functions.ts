@@ -86,6 +86,7 @@ export class System {
     }
   }
 
+
   startLoading(msg, duration) {
     let loader = this.loadingCtrl.create({
       spinner: 'hide',
@@ -226,15 +227,16 @@ export class System {
 
 
     $('#funBtn').on('click', function (e) {
-      me.incStat(move, 'fun');
+      console.log('Hello?')
+      this.mp.incStat(move, 'fun');
       swal.close();
     });
     $('#mehBtn').on('click', function (e) {
-      me.incStat(move, 'meh');
+      this.mp.incStat(move, 'meh');
       swal.close();
     });
     $('#deadBtn').on('click', function (e) {
-      me.incStat(move, 'dead');
+      this.mp.incStat(move, 'dead');
       swal.close();
     });
   }
@@ -265,15 +267,15 @@ export class System {
 
 
     $('#funBtn').on('click', function (e) {
-      me.incStat(move, 'fun');
+      me.mp.incStat(move, 'fun');
       swal.close();
     });
     $('#mehBtn').on('click', function (e) {
-      me.incStat(move, 'meh');
+      me.mp.incStat(move, 'meh');
       swal.close();
     });
     $('#deadBtn').on('click', function (e) {
-      me.incStat(move, 'dead');
+      me.mp.incStat(move, 'dead');
       swal.close();
     });
   }
@@ -368,11 +370,11 @@ export class Globals {
 
   public config = {
     min: 30,
-    max: 10000,
+    max: 600,
     displayMsg: false
   };
 
-  public debugflag = true;
+  public debugflag = false;
 
   // public rooms = {
   //   landing.

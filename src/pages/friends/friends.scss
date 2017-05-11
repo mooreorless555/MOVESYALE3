@@ -1,0 +1,55 @@
+page-friends {
+
+    .addBtn {
+        display: block;
+        margin-top: 60px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 80px;
+        width: 80px;
+        line-height: 60px;
+        opacity: 0;
+
+        border-radius: 360px; /* or 50% */
+
+        border-color: white;
+        border-style: solid;
+        border-width: 3px;
+        color: white;
+        text-align: center;
+        font-size: 3em;
+        transition: all ease 0.4s;
+    }
+
+    .addBtn:active {
+        border-width: 10px;
+    }
+
+
+    .addBtn-text {
+        display: float;
+        position: relative;
+        opacity: 0;
+        top: 6px;
+        transition: all ease 0.4s;
+
+    }
+
+    .addBtn-text:active {
+        top: 0px;
+    }
+
+    .nametext {
+        font-family: 'TruRoboto';
+        font-size: 25px;
+    }
+
+    .specialnumber {
+         height: 120px;
+        width: 120px;
+        border-radius: 50%;   
+        background-color: #ff0000;
+        padding: 5px;
+    }
+
+}

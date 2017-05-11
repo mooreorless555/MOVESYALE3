@@ -13,7 +13,6 @@ export class StatsProvider {
 
   CreatePeopleCounter(key, value) {
     console.log("Creating Counter at container: " + key);
-
     var counter = new ProgressBar.SemiCircle('#ctn_' + key, {
       strokeWidth: 18,
       easing: 'easeInOut',
@@ -105,7 +104,7 @@ export class StatsProvider {
     counter.text.style.fontFamily = 'TruLightFont';
     counter.text.style.fontSize = '2rem';
 
-    var perc = move.stats.people / move.info.capacity;
+    var perc = 0;
 
     if (perc > 1) {
       counter.animate(1);
@@ -179,6 +178,12 @@ export class StatsProvider {
   }
 
   UpdateCounter(counter, value) {
+    counter.animate(value);
+  }
+
+  UpdateCounter_key(key, value) {
+    let counter = $('#ctn_' + key);
+    console.log(counter);
     counter.animate(value);
   }
 

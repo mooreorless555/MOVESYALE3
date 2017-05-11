@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
 // import { Http, Headers } from '@angular/http';
 // import { LoginProvider } from '../../providers/login-provider';
 // import { Observable } from 'rxjs/observable';
-=======
-import { Http, Headers } from '@angular/http';
-import { LoginProvider } from '../../providers/login-provider';
-import { Observable } from 'rxjs/observable';
->>>>>>> 4daf302ab2c6e4f1a488d65ee46c7d85331b9b02
 import 'rxjs/add/operator/map';
 
 // var url = 'http://54.175.164.247:80/';
@@ -16,14 +10,6 @@ import 'rxjs/add/operator/map';
 export class MovesService {
 
   moves: Array<any>;
-
-<<<<<<< HEAD
-  
-=======
-  static get parameters() {
-    return [[Http, Observable]];
-  }
->>>>>>> 4daf302ab2c6e4f1a488d65ee46c7d85331b9b02
 
   // static get parameters() {
   //   return [[Http, Observable]];
@@ -39,12 +25,7 @@ export class MovesService {
   //   return response;
   // }
 
-<<<<<<< HEAD
   // getMoves() {
-=======
-    var token = null;
-    var headers = new Headers({ 'Authorization': token });
->>>>>>> 4daf302ab2c6e4f1a488d65ee46c7d85331b9b02
 
   //   var token = null;
   //   var headers = new Headers({ 'Authorization': token });

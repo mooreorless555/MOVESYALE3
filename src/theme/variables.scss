@@ -30,6 +30,8 @@ $colors: (
   dark:       #222,
   navbar:	  #886FE8,
   tabbar:	  #886aea,
+  off:	  #888888,
+  good: #64dd17,
   // navbar: #9932CC,
   // tabbar: #9932CC,
   facebook:   #3B5998
@@ -90,6 +92,11 @@ src: url("../assets/fonts/Lobster-Regular.ttf");
 @font-face {
   font-family: TruRoboto;
   src: url("../assets/fonts/RobotoCondensed-Regular.ttf");
+}
+
+@font-face {
+  font-family: Oxygen;
+  @import url('https://fonts.googleapis.com/css?family=Oxygen:400,700');
 }
 
 

@@ -18,30 +18,35 @@
 
 
   <div class="centertext">
-  <div *ngIf="user == null">
-    <p>Couldn't get user information...</p>
-  </div>
+    <div *ngIf="user == null">
+      <p>Couldn't get user information...</p>
+    </div>
     <div *ngIf="user != null">
-    <ion-item id="info">
-      <div>
-      <img class="profile-pic" [src]="user.photoURL"/>
-      </div>
-    </ion-item>
-		<h2 id="info">{{user.displayName}}</h2>
-		<p id="info">{{user.email}}</p>
+      <ion-item no-lines id="info">
+        <div>
+          <img class="profile-pic prof-pic" [src]="mUser.getPhoto(mUser.getFB().id).prof" />
+        </div>
+      </ion-item>
+      <h2 class="name" id="info">{{mUser.getFB().first_name}}</h2>
+      <!--<p id="info">{{mUser.get().email}}</p>-->
     </div>
   </div>
-
-  <!--<div class="centertext">
-    <ion-item id="info">
-      <div>
-      <img class="profile-pic" src="https://s-media-cache-ak0.pinimg.com/originals/cf/d0/25/cfd025d44dc2f2638a8cede78a8968b9.png"/>
-      </div>
-    </ion-item>
-		<h2 id="info">Test Man</h2>
-		<p id="info">email@yale.edu</p>
-  </div>-->
-
-
-
+  <br>
+  <div id="info">
+    <ion-list>
+      <button (click)="goToFriends()" class="bigbutton prof-button golive widen bg-purp left">
+        <span id="title" class="invisible buttontext">{{ui.friends.name}}</span>
+        <br>
+        <span id="desc" class="invisible captiontext">{{ui.friends.desc}}</span>
+      </button>
+      <button disabled="true" class="bigbutton prof-button golive widen bg-purp left">
+        <span id="title" class="invisible buttontext">{{ui.squads.name}}</span>
+        <br>
+        <span id="desc" class="invisible captiontext">{{ui.squads.desc}}</span>
+      </button>
+    </ion-list>
+  </div>
+  <div class="minispace"></div>
+  <p id="info" class="centertext">You have {{mUser.getConnectionsCount()}} Facebook friend(s) using Moves.</p>
+  <div class="minispace"></div>
 </ion-content>

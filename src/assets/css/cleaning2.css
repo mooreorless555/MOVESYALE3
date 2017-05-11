@@ -40,6 +40,10 @@
   font-weight: 400;
 }
 
+.toast-container{
+  font-family: 'TruRoboto' !important;
+}
+
 .purple-text {
 
 }
@@ -358,6 +362,9 @@
 }
 
 
+.lheader {
+  color: white;
+}
 
 .small-font {
   font-size: 20px;
