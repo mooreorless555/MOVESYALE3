@@ -1,10 +1,11 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
-import firebase from 'firebase';
+
 import { NavController, NavParams } from 'ionic-angular';
+import firebase from 'firebase';
 import { MovesProvider } from '../../providers/moves-provider';
 import { StatsProvider } from '../../providers/stats-provider';
 import { LocationTracker } from '../../providers/location-tracker';
-import { LoginProvider, MoveUser } from '../../providers/login-provider';
+import { LoginProvider } from '../../providers/login-provider';
 
 import { System } from '../functions/functions';
 
@@ -28,13 +29,13 @@ export class StatsPage {
   @ViewChild('deadbar') deadbar;
 
   lookup     = {};
+  user: any;
 
   address    = "Retrieving address...";
  dataStreamInfo = "Fetching data...";
   dot = ".";
 
   id         : any;
-  user       : any;
   move       : any;
   moves      : any;
 
@@ -45,9 +46,6 @@ export class StatsPage {
   percentage : any;
   alcStatus  = "No.";
   numppl     =   0;
-  numFBFriends: any;
-
-  movesRef: any;
 
 
   ngAfterViewInit() {
@@ -56,15 +54,15 @@ export class StatsPage {
 
     setTimeout(() => {
       this.mp.trackStatChanges(this.move, this.funstatbar, this.mehstatbar, this.deadstatbar, this.progbar);
-    }, 3000);
+      this.mp.trackChanges();
+    }, 4000);
 
   }
 
-  constructor(public navCtrl: NavController, public params: NavParams, public lp: LoginProvider, public mUser: MoveUser, public mp: MovesProvider, public system: System, public stat: StatsProvider, public zone: NgZone, public locationTracker: LocationTracker) {
+  constructor(public navCtrl: NavController, public params: NavParams, public lp: LoginProvider, public mp: MovesProvider, public system: System, public stat: StatsProvider, public zone: NgZone, public locationTracker: LocationTracker) {
     this.move = params.get("firstPassed");
     // this.move = firebase.database().ref().child('moves/' + params.get("movekey"))
     this.introducePage();
-    // this.movesRef.off();
     this.user = this.lp.getUser();
 
     /* Perform statistical analysis. */
@@ -205,7 +203,7 @@ export class StatsPage {
     progbar.text.style.fontSize = '2rem';
 
 
-    var perc = 0;
+    var perc = move.stats.people / move.info.capacity;
 
     if (perc > 1) {
       progbar.animate(1);
@@ -239,30 +237,6 @@ export class StatsPage {
       $('#infoSection').animate({scrollTop: 0});
     }, 2400)
 
-    this.getFriendsAtMove(this.move.key)
-  }
-
-  getFriendsAtMove(movekey) {
-    var friendsAtMove = []
-    var friendlist = this.mUser.getFriends()
-    this.movesRef = firebase.database().ref('moves/')
-    this.movesRef
-      .orderByKey()
-      .equalTo(movekey)
-      .on('child_added', snap => {
-        snap.ref.child('users').once('value', snap => {
-          snap.forEach(s => {
-            console.log(s.key)
-            friendsAtMove = [];
-            if (this.mUser.isFriend(s.key, friendlist)) {
-              console.log('Adding friend...')
-              friendsAtMove.push(this.mUser.getFriendByID(s.val()))
-            }
-            return false;
-          })
-          this.numFBFriends = friendsAtMove.length;
-        })
-      })
   }
 
 }

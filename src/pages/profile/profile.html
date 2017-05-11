@@ -24,13 +24,11 @@
     <div *ngIf="user != null">
     <ion-item id="info">
       <div>
-      <img class="profile-pic" [src]="mUser.get().photoURL"/>
+      <img class="profile-pic" [src]="user.photoURL"/>
       </div>
     </ion-item>
-		<h2 id="info">{{mUser.getFB().first_name}}</h2>
-		<p id="info">({{mUser.get().displayName}})</p>
-		<p id="info">{{mUser.get().email}}</p>
-    <p id="info">You have {{mUser.getFriendCount()}} Facebook friends using Moves.</p>
+		<h2 id="info">{{user.displayName}}</h2>
+		<p id="info">{{user.email}}</p>
     </div>
   </div>
 

@@ -29,7 +29,7 @@ declare var velocity: any;
 export class LoginPage {
   FB_APP_ID: number = 1726230761032513;
 
-  public info = "This app is neither affiliated with nor endorsed by Yale University or the #YALECorporation. It's just made by Yalies who wanna try to get lit.";
+  public info = "By Yalies. For Yalies.";
   user: any;
   profinfo: any;
 
@@ -57,10 +57,7 @@ export class LoginPage {
         const facebookCredential = firebase.auth.FacebookAuthProvider
           .credential(response.authResponse.accessToken);
 
-          let params = new Array();
-
         firebase.auth().signInWithCredential(facebookCredential)
-        return Promise.all([response, this.facebook.api("/me?fields=name,email,first_name", params)])
           .then((success) => {
             alert("Firebase success: " + JSON.stringify(success));
             this.loginProvider.setUser(success);
@@ -84,6 +81,7 @@ export class LoginPage {
   toggleDebugFlag() {
     this.globals.debugflag = !(this.globals.debugflag);
   }
+
   presentWelcome() {
     let welcome = this.toastCtrl.create({
       message: "Hey " + this.user + "!",

@@ -11,11 +11,11 @@
 </ion-header>
 
 
-<ion-content padding="true" class="homebg">
-  <!--<div id="ANIM_ratingstrip" class="ratingstrip"></div>-->
-  <div style="margin-bottom: 15px"></div>
+<ion-content padding="true" class="homebg" has-header="true" has-footer="true" has-tabs="true">
+  <div id="ANIM_ratingstrip" class="ratingstrip"></div>
+  <div style="margin-bottom: 30px"></div>
   <ion-refresher (ionRefresh)="refreshMoves($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="" refreshingSpinner="circles" refreshingText="">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull me harder daddy (refresh)" refreshingSpinner="circles" refreshingText="">
     </ion-refresher-content>
   </ion-refresher>
 
@@ -23,8 +23,8 @@
     <h4 id ="day" class="mediumtext date-time">{{ this.system.currentday }}</h4>
     <h4 id ="date" class="date-time">{{ this.system.currentdate }}</h4>
     <div id="infobord" class="infoborder">
-      <p class='robototext'><b>Moves v0.0.2 - Tap for information</b></p>
-      <!--<p class='robototext'>Tap here for update information</p>-->
+      <p class='robototext'><b>Moves v0.0.1</b></p>
+      <p class='robototext'>(It's buggy as shiiittt)</p>
     </div>
     <!--<h4 class="mediumtext">Saturday night</h4>
     <h4>February 11th, 2017</h4>-->
@@ -50,39 +50,57 @@
     <!-- SVG DESIGN END -->
     <br>
     <br>
-    <div style="overflow: hidden">
+    <!--<ion-scroll direction='y' style="height: 100% !important;">-->
     <ion-list>
-      <div *ngFor="let move of mp.moves | async">
-        <ion-item-sliding>
-          <ion-item [@fadeInOut] id="oneMove" no-lines (click)="checkStats(move)" (press)="mp.deleteMove(move)">
+      <div id="indivMove">
+        <ion-item [@fadeInOut] id="oneMove" class="moveslist" no-lines *ngFor="let move of mp.moves | async" (click)="checkStats(move)" (press)="mp.deleteMove(move)">
           <ion-icon item-right>
-            <div class="container"><div id="ctn_{{move.key}}"></div></div>
+            <div class="container"><div id="ctn_{{move.key}}">{{mp.putBars(move)}}</div></div>
+
           </ion-icon>
-          <span><ion-icon name="arrow-dropright-circle" class="ratingdot" [ngClass]=""></ion-icon><h1 id="moveName" class='cutoff' style="display: inline">{{move.info.name}}</h1></span>
+          <span><ion-icon name="arrow-dropright-circle" class="ratingdot" [ngClass]="{ 'fun-border': totalRatings(move) == 1, 'meh-border': totalRatings(move) == 2, 'dead-border': totalRatings(move) == 3 }"></ion-icon><h1 id="moveName" class='cutoff' style="display: inline">{{move.info.name}}</h1></span>
           <p id="extraInfo" class="extra-info-text item-description">{{move.info.extraInfo}}</p>
           <p class="host-text"><i>Hosted by {{ move.info.hosts[0] }}</i></p>
         </ion-item>
- <ion-item-options side="left">
-      <button ion-button (click)="checkStats(move)">View Stats</button>
-    </ion-item-options>
- <ion-item-options side="right">
-      <button ion-button color="danger" (click)="mp.deleteMove(move)">Delete</button>
-    </ion-item-options>
- </ion-item-sliding>
- </div>
+      </div>
     </ion-list>
-    </div>
+    <!--</ion-scroll>-->
+    <!-- <round-progress [current]="current" [max]="max"></round-progress> -->
 
-  <div *ngIf="mp.movenum == 0" class="nomoves centertext">
-      <!--<p class="circle1"></p>
+    <!--   <ion-list>
+    <ion-item no-lines class="animated fadeInUp">
+    <ion-icon item-right class="container" id="container" #container></ion-icon>
+      <h2>ZETA</h2>
+      <p class="item-description animated fadeInLeft">It's always lit here.</p>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item no-lines class="animated fadeInUp">
+    <ion-icon item-right class="container" id="container" #container></ion-icon>
+      <h2>SigEp Party</h2>
+      <p class="item-description animated fadeInLeft">That's right, we're back.</p>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-item no-lines class="animated fadeInUp">
+    <ion-icon item-right class="container" id="container" #container></ion-icon>
+      <h2>Cookies N' Cream</h2>
+      <p class="item-description animated fadeInLeft">Free cookies in SSS!</p>
+    </ion-item>
+  </ion-list> -->
+
+  <pre id="object"></pre>
+
+    <div *ngIf="!(mp.moves) || mp.moves.length <= 0 || mp.moves == null || mp.moves == undefined" class="nomoves centertext">
+      <p class="circle1"></p>
       <p class="circle1 slower"></p>
       <p class="circle1 slower2"></p>
       <p class="circle1 slower3"></p>
       <p class="circle1 slower4"></p>
-      <p class="circle1 slower5"></p>-->
-     <img src="assets/img/nomoves.svg"/> 
+      <p class="circle1 slower5"></p>
+      <!--   <img src="assets/img/nomoves.svg"/> -->
     </div>
-    <div *ngIf="mp.movenum > 0" class='space invisible'>
+    <div *ngIf="mp.moves" class='space invisible'>
       <div class="space"></div>
       <div class="space"></div>
       </div>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 // import { NativeStorage } from 'ionic-native';
-import { LoginProvider, MoveUser } from '../../providers/login-provider';
+import { LoginProvider } from '../../providers/login-provider';
 import { StatsProvider } from '../../providers/stats-provider';
 import { System } from '../functions/functions';
 
@@ -22,7 +22,7 @@ declare var velocity   : any;
 })
 export class ProfilePage {
 
-  user:MoveUser;
+  user:any = null;
 
 
   ngAfterViewInit() {
@@ -30,9 +30,9 @@ export class ProfilePage {
   }
 
 
-  constructor(public navCtrl: NavController, public loginProvider: LoginProvider, public mUser: MoveUser, public system: System) {
-    this.user = this.mUser;
-}
+  constructor(public navCtrl: NavController, public loginProvider: LoginProvider, public system: System) {
+    this.user = this.loginProvider.getUser();
+  }
 
   introducePage() {
     $("*[id*=info]").velocity('transition.slideUpIn', { stagger: 300 })

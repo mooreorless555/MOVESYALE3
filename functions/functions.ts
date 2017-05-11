@@ -7,9 +7,8 @@ import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+import { MovesService } from '../services/MovesService';
 import { StatsProvider } from '../../providers/stats-provider';
-import { MovesProvider } from '../../providers/moves-provider';
-
 // import { LoginProvider } from '../../providers/login-provider';
 import swal from 'sweetalert2';
 
@@ -31,7 +30,7 @@ export class System {
 
   public stat_updates = null;
 
-  constructor(public toastCtrl: ToastController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public stat: StatsProvider, public mp: MovesProvider) {
+  constructor(public toastCtrl: ToastController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public stat: StatsProvider, private movesService: MovesService) {
 
   }
 
@@ -53,18 +52,25 @@ export class System {
       bProgressBar = true;
     }
 
+<<<<<<< HEAD
     var bPrevDups = false;
     if (type == 'error') {
       bPrevDups = true;
     }
 
+=======
+>>>>>>> 4daf302ab2c6e4f1a488d65ee46c7d85331b9b02
     toastr.options = {
       "closeButton": false,
       "debug": false,
       "newestOnTop": true,
       "progressBar": bProgressBar,
       "positionClass": "toast-bottom-center",
+<<<<<<< HEAD
       "preventDuplicates": bPrevDups,
+=======
+      "preventDuplicates": false,
+>>>>>>> 4daf302ab2c6e4f1a488d65ee46c7d85331b9b02
       "onclick": null,
       "showDuration": "100",
       "hideDuration": "100",
@@ -113,7 +119,7 @@ export class System {
         {
           text: 'Yes',
           handler: data => {
-            this.mp.deleteMove(move);
+            this.deleteMove(move);
           }
         }
       ]
@@ -147,7 +153,7 @@ export class System {
       default:
         console.log('Mistake.');
     }
-/* TODO UPDATE MOVE HERE */
+    this.movesService.updateMove(move);
     this.showNotification(msg + ' You voted: ' + stat.toUpperCase(), 1000, 'success');
     setTimeout(() => this.showNotification("Thanks for your feedback! You'll be able to vote for " + move.info.name + " again in an hour.", 3300, 'success'), 1500);
   }
@@ -292,6 +298,13 @@ export class System {
 
 
   deleteMove(move) {
+    this.movesService.deleteMove(move).then((result) => {
+      console.log("Deleted")
+    }, (err) => {
+      console.log(err);
+    });
+
+
     this.startLoading('Deleting move, standby...', 1000);
     setTimeout(() => {
       this.checked = 0;
@@ -377,9 +390,7 @@ export class Globals {
   // public rooms = {
   //   landing.
   // }
-
-  public user: any;
-
+  
   constructor() {
   }
 

@@ -55,7 +55,6 @@
     <variable name="APP_NAME" value="movesYALE"/>
   </plugin>
   <plugin name="cordova-plugin-geolocation" spec="~2.4.1"/>
-  <plugin name="cordova-plugin-nativeaudio" spec="~3.0.9"/>
   <allow-navigation href="http://192.168.0.13:8100"/>
   <allow-navigation href="http://192.168.1.224:8000"/>
   <icon src="resources\android\icon\drawable-xhdpi-icon.png"/>

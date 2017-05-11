@@ -9,7 +9,7 @@ import { TabsPage } from '../tabs/tabs';
 import { System, Globals } from '../functions/functions';
 import { LocationTracker } from '../../providers/location-tracker';
 import { StatsProvider } from '../../providers/stats-provider';
-import { LoginProvider, MoveUser } from '../../providers/login-provider';
+import { LoginProvider } from '../../providers/login-provider';
 import { MovesProvider } from '../../providers/moves-provider';
 
 declare var $: any;
@@ -18,7 +18,7 @@ declare var velocity: any;
 @Component({
   selector: 'page-make',
   templateUrl: 'make.html',
-  providers:[MovesProvider, LoginProvider, MoveUser, System, Globals, StatsProvider]
+  providers:[MovesProvider, LoginProvider, System, Globals, StatsProvider]
 })
 
 export class MakePage {
@@ -97,7 +97,7 @@ ngAfterViewInit() {
 
 
 
-  constructor(public navCtrl: NavController, public mp: MovesProvider, public loginProvider: LoginProvider, public mUser: MoveUser, public locationTracker: LocationTracker, public toastCtrl: ToastController, public alertCtrl: AlertController, public system: System, private globals: Globals) {
+  constructor(public navCtrl: NavController, public mp: MovesProvider, public loginProvider: LoginProvider, public locationTracker: LocationTracker, public toastCtrl: ToastController, public alertCtrl: AlertController, public system: System, private globals: Globals) {
     let messages = [
       "Please enter Move here.", 
       "What's the move?", 
@@ -122,49 +122,30 @@ ngAfterViewInit() {
         {
         text: 'GO LIVE!',
         handler: data => {
-          this.move.stats.people = 0;
+          this.move.stats.people = Math.floor(Math.random() * this.move.info.capacity);
           this.move.stats.fun = Math.floor(Math.random() * this.move.info.capacity);
           this.move.stats.meh = Math.floor(Math.random() * this.move.info.capacity);
           this.move.stats.dead = Math.floor(Math.random() * this.move.info.capacity);
           this.move.LatLng.lat = this.locationTracker.lat;
           this.move.LatLng.lng = this.locationTracker.lng;
-          let host = this.mUser.get();
+          let host = this.loginProvider.getUser();
           if (!host) {
             this.move.info.hosts.push("Test Man");
           } else {
             this.move.info.hosts.push(host.displayName);
           }
 
-          if (this.move.LatLng.lat && this.move.LatLng.lng) {
-            try {
-            this.mp.makeMove(this.move);
-            } catch (e) {
-              console.log('IGNORE THIS: ' + e)
-            }
-            // this.mp.addUser(this.move.key);
-            this.system.startLoading("Adding your move to the map.", 1000);
-            setTimeout(() => {
-              this.system.showNotification("Your move is now on the map. Check it out!", 1000);
-              this.navCtrl.setRoot(TabsPage);
-              console.log('Confirmed.');
-              console.log("Move creation success. Sending out object data for database storage."); 
-              // this.resetFields(this.move);           
-            }, 1000);
-          } else {
-            let erralert = this.alertCtrl.create({
-                      message: "Move could not be created due to invalid GPS coordinates. Make sure you have GPS turned on or just try again in a little bit!",
-                      buttons: [
-                        {
-                          text: 'OK',
-                          role: 'cancel',
-                          handler: data => {
-                            console.log('Cancel clicked');
-                          }
-                        }
-                      ]
-                    });
-              erralert.present();            
-          }
+
+          this.mp.makeMove(this.move);
+          this.system.startLoading("Adding your move to the map.", 1000);
+          setTimeout(() => {
+            this.system.showNotification("Your move is now on the map. Check it out!", 1000);
+            this.navCtrl.setRoot(TabsPage);
+            console.log('Confirmed.');
+            console.log("Move creation success. Sending out object data for database storage."); 
+            this.resetFields(this.move);           
+          }, 1000);
+
         }}]
         });
           confirm.present();
