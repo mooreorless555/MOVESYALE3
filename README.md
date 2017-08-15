@@ -1,4 +1,7 @@
 # Moves
+
+### EDIT as of August 15th, 2017: This repository has not been updated in 3 months. A lot of progress has been made, and the most current version of Moves has been relocated to a private repository!
+-------
 ### *(reuploaded)*
 (To view remnants of Moves-past, visit the older repos: [MOVESYALEv2](https://github.com/mooreorless555/MOVESYALEv2), [MOVESYALE](https://github.com/mooreorless555/MOVESYALE))
 #### Start date: September 13th, 2016
